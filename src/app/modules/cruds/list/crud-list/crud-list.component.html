@@ -1,0 +1,40 @@
+<p-toast></p-toast>
+
+@if (crudBaseComponent && crudBaseComponent.crudManagerService) {
+  <p-table [value]="crudBaseComponent.entities" [columns]="crudBaseComponent.getDisplayColumn()" size="small">
+    <ng-template #caption>
+      <p-toolbar>
+        <ng-template #start>
+          <h1><i [class]="crudBaseComponent.icon + ' text-3xl'"></i> {{crudBaseComponent.getTypeDescription().plural}}</h1>
+        </ng-template>
+        <ng-template #end>
+          <p-button icon="pi pi-plus" severity="success" (onClick)="newEntity()"></p-button>
+        </ng-template>
+      </p-toolbar>
+    </ng-template>
+    <ng-template #header let-columns>
+      <tr>
+        @for (column of columns; track $index) {
+          <th>{{column.description}}</th>
+        }
+        <th>Ações</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-entity let-columns="columns">
+      <tr (dblclick)="editEntity(entity)">
+        @for (column of columns; track $index) {
+          <td>{{getColumnValue(entity, column)}}</td>
+        }
+        <td class="flex justify-content-evenly align-items-center">
+          <p-button icon="pi pi-pencil" severity="info" rounded class="hidden md:block" (onClick)="editEntity(entity)"></p-button>
+          <p-button icon="pi pi-trash" severity="danger" rounded (onClick)="removeEntity(entity.id)"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage let-columns="columns">
+      <tr>
+        <td [colSpan]="crudBaseComponent.getDisplayColumn().length + 1">Nenhum registro encontrado</td>
+      </tr>
+    </ng-template>
+  </p-table>
+}

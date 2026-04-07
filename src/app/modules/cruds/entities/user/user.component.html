@@ -1,0 +1,24 @@
+@if (isForm && entityForm) {
+  <form [formGroup]="entityForm" class="p-2">
+    <div class="grid">
+      <div class="field col-12 md:col-6">
+        <label for="code">Código:</label>
+        <input type="text" pInputText id="code" formControlName="code" placeholder="Digite o código do usuário" fluid>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="name">Nome:</label>
+        <input type="text" pInputText id="name" formControlName="name" placeholder="Digite o nome do usuário" fluid>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="description">Descrição:</label>
+        <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição do usuário" fluid>
+      </div>
+      <div class="field col-12 md:col-6">
+        <div class="flex items-center gap-2">
+          <p-checkbox [binary]="true" formControlName="active" inputId="active"></p-checkbox>
+          <label for="active">Ativo?</label>
+        </div>
+      </div>
+    </div>
+  </form>
+}

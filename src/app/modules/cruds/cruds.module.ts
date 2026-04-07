@@ -43,7 +43,6 @@ import { ToastModule } from "primeng/toast";
     ToastModule
   ],
   providers: [
-    CrudManagerService,
     MessageService
   ]
 })

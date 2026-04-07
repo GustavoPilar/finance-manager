@@ -11,3 +11,23 @@ export class User extends EntitiyBase {
   //#endregion
 
 }
+
+export class CreditCard extends EntitiyBase {
+
+  //#region Fields
+
+  userId!: number;
+
+  user!: User;
+
+  //#endregion
+
+}
+
+export class Bank extends EntitiyBase {
+
+  //#region Fields
+
+  //#endregion
+
+}

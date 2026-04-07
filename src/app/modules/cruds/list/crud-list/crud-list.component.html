@@ -5,7 +5,7 @@
     <ng-template #caption>
       <p-toolbar>
         <ng-template #start>
-          <h1><i [class]="crudBaseComponent.icon + ' text-3xl'"></i> {{crudBaseComponent.getTypeDescription().plural}}</h1>
+          <h3><i [class]="crudBaseComponent.icon + ' text-xl'"></i> {{crudBaseComponent.getTypeDescription().plural}}</h3>
         </ng-template>
         <ng-template #end>
           <p-button icon="pi pi-plus" severity="success" (onClick)="newEntity()"></p-button>

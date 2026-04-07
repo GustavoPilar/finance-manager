@@ -18,6 +18,8 @@ import { CheckboxModule } from "primeng/checkbox";
 import { ToolbarModule } from "primeng/toolbar";
 import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
+import { CreditCardComponent } from "./entities/creditCard/creditCard.component";
+import { BankComponent } from "./entities/bank/bank.component";
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { ToastModule } from "primeng/toast";
     CrudFormManagerComponent,
 
     UserComponent,
+    BankComponent,
+    CreditCardComponent
   ],
   imports: [
     CommonModule,

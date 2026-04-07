@@ -19,7 +19,6 @@ export class MenuSelectionService {
 
   //#region Constructor
   constructor(
-    private router: Router
   ) {
 
   }
@@ -38,6 +37,8 @@ export class MenuSelectionService {
       routerLink: "manager",
       items: [
         this.createMenuItem("Usuários", PrimeIcons.USERS, "Cadastre usuários", this.manager_root + "user"),
+
+        this.createMenuItem("Bancos", PrimeIcons.BUILDING_COLUMNS, "Cadastre bancos", this.manager_root + "bank"),
 
         this.createMenuItem("Cartão de crédito", PrimeIcons.CREDIT_CARD, "Cadastre cartões de créditos", this.manager_root + "creditCard"),
 

@@ -1,25 +1,25 @@
 import { Component, OnInit } from "@angular/core";
 import { CrudBaseComponent } from "../../base/crud-base.component";
-import { User } from "../../../../models/entities";
-import { CrudManagerService } from "../../base/services/crud-manager.service";
-import { ApiService } from "../../../../services/communication/api.service";
-import { DisplayColumn } from "../../../../models/base/list/display-column";
-import { ColumnTypeEnum } from "../../../../models/base/list/column-type-enum";
+import { CreditCard } from "../../../../models/entities";
 import { FormBuilder, Validators } from "@angular/forms";
+import { PrimeIcons, MessageService } from "primeng/api";
+import { ColumnTypeEnum } from "../../../../models/base/list/column-type-enum";
+import { DisplayColumn } from "../../../../models/base/list/display-column";
 import { TypeDescription } from "../../../../models/base/list/type-description";
-import { MessageService, PrimeIcons } from "primeng/api";
+import { ApiService } from "../../../../services/communication/api.service";
+import { CrudManagerService } from "../../base/services/crud-manager.service";
 
 @Component({
-  selector: "app-user",
+  selector: "app-credit-card",
   standalone: false,
-  templateUrl: "./user.component.html",
+  templateUrl: "./creditCard.component.html",
   providers: [CrudManagerService]
 })
-export class UserComponent extends CrudBaseComponent<User> implements OnInit {
+export class CreditCardComponent extends CrudBaseComponent<CreditCard> implements OnInit {
 
   //#region Fields
 
-  public override icon = PrimeIcons.USERS;
+  public override icon = PrimeIcons.CREDIT_CARD;
 
   //#endregion
 
@@ -43,28 +43,28 @@ export class UserComponent extends CrudBaseComponent<User> implements OnInit {
   //#region Members 'CrudBase'
 
   public override getEntityName(): string {
-    return "user";
+    return "bank";
   }
 
-  public override getDescription(entity: User): string {
-    return entity.name;
+  public override getDescription(entity: CreditCard): string {
+    return entity.description;
   }
 
   public override getTypeDescription(): TypeDescription {
-    return { single: "Usuário", plural: "Usuários", isFemale: false };
+    return { single: "Cartão de crédito", plural: "Cartões de créditos", isFemale: false };
   }
 
   public override getDisplayColumn(): DisplayColumn[] {
     return [
       {
-        field: "name",
-        description: "Nome",
+        field: "code",
+        description: "Código",
         columnType: ColumnTypeEnum.Text
       },
       {
-        field: "active",
-        description: "Ativo?",
-        columnType: ColumnTypeEnum.Boolean
+        field: "description",
+        description: "Descrição",
+        columnType: ColumnTypeEnum.Text
       }
     ];
   }
@@ -73,8 +73,7 @@ export class UserComponent extends CrudBaseComponent<User> implements OnInit {
     this.entityForm = this.formBuilder.group({
       code: [this.selectedEntity?.code ?? null, Validators.required],
       description: [this.selectedEntity?.description ?? null, Validators.required],
-      name: [this.selectedEntity?.name ?? null, Validators.required],
-      active: [this.selectedEntity?.active ?? false, Validators.required]
+      user: [this.selectedEntity?.user ?? null, Validators.required]
     });
   }
 

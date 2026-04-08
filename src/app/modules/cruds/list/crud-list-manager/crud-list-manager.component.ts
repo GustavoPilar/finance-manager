@@ -11,6 +11,7 @@ export class CrudListManagerComponent implements OnInit, AfterViewInit {
 
   //#region Fields
 
+  /** Componente do formulário */
   @ViewChild(CrudListComponent, { read: CrudListComponent })
   public crudListComponent!: CrudListComponent;
 
@@ -34,12 +35,17 @@ export class CrudListManagerComponent implements OnInit, AfterViewInit {
   //#endregion
 
   //#region Members :: loadCrudList()
+
+  /**
+   * @description Carrega o componente do formulário e faz tratativa inicial
+   * @returns {void} Vazio
+   */
   private loadCrudList(): void {
     const entityName: string = this.activatedRoute.snapshot.params["entityName"];
 
     if (entityName) {
       this.crudListComponent.entityName = entityName;
-      this.crudListComponent.loadCrudBase();
+      this.crudListComponent.loadCrudBaseComponent();
     }
   }
 

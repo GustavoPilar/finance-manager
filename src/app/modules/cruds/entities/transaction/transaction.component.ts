@@ -23,6 +23,7 @@ export class TransactionComponent extends CrudBaseComponent<Transaction> impleme
   public override icon = PrimeIcons.MONEY_BILL;
 
   public creditCards: any[] = [];
+  public categories: any[] = [];
 
   //#endregion
 
@@ -60,24 +61,24 @@ export class TransactionComponent extends CrudBaseComponent<Transaction> impleme
   public override getDisplayColumn(): DisplayColumn[] {
     return [
       {
-        field: "code",
-        description: "Código",
-        columnType: ColumnTypeEnum.Text
-      },
-      {
         field: "description",
         description: "Descrição",
         columnType: ColumnTypeEnum.Text
       },
       {
-        field: "amount",
+        field: "totalAmount",
         description: "Valor da compra",
         columnType: ColumnTypeEnum.Numeric
       },
       {
-        field: "numberInstallments",
-        description: "Parcelas",
+        field: "totalInstallments",
+        description: "Qtd. Parcelas",
         columnType: ColumnTypeEnum.Numeric
+      },
+      {
+        field: "purchaseDate",
+        description: "Data da compra",
+        columnType: ColumnTypeEnum.Date
       },
     ];
   }
@@ -87,18 +88,20 @@ export class TransactionComponent extends CrudBaseComponent<Transaction> impleme
       code: [this.selectedEntity?.code ?? null, Validators.required],
       description: [this.selectedEntity?.description ?? null, Validators.required],
       creditCard: [this.selectedEntity?.creditCard ?? null, Validators.required],
-      amount: [this.selectedEntity?.amount ?? null, Validators.required],
-      numberInstallments: [this.selectedEntity?.numberInstallments ?? null, Validators.required],
-      installmentAmount: [this.selectedEntity?.installmentAmount ?? null, Validators.required]
+      category: [this.selectedEntity?.category ?? null, Validators.required],
+      totalAmount: [this.selectedEntity?.totalAmount ?? null, Validators.required],
+      totalInstallments: [this.selectedEntity?.totalInstallments ?? null, Validators.required]
     });
   }
 
   public override loadResources(): Observable<any> {
     return forkJoin({
-      creditCards: this.apiService.getCreditCards()
+      creditCards: this.apiService.getEntities("creditCard"),
+      categories: this.apiService.getEntities("category")
     }).pipe(
-      tap(({creditCards}) => {
+      tap(({creditCards, categories}) => {
         this.creditCards = creditCards;
+        this.categories = categories
       })
     );
   }

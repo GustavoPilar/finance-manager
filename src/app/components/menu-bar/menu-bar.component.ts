@@ -32,4 +32,14 @@ export class MenuBarComponent implements OnInit {
 
   //#endregion
 
+  //#region Members
+
+  /**
+   * @description Navega até a página principal
+   * @returns {void} Vazio
+   */
+  public navigateToHome(): void {
+    this.menuSelectionService.navigateToHome();
+  }
+
 }

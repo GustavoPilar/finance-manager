@@ -25,6 +25,8 @@ import { InputNumberModule } from "primeng/inputnumber";
 import { InstallmentComponent } from "./entities/installment/installment.component";
 import { TransactionComponent } from "./entities/transaction/transaction.component";
 import { MessageModule } from "primeng/message";
+import { CategoryComponent } from "./entities/category/category.component";
+import { DatePickerModule } from "primeng/datepicker";
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { MessageModule } from "primeng/message";
     BankComponent,
     CreditCardComponent,
     TransactionComponent,
-    InstallmentComponent
+    InstallmentComponent,
+    CategoryComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +58,8 @@ import { MessageModule } from "primeng/message";
     ToastModule,
     SelectModule,
     InputNumberModule,
-    MessageModule
+    MessageModule,
+    DatePickerModule
   ],
   providers: [
     MessageService

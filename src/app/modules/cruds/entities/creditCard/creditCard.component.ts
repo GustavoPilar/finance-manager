@@ -61,14 +61,14 @@ export class CreditCardComponent extends CrudBaseComponent<CreditCard> implement
   public override getDisplayColumn(): DisplayColumn[] {
     return [
       {
-        field: "code",
-        description: "Código",
-        columnType: ColumnTypeEnum.Text
-      },
-      {
         field: "description",
         description: "Descrição",
         columnType: ColumnTypeEnum.Text
+      },
+      {
+        field: "isActive",
+        description: "ativo?",
+        columnType: ColumnTypeEnum.Boolean
       }
     ];
   }
@@ -79,7 +79,7 @@ export class CreditCardComponent extends CrudBaseComponent<CreditCard> implement
       description: [this.selectedEntity?.description ?? null, Validators.required],
       user: [this.selectedEntity?.user ?? null, Validators.required],
       bank: [this.selectedEntity?.bank ?? null, Validators.required],
-      status: [this.selectedEntity?.status ?? false, Validators.required],
+      isActive: [this.selectedEntity?.isActive ?? false, Validators.required],
       closingDay: [this.selectedEntity?.closingDay ?? null, Validators.required],
       dueDay: [this.selectedEntity?.dueDay ?? null, Validators.required],
       limit: [this.selectedEntity?.limit ?? null, Validators.required]
@@ -88,8 +88,8 @@ export class CreditCardComponent extends CrudBaseComponent<CreditCard> implement
 
   public override loadResources(): Observable<any> {
     return forkJoin({
-      users: this.apiService.getUsers(),
-      banks: this.apiService.getBanks()
+      users: this.apiService.getEntities("user"),
+      banks: this.apiService.getEntities("bank")
     }).pipe(
       tap(({users, banks}) => {
         this.users = users;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CrudBaseComponent } from "../../base/crud-base.component";
-import { User } from "../../../../models/entities";
+import { Category, User } from "../../../../models/entities";
 import { CrudManagerService } from "../../base/services/crud-manager.service";
 import { ApiService } from "../../../../services/communication/api.service";
 import { DisplayColumn } from "../../../../models/base/list/display-column";
@@ -10,16 +10,16 @@ import { TypeDescription } from "../../../../models/base/list/type-description";
 import { MessageService, PrimeIcons } from "primeng/api";
 
 @Component({
-  selector: "app-user",
+  selector: "app-category",
   standalone: false,
-  templateUrl: "./user.component.html",
+  templateUrl: "./category.component.html",
   providers: [CrudManagerService]
 })
-export class UserComponent extends CrudBaseComponent<User> implements OnInit {
+export class CategoryComponent extends CrudBaseComponent<Category> implements OnInit {
 
   //#region Fields
 
-  public override icon = PrimeIcons.USERS;
+  public override icon = PrimeIcons.TAG;
 
   //#endregion
 
@@ -43,26 +43,31 @@ export class UserComponent extends CrudBaseComponent<User> implements OnInit {
   //#region Members 'CrudBase'
 
   public override getEntityName(): string {
-    return "user";
+    return "category";
   }
 
-  public override getDescription(entity: User): string {
-    return entity.name;
+  public override getDescription(entity: Category): string {
+    return entity.description;
   }
 
   public override getTypeDescription(): TypeDescription {
-    return { single: "Usuário", plural: "Usuários", isFemale: false };
+    return { single: "Categoria", plural: "Categorias", isFemale: true };
   }
 
   public override getDisplayColumn(): DisplayColumn[] {
     return [
       {
-        field: "name",
+        field: "code",
+        description: "Código",
+        columnType: ColumnTypeEnum.Text
+      },
+      {
+        field: "description",
         description: "Nome",
         columnType: ColumnTypeEnum.Text
       },
       {
-        field: "active",
+        field: "isActive",
         description: "Ativo?",
         columnType: ColumnTypeEnum.Boolean
       }
@@ -73,8 +78,7 @@ export class UserComponent extends CrudBaseComponent<User> implements OnInit {
     this.entityForm = this.formBuilder.group({
       code: [this.selectedEntity?.code ?? null, Validators.required],
       description: [this.selectedEntity?.description ?? null, Validators.required],
-      name: [this.selectedEntity?.name ?? null, Validators.required],
-      isActive: [this.selectedEntity?.isActive ?? false, Validators.required]
+      isActive: [this.selectedEntity?.active ?? false, Validators.required]
     });
   }
 

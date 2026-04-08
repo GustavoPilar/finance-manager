@@ -3,19 +3,27 @@
     <div class="grid">
       <div class="field col-12 md:col-6">
         <label for="code">Código:</label>
-        <input type="text" pInputText id="code" formControlName="code" placeholder="Digite o código do cartão" fluid>
+        <input type="text" pInputText id="code" formControlName="code" placeholder="Digite o código da parcela" fluid>
       </div>
       <div class="field col-12 md:col-6">
         <label for="description">Descrição:</label>
-        <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição do cartão" fluid>
+        <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da parcela" fluid>
       </div>
       <div class="field col-12 md:col-6">
         <label for="transaction">Compra:</label>
-        <p-select [options]="transactions" optionLabel="description" formControlName="transaction" fluid placeholder="Selecione um cartão de crédito" [disabled]="true"></p-select>
+        <p-select [options]="transactions" optionLabel="description" formControlName="transaction" fluid placeholder="Selecione a compra que a parcela pertence" [disabled]="true"></p-select>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="number">Número da parcela atual:</label>
-        <p-input-number id="number" inputId="number" formControlName="number" placeholder="Digite a descrição do cartão" fluid [showButtons]="true" [step]="1" [min]="1" [disabled]="true"></p-input-number>
+        <label for="installmentNumber">Número da parcela atual:</label>
+        <p-input-number id="installmentNumber" inputId="installmentNumber" formControlName="installmentNumber" placeholder="Digite o número da parcela" fluid [showButtons]="true" [step]="1" [min]="1" [disabled]="true"></p-input-number>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="amount">Valor da parcela:</label>
+        <p-input-number id="amount" inputId="amount" formControlName="amount" placeholder="Digite o número da parcela" fluid mode="currency" currency="BRL" [showButtons]="true" [step]="1" [min]="1" [disabled]="true"></p-input-number>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="amount">Dia de vencimento da parcela:</label>
+        <p-date-picker id="amount" inputId="amount" formControlName="amount" fluid [showIcon]="true" [disabled]="true"></p-date-picker>
       </div>
       <div class="field col-12 md:col-6">
         <div class="flex items-center gap-2">
@@ -25,10 +33,4 @@
       </div>
     </div>
   </form>
-  <div class="grid p-2">
-    <div class="field col-12 md:col-6">
-      <label>Valor da parcela:</label>
-      <p-input-number [(ngModel)]="installmentAmount" placeholder="Valor da parcela" fluid mode="currency" currency="BRL" [showButtons]="true" [step]="1" [min]="1" [disabled]="true"></p-input-number>
-    </div>
-  </div>
 }

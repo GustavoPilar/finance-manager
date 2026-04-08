@@ -11,7 +11,10 @@ import { Router } from "@angular/router";
 export class HomeComponent implements OnInit {
 
   //#region Fields
+
+  /** Itens para escolha */
   public items: MenuItem[] = [];
+
   //#endregion
 
   //#region Construtor
@@ -24,13 +27,20 @@ export class HomeComponent implements OnInit {
   //#endregion
 
   //#region OnInit
+
   public ngOnInit(): void {
     this.items = this.menuSelectionService.getMenuItems();
   }
+
   //#endregion
 
   //#region Members
 
+  /**
+   * @description Navega para a rota escolhida
+   * @param {string} route Rota
+   * @returns {void} Vazio
+   */
   public navigateTo(route: string): void {
     this.route.navigate([route]);
   }

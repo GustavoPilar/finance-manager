@@ -12,6 +12,7 @@ export class CrudFormManagerComponent implements OnInit, AfterViewInit {
 
   //#region Fields
 
+  /** Componente do formulário */
   @ViewChild(CrudFormComponent, { read: CrudFormComponent })
   public crudFormComponent!: CrudFormComponent;
 
@@ -30,20 +31,27 @@ export class CrudFormManagerComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    this.loadCrudList();
+    this.loadCrudFormComponent();
   }
   //#endregion
 
-  //#region Members :: loadCrudList()
-  private loadCrudList(): void {
+  //#region Members :: loadCrudFormComponent()
+
+  /**
+   * @description Carrega o componente do formulário e faz tratativa inicial
+   * @returns {void} Vazio
+   */
+  private loadCrudFormComponent(): void {
     const entityName: string = this.activatedRoute.snapshot.params["entityName"];
     const entityId: number = this.activatedRoute.snapshot.params["entityId"] ?? 0;
 
     if (entityName) {
       this.crudFormComponent.entityName = entityName;
       this.crudFormComponent.entityId = entityId;
-      this.crudFormComponent.loadCrudBase();
+      this.crudFormComponent.loadCrudBaseComponent();
     }
   }
+
+  //#endregion
 
 }

@@ -19,6 +19,7 @@ export class MenuSelectionService {
 
   //#region Constructor
   constructor(
+    private router: Router
   ) {
 
   }
@@ -27,7 +28,7 @@ export class MenuSelectionService {
   //#region Members
 
   /**
-   * @description Retorna os items de menu para gerenciamento
+   * @description Retorna os items de menu para cadastros
    * @returns {MenuItem} Item de menu
    */
   public getManagerItem(): MenuItem {
@@ -54,7 +55,7 @@ export class MenuSelectionService {
   }
 
   /**
-   * @description Retorna os items de menu para gerenciamento
+   * @description Retorna os items de menu para aplicação
    * @returns {MenuItem} Item de menu
    */
   public getApplicationItem(): MenuItem {
@@ -112,6 +113,14 @@ export class MenuSelectionService {
     });
 
     return children;
+  }
+
+  /**
+   * @description Navega para a página principal
+   * @returns {void} void
+   */
+  public navigateToHome(): void {
+    this.router.navigate(["home"]);
   }
 
   //#endregion

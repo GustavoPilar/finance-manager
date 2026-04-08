@@ -1,6 +1,7 @@
-import { IEntityBase } from "./i-entities-base";
+import { IEntityBase } from "./i-entity-base";
 
-export class EntitiyBase implements IEntityBase {
+/** Base das entidades - concreta */
+export class EntityBase implements IEntityBase {
 
   /** Identificador */
   id!: number;

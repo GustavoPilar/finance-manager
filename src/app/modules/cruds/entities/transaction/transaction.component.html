@@ -14,16 +14,16 @@
         <p-select [options]="creditCards" optionLabel="description" formControlName="creditCard" fluid placeholder="Selecione um cartão de crédito"></p-select>
       </div>
       <div class="field col-12 md:col-6">
+        <label for="category">Categoria:</label>
+        <p-select [options]="categories" optionLabel="description" formControlName="category" fluid placeholder="Selecione uma categoria"></p-select>
+      </div>
+      <div class="field col-12 md:col-6">
         <label for="amount">Valor da compra:</label>
-        <p-input-number id="amount" inputId="amount" formControlName="amount" placeholder="Digite a descrição do cartão" fluid mode="currency" currency="BRL" [showButtons]="true" [step]="1" [min]="1"></p-input-number>
+        <p-input-number id="amount" inputId="amount" formControlName="amount" placeholder="Digite o valor da total da compra" fluid mode="currency" currency="BRL" [showButtons]="true" [step]="1" [min]="1"></p-input-number>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="numberInstallments">Quantidade de parcelas:</label>
-        <p-input-number id="numberInstallments" inputId="numberInstallments" formControlName="numberInstallments" placeholder="Digite a quantidade de parcelas" fluid [showButtons]="true" [step]="1" [min]="1"></p-input-number>
-      </div>
-      <div class="field col-12 md:col-6">
-        <label for="installmentAmount">Valor das parcelas:</label>
-        <p-input-number id="installmentAmount" inputId="installmentAmount" formControlName="installmentAmount" placeholder="Digite a quantidade de parcelas" fluid mode="currency" currency="BRL" [showButtons]="true" [step]="1" [min]="1"></p-input-number>
+        <label for="totalInstallments">Quantidade de parcelas:</label>
+        <p-input-number id="totalInstallments" inputId="totalInstallments" formControlName="totalInstallments" placeholder="Digite a quantidade de parcelas" fluid [showButtons]="true" [step]="1" [min]="1"></p-input-number>
       </div>
     </div>
   </form>

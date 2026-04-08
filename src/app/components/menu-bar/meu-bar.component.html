@@ -1,1 +1,5 @@
-<p-menubar [model]="items"></p-menubar>
+<p-menubar [model]="items">
+  <ng-template #start>
+    <i class="pi pi-home" (click)="navigateToHome()"></i>
+  </ng-template>
+</p-menubar>

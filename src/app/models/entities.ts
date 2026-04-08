@@ -1,108 +1,144 @@
-import { EntitiyBase } from "./base/entities/entities-base";
+import { EntityBase } from "./base/entities/entity-base";
 
-export class User extends EntitiyBase {
+/** Usuário */
+export class User extends EntityBase {
 
-  //#region Fields
+  //#region Fields :: name, active
 
+  /** Nome do usuário */
   name!: string;
 
-  active!: boolean;
-
-  //#endregion
-
-}
-
-export class Bank extends EntitiyBase {
-
-  //#region Fields
-
-  //#endregion
-
-}
-
-export class CreditCard extends EntitiyBase {
-
-  //#region Fields
-
-  userId!: number;
-
-  bankId!: number;
-
+  /** Usuário ativo? */
   isActive!: boolean;
 
+  //#endregion
+
+}
+
+/** Banco */
+export class Bank extends EntityBase {
+
+  //#region Fields
+
+  //#endregion
+
+}
+
+/** Cartão de crédito */
+export class CreditCard extends EntityBase {
+
+  //#region Fields :: userId, bankId, isActive, closingDay, dueDay, limit
+
+  /** Identificador do usuário */
+  userId!: number;
+
+  /** Identificador do banco */
+  bankId!: number;
+
+  /** Cartão ativo? */
+  isActive!: boolean;
+
+  /** Dia de fechamento do cartão */
   closingDay!: number;
 
+  /** Dia de vencimento do cartão */
   dueDay!: number;
 
+  /** Limite do cartão */
   limit!: number;
 
-  bank!: Bank;
+  //#endregion
 
+  //#region Navigations :: User, Bank, Transaction
+
+  /** Usuário */
   user!: User;
 
-  //#endregion
+  /** Banco */
+  bank!: Bank;
 
-}
-
-export class InvoiceStatus extends EntitiyBase {
-
-  //#region Fields
+  /** Compras */
+  transactions!: Transaction[];
 
   //#endregion
 
 }
 
-export class Invoice extends EntitiyBase {
+/** Compra */
+export class Transaction extends EntityBase {
 
-  //#region Fields
+  //#region Fields :: creditCardId, purchaseDate, totalAmount, totalInstallments
 
+  /** Identificador do cartão de crédito */
   creditCardId!: number;
 
-  closeDate!: Date;
+  /** Identificador da categoria */
+  categoryId!: number;
 
-  dueDate!: Date;
-
-  invoiceStatusId!: number;
-
-  invoiceStatus!: InvoiceStatus;
-
-  creditCard!: CreditCard;
-
-  //#endregion
-
-}
-
-export class Transaction extends EntitiyBase {
-
-  //#region Fields
-
-  creditCardId!: number;
-
+  /** Data de compra */
   purchaseDate!: Date;
 
-  amount!: number;
+  /** Valor total da compra */
+  totalAmount!: number;
 
-  numberInstallments!: number;
+  /** Total de parcelas da compra */
+  totalInstallments!: number;
 
-  installmentAmount!: number;
+  //#endregion
 
+  //#region Navigations :: CreditCard, Installment
+
+  /** Cartão de crédito */
   creditCard!: CreditCard;
+
+  /** Categoria */
+  category!: Category;
+
+  /** Parcelas */
+  installments!: Installment[]
 
   //#endregion
 
 }
 
-export class Installment extends EntitiyBase {
+/** Parcela */
+export class Installment extends EntityBase {
 
-  //#region Fields
+  //#region Fields :: transactionId, dueDay, installmentNumber, amount, isPaid
 
+  /** Identificador da compra */
   transactionId!: number;
 
-  number!: number;
+  /** Dia de vencimento da parcela */
+  dueDate!: Date;
 
+  /** Número da parcela */
+  installmentNumber!: number;
+
+  /** Valor da parcela */
+  amount!: number;
+
+  /** Parcela paga? */
   isPaid!: boolean;
 
+  //#endregion
+
+  //#region Navigation :: Transaction
+
+  /** Compra */
   transaction!: Transaction;
+
+  //#endregion
+
+}
+
+/** Categoria */
+export class Category extends EntityBase {
+
+  //#region Fields :: isActive
+
+  /** Categoria ativa? */
+  isActive?: boolean;
 
   //#endregion
 

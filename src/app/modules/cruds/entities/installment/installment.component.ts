@@ -24,7 +24,6 @@ export class InstallmentComponent extends CrudBaseComponent<Installment> impleme
   public override isOnlyRead: boolean = true;
 
   public transactions: any[] = [];
-  public installmentAmount: number = 0;
 
   //#endregion
 
@@ -72,7 +71,7 @@ export class InstallmentComponent extends CrudBaseComponent<Installment> impleme
         columnType: ColumnTypeEnum.Text
       },
       {
-        field: "number",
+        field: "installmentNumber",
         description: "N° da parcela",
         columnType: ColumnTypeEnum.Numeric
       },
@@ -87,20 +86,20 @@ export class InstallmentComponent extends CrudBaseComponent<Installment> impleme
 
   public override initForm(): void {
 
-    this.installmentAmount = this.selectedEntity?.transaction?.installmentAmount;
-
     this.entityForm = this.formBuilder.group({
       code: [this.selectedEntity?.code ?? null, Validators.required],
       description: [this.selectedEntity?.description ?? null, Validators.required],
       transaction: [this.selectedEntity?.transaction ?? null, Validators.required],
-      number: [this.selectedEntity?.number ?? 0, Validators.required],
+      dueDate: [this.selectedEntity?.duaDate ?? null, Validators.required],
+      amount: [this.selectedEntity?.amount ?? null, Validators.required],
+      installmentNumber: [this.selectedEntity?.installmentNumber ?? 0, Validators.required],
       isPaid: [this.selectedEntity?.isPaid ?? false, Validators.required]
     });
   }
 
   public override loadResources(): Observable<any> {
     return forkJoin({
-      transactions: this.apiService.getTransactions()
+      transactions: this.apiService.getEntities("transaction")
     }).pipe(
       tap(({transactions}) => {
         this.transactions = transactions;

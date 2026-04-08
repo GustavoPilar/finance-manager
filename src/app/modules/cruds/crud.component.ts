@@ -11,6 +11,7 @@ export class CrudComponent implements OnInit {
 
   //#region Fields
 
+  /** Itens para cadastros */
   public items: MenuItem[] = [];
 
   //#endregion

@@ -1,68 +1,12 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { IEntityBase } from "../../models/base/entities/i-entities-base";
-import { EntitiyBase } from "../../models/base/entities/entities-base";
+import { API_URL } from "../../core/global/config";
 
 @Injectable({
   providedIn: "root"
 })
 export class ApiService {
-
-  public entities: any[] = [
-    {
-      id: 1,
-      code: "001",
-      description: "Parcela do mercado",
-      number: 1,
-      isPaid: true,
-      transaction: {
-        id: 1,
-        code: "001",
-        description: "Mercado",
-        amount: 75.80,
-        numberInstallments: 2,
-        installmentAmount: 37.90,
-        creditCard: {
-          id: 1,
-          code: "001",
-          description: "Cartão nubank",
-          status: true,
-          closingDay: 7,
-          dueDay: 14,
-          limit: 1000,
-          user: { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true },
-          bank: { id: 1, code: "001", description: "Nubank" }
-        }
-      }
-    },
-    {
-      id: 2,
-      code: "002",
-      description: "Parcela do mercado",
-      number: 2,
-      isPaid: false,
-      transaction: {
-        id: 1,
-        code: "001",
-        description: "Mercado",
-        amount: 75.80,
-        numberInstallments: 2,
-        installmentAmount: 37.90,
-        creditCard: {
-          id: 1,
-          code: "001",
-          description: "Cartão nubank",
-          status: true,
-          closingDay: 7,
-          dueDay: 14,
-          limit: 1000,
-          user: { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true },
-          bank: { id: 1, code: "001", description: "Nubank" }
-        }
-      }
-    },
-  ];
 
   //#region Construtor
   constructor(
@@ -80,110 +24,57 @@ export class ApiService {
    * @returns {Observable<any>} Observable
    */
   public getEntities(entityName: string): Observable<any> {
-    return this.httpClient.get<any>(entityName);
+
+    const url: string = `${API_URL}/${entityName}`;
+
+    return this.httpClient.get<any>(url, { headers: { "Content-Type": "application/json" } });
   }
 
-  public getEntitiesTest(): Observable<any[]> {
-    return of(this.entities)
-  }
-
+  /**
+   * @description Retorna o Observable para consulta de um entidade pelo Identificador. Se o identificador indefinido, retornará um objeto de id com o valor 0
+   * @param {string} entityName Nome da entidade
+   * @param {number} entityId Identificador da entidade
+   * @returns {Observable<any>} Observable
+   */
   public getEntityById(entityName: string, entityId: number): Observable<any> {
     if (!entityId)
       return of({ id: 0 });
 
-    return this.httpClient.get<any>(entityName);
-  }
+    const url: string = `${API_URL}/${entityName}/${entityId}`;
 
-  public getEntityTest(entityId: number | null): Observable<any> {
-    if (!entityId)
-      return of({ id: 0 });
-
-    return of(this.entities.find(x => x.id == entityId));
-  }
-
-  public getBanks(): Observable<any[]> {
-    return of([
-      { id: 1, code: "001", description: "Nubank" },
-      { id: 2, code: "002", description: "Itaú" },
-    ]);
-  }
-
-  public getUsers(): Observable<any[]> {
-    return of([
-      { id: 1, code: "001", description: "Usuário 1", name: "Gustavo", active: true },
-      { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true }
-    ]);
-  }
-
-  public getCreditCards(): Observable<any[]> {
-    return of([
-      {
-        id: 1,
-        code: "001",
-        description: "Cartão nubank",
-        status: true,
-        closingDay: 7,
-        dueDay: 14,
-        limit: 1000,
-        user: { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true },
-        bank: { id: 1, code: "001", description: "Nubank" }
-      },
-      {
-        id: 2,
-        code: "002",
-        description: "Cartão Itaú",
-        status: true,
-        closingDay: 7,
-        dueDay: 14,
-        limit: 1000,
-        user: { id: 1, code: "001", description: "Usuário 1", name: "Gustavo", active: true },
-        bank: { id: 2, code: "002", description: "Banco" }
-      }
-    ])
-  }
-
-  public getTransactions(): Observable<any[]> {
-    return of([
-      {
-        id: 1,
-        code: "001",
-        description: "Mercado",
-        amount: 75.80,
-        numberInstallments: 2,
-        installmentAmount: 37.90,
-        creditCard: {
-          id: 1,
-          code: "001",
-          description: "Cartão nubank",
-          status: true,
-          closingDay: 7,
-          dueDay: 14,
-          limit: 1000,
-          user: { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true },
-          bank: { id: 1, code: "001", description: "Nubank" }
-        }
-      }
-    ])
+    return this.httpClient.get<any>(url, { headers: { "Content-Type" : "application/json" } });
   }
 
   //#endregion
 
   //#region Members 'Post'
 
-  public saveEntity(entityName: string, entity: any): Observable<any> {
-    return this.httpClient.post<any>(entityName, entity);
-  }
+  /**
+   * @description Save um registro
+   * @param {string} entityName Nome da entidade
+   * @param {any} data Dado à ser salvo
+   * @returns {Observable<any>} Observable
+   */
+  public saveEntity(entityName: string, data: any): Observable<any> {
+    const url: string = `${API_URL}/${entityName}`;
 
-  public saveEntityTest(entity: any): Observable<any> {
-    return of(entity);
+    return this.httpClient.post<any>(url, data, { headers: { "Content-Type" : "application/json" } });
   }
 
   //#endregion
 
   //#region DeleteTeste
 
+  /**
+   * @description Remove um registro pelo identificador
+   * @param entityName Nome da entidade
+   * @param entityId Identificador da entidade
+   * @returns {Observable<any>} Observable
+   */
   public deleteEntityById(entityName: string, entityId: number): Observable<any[]> {
-    return this.httpClient.delete<any>(entityName);
+    const url: string = `${API_URL}/${entityName}/${entityId}`;
+
+    return this.httpClient.delete<any>(url, { headers: { "Content-Type" : "application/json" } });
   }
 
   //#endregion

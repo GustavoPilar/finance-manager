@@ -11,6 +11,7 @@ export class CardListComponent implements OnInit {
 
   //#region Fields
 
+  /** Itens */
   @Input()
   public items: MenuItem[] = [];
 
@@ -32,6 +33,11 @@ export class CardListComponent implements OnInit {
 
   //#region Members
 
+  /**
+   * @description Navega até a rota escolhia
+   * @param {string} route Rota
+   * @returns {void} Vazio
+   * */
   public navigateTo(route: string): void {
     this.router.navigate([route]);
   }

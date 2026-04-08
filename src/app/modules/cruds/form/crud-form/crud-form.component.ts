@@ -13,15 +13,19 @@ export class CrudFormComponent implements OnInit, AfterViewInit {
 
   //#region Fields
 
+  /** Nome da registro */
   @Input()
   public entityName!: string;
 
+  /** Identificador do registro */
   @Input()
   public entityId!: number;
 
+  /** Referencia visual do formulário */
   @ViewChild("crudForm", { read: ViewContainerRef })
   public crudFormView!: ViewContainerRef;
 
+  /** Componente do CRUD básico */
   public crudBaseComponent!: CrudBaseComponent;
 
   //#region
@@ -47,14 +51,14 @@ export class CrudFormComponent implements OnInit, AfterViewInit {
 
   //#endregion
 
-  //#region Members 'Init'
+  //#region Members 'init' :: loadCrudBaseComponent()
 
   /**
- * @description Carrega o crudBase
- * @async
- * @returns {Promise<void>} Promessa vazia
- */
-  public async loadCrudBase(): Promise<void> {
+   * @description Carrega o componente do CRUD básico
+   * @async
+   * @returns {Promise<void>} Promessa vazia
+   */
+  public async loadCrudBaseComponent(): Promise<void> {
 
     try {
 
@@ -81,6 +85,14 @@ export class CrudFormComponent implements OnInit, AfterViewInit {
 
   }
 
+  //#endregion
+
+  //#region Members :: getFormDescription, returnToList(), save(), canSave()
+
+  /**
+   * @description Retorna a descrição do formulário
+   * @returns {string} Descrição do formulário
+   */
   public getFormDescription(): string {
     if (!this.crudBaseComponent)
       return "Formulário";
@@ -98,10 +110,18 @@ export class CrudFormComponent implements OnInit, AfterViewInit {
 
   }
 
+  /**
+   * @description Retorna para a lista de registros
+   * @returns {void} Vazio
+   */
   public returnToList(): void {
     this.router.navigate(["manager/list", this, this.entityName]);
   }
 
+  /**
+   * @description Faz a tratativa do registro
+   * @returns {void} Vazio
+   */
   public save(): void {
     this.crudBaseComponent.crudManagerService.save().subscribe({
       next: (entity: any) => {
@@ -118,6 +138,10 @@ export class CrudFormComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * @description Verifica a validade do formulário
+   * @returns {boolean} Valor booleano
+   */
   public canSave(): boolean {
     if (!this.crudBaseComponent)
       return false;

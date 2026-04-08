@@ -11,7 +11,29 @@
       </div>
       <div class="field col-12 md:col-6">
         <label for="user">Usuário:</label>
-        <input type="text" pInputText id="user" formControlName="user" placeholder="Digite a usuário do cartão" fluid>
+        <p-select [options]="users" optionLabel="name" formControlName="user" fluid placeholder="Selecione um usuário"></p-select>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="bank">Banco:</label>
+        <p-select [options]="banks" optionLabel="description" formControlName="bank" fluid placeholder="Selecione um banco"></p-select>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="closingDay">Dia do fechamento da fatura:</label>
+        <p-input-number id="closingDay" inputId="closingDay" formControlName="closingDay" placeholder="Digite a descrição do cartão" fluid prefix="Dia " suffix=" de todo mês" [showButtons]="true" [step]="1" [min]="0" [max]="28"></p-input-number>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="dueDay">Dia do vencimento da fatura:</label>
+        <p-input-number id="dueDay" inputId="dueDay" formControlName="dueDay" placeholder="Digite a descrição do cartão" fluid prefix="Dia " suffix=" de todo mês" [showButtons]="true" [step]="1" [min]="0" [max]="28"></p-input-number>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="limit">Limite do cartão:</label>
+        <p-input-number id="limit" inputId="limit" formControlName="limit" placeholder="Digite a descrição do cartão" fluid mode="currency" currency="BRL" [showButtons]="true" [step]="100" [min]="0"></p-input-number>
+      </div>
+      <div class="field col-12 md:col-6">
+        <div class="flex items-center gap-2">
+          <p-checkbox [binary]="true" formControlName="status" inputId="status"></p-checkbox>
+          <label for="status">Ativo?</label>
+        </div>
       </div>
     </div>
   </form>

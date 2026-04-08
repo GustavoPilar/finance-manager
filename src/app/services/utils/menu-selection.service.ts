@@ -42,7 +42,30 @@ export class MenuSelectionService {
 
         this.createMenuItem("Cartão de crédito", PrimeIcons.CREDIT_CARD, "Cadastre cartões de créditos", this.manager_root + "creditCard"),
 
+        this.createMenuItem("Compras", PrimeIcons.MONEY_BILL, "Cadastre compras", this.manager_root + "transaction"),
+
+        this.createMenuItem("Parcelas", PrimeIcons.MONEY_BILL, "Cadastre parcelas", this.manager_root + "installment"),
+
         this.createMenuItem("Financiamentos", PrimeIcons.CAR, "Cadastre financiamentos", this.manager_root + "financing")
+      ]
+    };
+
+    return root;
+  }
+
+  /**
+   * @description Retorna os items de menu para gerenciamento
+   * @returns {MenuItem} Item de menu
+   */
+  public getApplicationItem(): MenuItem {
+    const root: MenuItem = {
+      label: "Aplicação",
+      icon: PrimeIcons.WALLET,
+      routerLink: "application",
+      items: [
+        this.createMenuItem("Parcelas", PrimeIcons.MONEY_BILL, "Pague parcelas", this.application_root + "installment"),
+
+        this.createMenuItem("Financiamentos", PrimeIcons.CAR, "Pague financiamentos", this.application_root + "financing")
       ]
     };
 
@@ -55,7 +78,8 @@ export class MenuSelectionService {
    */
   public getMenuItems(): MenuItem[] {
     return [
-      this.getManagerItem()
+      this.getManagerItem(),
+      this.getApplicationItem()
     ]
   }
 

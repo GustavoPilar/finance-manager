@@ -10,8 +10,58 @@ import { EntitiyBase } from "../../models/base/entities/entities-base";
 export class ApiService {
 
   public entities: any[] = [
-    { id: 1, code: "001", description: "Usuário 1", name: "Gustavo", active: true },
-    { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true },
+    {
+      id: 1,
+      code: "001",
+      description: "Parcela do mercado",
+      number: 1,
+      isPaid: true,
+      transaction: {
+        id: 1,
+        code: "001",
+        description: "Mercado",
+        amount: 75.80,
+        numberInstallments: 2,
+        installmentAmount: 37.90,
+        creditCard: {
+          id: 1,
+          code: "001",
+          description: "Cartão nubank",
+          status: true,
+          closingDay: 7,
+          dueDay: 14,
+          limit: 1000,
+          user: { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true },
+          bank: { id: 1, code: "001", description: "Nubank" }
+        }
+      }
+    },
+    {
+      id: 2,
+      code: "002",
+      description: "Parcela do mercado",
+      number: 2,
+      isPaid: false,
+      transaction: {
+        id: 1,
+        code: "001",
+        description: "Mercado",
+        amount: 75.80,
+        numberInstallments: 2,
+        installmentAmount: 37.90,
+        creditCard: {
+          id: 1,
+          code: "001",
+          description: "Cartão nubank",
+          status: true,
+          closingDay: 7,
+          dueDay: 14,
+          limit: 1000,
+          user: { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true },
+          bank: { id: 1, code: "001", description: "Nubank" }
+        }
+      }
+    },
   ];
 
   //#region Construtor
@@ -49,6 +99,71 @@ export class ApiService {
       return of({ id: 0 });
 
     return of(this.entities.find(x => x.id == entityId));
+  }
+
+  public getBanks(): Observable<any[]> {
+    return of([
+      { id: 1, code: "001", description: "Nubank" },
+      { id: 2, code: "002", description: "Itaú" },
+    ]);
+  }
+
+  public getUsers(): Observable<any[]> {
+    return of([
+      { id: 1, code: "001", description: "Usuário 1", name: "Gustavo", active: true },
+      { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true }
+    ]);
+  }
+
+  public getCreditCards(): Observable<any[]> {
+    return of([
+      {
+        id: 1,
+        code: "001",
+        description: "Cartão nubank",
+        status: true,
+        closingDay: 7,
+        dueDay: 14,
+        limit: 1000,
+        user: { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true },
+        bank: { id: 1, code: "001", description: "Nubank" }
+      },
+      {
+        id: 2,
+        code: "002",
+        description: "Cartão Itaú",
+        status: true,
+        closingDay: 7,
+        dueDay: 14,
+        limit: 1000,
+        user: { id: 1, code: "001", description: "Usuário 1", name: "Gustavo", active: true },
+        bank: { id: 2, code: "002", description: "Banco" }
+      }
+    ])
+  }
+
+  public getTransactions(): Observable<any[]> {
+    return of([
+      {
+        id: 1,
+        code: "001",
+        description: "Mercado",
+        amount: 75.80,
+        numberInstallments: 2,
+        installmentAmount: 37.90,
+        creditCard: {
+          id: 1,
+          code: "001",
+          description: "Cartão nubank",
+          status: true,
+          closingDay: 7,
+          dueDay: 14,
+          limit: 1000,
+          user: { id: 2, code: "002", description: "Usuário 2", name: "Yasmin", active: true },
+          bank: { id: 1, code: "001", description: "Nubank" }
+        }
+      }
+    ])
   }
 
   //#endregion

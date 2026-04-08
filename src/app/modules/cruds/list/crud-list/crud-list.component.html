@@ -8,9 +8,14 @@
           <h3><i [class]="crudBaseComponent.icon + ' text-xl'"></i> {{crudBaseComponent.getTypeDescription().plural}}</h3>
         </ng-template>
         <ng-template #end>
-          <p-button icon="pi pi-plus" severity="success" (onClick)="newEntity()"></p-button>
+          <p-button icon="pi pi-plus" severity="success" (onClick)="newEntity()" [hidden]="crudBaseComponent.isOnlyRead"></p-button>
         </ng-template>
       </p-toolbar>
+      @if (crudBaseComponent.isOnlyRead) {
+        <div class="w-full bg-red-100 text-red-600 p-2 my-2 border-round text-center">
+          <small>Apenas leitura <i class="pi pi-eye"></i></small>
+        </div>
+      }
     </ng-template>
     <ng-template #header let-columns>
       <tr>
@@ -27,7 +32,7 @@
         }
         <td class="flex justify-content-evenly align-items-center">
           <p-button icon="pi pi-pencil" severity="info" rounded class="hidden md:block" (onClick)="editEntity(entity)"></p-button>
-          <p-button icon="pi pi-trash" severity="danger" rounded (onClick)="removeEntity(entity.id)"></p-button>
+          <p-button icon="pi pi-trash" severity="danger" rounded (onClick)="removeEntity(entity.id)" [disabled]="crudBaseComponent.isOnlyRead"></p-button>
         </td>
       </tr>
     </ng-template>

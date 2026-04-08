@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CrudBaseComponent } from "../../base/crud-base.component";
-import { CreditCard } from "../../../../models/entities";
+import { CreditCard, Installment, Transaction } from "../../../../models/entities";
 import { FormBuilder, Validators } from "@angular/forms";
 import { PrimeIcons, MessageService } from "primeng/api";
 import { ColumnTypeEnum } from "../../../../models/base/list/column-type-enum";
@@ -11,19 +11,18 @@ import { CrudManagerService } from "../../base/services/crud-manager.service";
 import { forkJoin, Observable, tap } from "rxjs";
 
 @Component({
-  selector: "app-credit-card",
+  selector: "app-transaction",
   standalone: false,
-  templateUrl: "./creditCard.component.html",
+  templateUrl: "./transaction.component.html",
   providers: [CrudManagerService]
 })
-export class CreditCardComponent extends CrudBaseComponent<CreditCard> implements OnInit {
+export class TransactionComponent extends CrudBaseComponent<Transaction> implements OnInit {
 
   //#region Fields
 
-  public override icon = PrimeIcons.CREDIT_CARD;
+  public override icon = PrimeIcons.MONEY_BILL;
 
-  public users: any[] = [];
-  public banks: any[] = [];
+  public creditCards: any[] = [];
 
   //#endregion
 
@@ -47,15 +46,15 @@ export class CreditCardComponent extends CrudBaseComponent<CreditCard> implement
   //#region Members 'CrudBase'
 
   public override getEntityName(): string {
-    return "creditCard";
+    return "transaction";
   }
 
-  public override getDescription(entity: CreditCard): string {
+  public override getDescription(entity: Transaction): string {
     return entity.description;
   }
 
   public override getTypeDescription(): TypeDescription {
-    return { single: "Cartão de crédito", plural: "Cartões de créditos", isFemale: false };
+    return { single: "Compra", plural: "Compras", isFemale: true };
   }
 
   public override getDisplayColumn(): DisplayColumn[] {
@@ -69,7 +68,17 @@ export class CreditCardComponent extends CrudBaseComponent<CreditCard> implement
         field: "description",
         description: "Descrição",
         columnType: ColumnTypeEnum.Text
-      }
+      },
+      {
+        field: "amount",
+        description: "Valor da compra",
+        columnType: ColumnTypeEnum.Numeric
+      },
+      {
+        field: "numberInstallments",
+        description: "Parcelas",
+        columnType: ColumnTypeEnum.Numeric
+      },
     ];
   }
 
@@ -77,23 +86,19 @@ export class CreditCardComponent extends CrudBaseComponent<CreditCard> implement
     this.entityForm = this.formBuilder.group({
       code: [this.selectedEntity?.code ?? null, Validators.required],
       description: [this.selectedEntity?.description ?? null, Validators.required],
-      user: [this.selectedEntity?.user ?? null, Validators.required],
-      bank: [this.selectedEntity?.bank ?? null, Validators.required],
-      status: [this.selectedEntity?.status ?? false, Validators.required],
-      closingDay: [this.selectedEntity?.closingDay ?? null, Validators.required],
-      dueDay: [this.selectedEntity?.dueDay ?? null, Validators.required],
-      limit: [this.selectedEntity?.limit ?? null, Validators.required]
+      creditCard: [this.selectedEntity?.creditCard ?? null, Validators.required],
+      amount: [this.selectedEntity?.amount ?? null, Validators.required],
+      numberInstallments: [this.selectedEntity?.numberInstallments ?? null, Validators.required],
+      installmentAmount: [this.selectedEntity?.installmentAmount ?? null, Validators.required]
     });
   }
 
   public override loadResources(): Observable<any> {
     return forkJoin({
-      users: this.apiService.getUsers(),
-      banks: this.apiService.getBanks()
+      creditCards: this.apiService.getCreditCards()
     }).pipe(
-      tap(({users, banks}) => {
-        this.users = users;
-        this.banks = banks;
+      tap(({creditCards}) => {
+        this.creditCards = creditCards;
       })
     );
   }

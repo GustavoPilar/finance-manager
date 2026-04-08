@@ -12,7 +12,7 @@ import { TableModule } from "primeng/table";
 import { CrudFormComponent } from "./form/crud-form/crud-form.component";
 import { CrudFormManagerComponent } from "./form/crud-form-manager/crud-form-manager.component";
 import { InputTextModule } from "primeng/inputtext";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { UserComponent } from "./entities/user/user.component";
 import { CheckboxModule } from "primeng/checkbox";
 import { ToolbarModule } from "primeng/toolbar";
@@ -20,6 +20,11 @@ import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
 import { CreditCardComponent } from "./entities/creditCard/creditCard.component";
 import { BankComponent } from "./entities/bank/bank.component";
+import { SelectModule } from "primeng/select";
+import { InputNumberModule } from "primeng/inputnumber";
+import { InstallmentComponent } from "./entities/installment/installment.component";
+import { TransactionComponent } from "./entities/transaction/transaction.component";
+import { MessageModule } from "primeng/message";
 
 @NgModule({
   declarations: [
@@ -31,20 +36,26 @@ import { BankComponent } from "./entities/bank/bank.component";
 
     UserComponent,
     BankComponent,
-    CreditCardComponent
+    CreditCardComponent,
+    TransactionComponent,
+    InstallmentComponent
   ],
   imports: [
     CommonModule,
     CrudRoutingModule,
     ComponentsModule,
     ReactiveFormsModule,
+    FormsModule,
 
     ButtonModule,
     TableModule,
     InputTextModule,
     CheckboxModule,
     ToolbarModule,
-    ToastModule
+    ToastModule,
+    SelectModule,
+    InputNumberModule,
+    MessageModule
   ],
   providers: [
     MessageService

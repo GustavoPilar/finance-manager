@@ -34,6 +34,7 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
   public refresh: Observable<boolean> = this.refreshBehavior.asObservable();
 
   public icon: string | PrimeIcons = PrimeIcons.LIST;
+  public isOnlyRead: boolean = false;
 
   //#endregion
 
@@ -119,7 +120,7 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
     });
   }
 
-  public loadResources(): Observable<any[]> {
+  public loadResources(): Observable<any> {
     return of([]);
   }
 
@@ -157,7 +158,7 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
   public abstract initForm(): void;
 
   public canSave(): boolean {
-    if (!this.entityForm)
+    if (!this.entityForm || this.isOnlyRead)
       return false;
 
     return this.entityForm.valid;

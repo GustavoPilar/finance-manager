@@ -1,0 +1,30 @@
+@if (isForm && entityForm) {
+  <form [formGroup]="entityForm" class="p-2">
+    <div class="grid">
+      <div class="field col-12 md:col-6">
+        <label for="code">Código:</label>
+        <input type="text" pInputText id="code" formControlName="code" placeholder="Digite o código da compra" fluid>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="description">Descrição:</label>
+        <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da compra" fluid>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="creditCard">Cartão de crédito:</label>
+        <p-select [options]="creditCards" optionLabel="description" formControlName="creditCard" fluid placeholder="Selecione um cartão de crédito"></p-select>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="amount">Valor da compra:</label>
+        <p-input-number id="amount" inputId="amount" formControlName="amount" placeholder="Digite a descrição do cartão" fluid mode="currency" currency="BRL" [showButtons]="true" [step]="1" [min]="1"></p-input-number>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="numberInstallments">Quantidade de parcelas:</label>
+        <p-input-number id="numberInstallments" inputId="numberInstallments" formControlName="numberInstallments" placeholder="Digite a quantidade de parcelas" fluid [showButtons]="true" [step]="1" [min]="1"></p-input-number>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="installmentAmount">Valor das parcelas:</label>
+        <p-input-number id="installmentAmount" inputId="installmentAmount" formControlName="installmentAmount" placeholder="Digite a quantidade de parcelas" fluid mode="currency" currency="BRL" [showButtons]="true" [step]="1" [min]="1"></p-input-number>
+      </div>
+    </div>
+  </form>
+}

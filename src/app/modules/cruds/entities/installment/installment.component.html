@@ -1,0 +1,34 @@
+@if (isForm && entityForm) {
+  <form [formGroup]="entityForm" class="p-2">
+    <div class="grid">
+      <div class="field col-12 md:col-6">
+        <label for="code">Código:</label>
+        <input type="text" pInputText id="code" formControlName="code" placeholder="Digite o código do cartão" fluid>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="description">Descrição:</label>
+        <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição do cartão" fluid>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="transaction">Compra:</label>
+        <p-select [options]="transactions" optionLabel="description" formControlName="transaction" fluid placeholder="Selecione um cartão de crédito" [disabled]="true"></p-select>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="number">Número da parcela atual:</label>
+        <p-input-number id="number" inputId="number" formControlName="number" placeholder="Digite a descrição do cartão" fluid [showButtons]="true" [step]="1" [min]="1" [disabled]="true"></p-input-number>
+      </div>
+      <div class="field col-12 md:col-6">
+        <div class="flex items-center gap-2">
+          <p-checkbox [binary]="true" formControlName="isPaid" inputId="isPaid" [disabled]="true"></p-checkbox>
+          <label for="isPaid">Foi pago?</label>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="grid p-2">
+    <div class="field col-12 md:col-6">
+      <label>Valor da parcela:</label>
+      <p-input-number [(ngModel)]="installmentAmount" placeholder="Valor da parcela" fluid mode="currency" currency="BRL" [showButtons]="true" [step]="1" [min]="1" [disabled]="true"></p-input-number>
+    </div>
+  </div>
+}

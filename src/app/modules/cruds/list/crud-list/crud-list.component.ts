@@ -87,10 +87,28 @@ export class CrudListComponent implements OnInit, AfterViewInit {
    * @returns {string} String
    */
   public getColumnValue(entity: any, column: DisplayColumn): string {
-    if (column.columnType == ColumnTypeEnum.Boolean)
-      return entity[column.field] ? "Sim" : "Não";
+    const result: any = entity[column.field];
+    if (result == null)
+      return "-";
 
-    return entity[column.field];
+    let value: string = "";
+
+    if (column.prefix)
+      value += `${column.prefix} `;
+
+    if (column.columnType == ColumnTypeEnum.Boolean)
+      value += result ? "Sim" : "Não";
+    else if (column.columnType == ColumnTypeEnum.Date)
+      value += new Date(result).toLocaleDateString("PT-BR");
+    else if (column.columnType == ColumnTypeEnum.Numeric)
+      value += Number(result).toLocaleString("PT-BR");
+    else if (column.columnType == ColumnTypeEnum.Text)
+      value += result;
+
+    if (column.suffix)
+      value += ` ${column.prefix}`;
+
+    return value;
   }
 
   /**

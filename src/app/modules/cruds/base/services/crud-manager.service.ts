@@ -80,6 +80,10 @@ export class CrudManagerService {
 
     console.log(entity);
 
+    if (entity.id > 0) {
+      return this.apiService.updateEntity(this.entityName!, entity, this.entityId!);
+    }
+
     return this.apiService.saveEntity(this.entityName!, entity);
   }
 

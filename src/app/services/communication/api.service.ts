@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { API_URL } from "../../core/global/config";
+import { LoaderService } from "../utils/loader.service";
 
 @Injectable({
   providedIn: "root"
@@ -10,7 +11,8 @@ export class ApiService {
 
   //#region Construtor
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private loaderSerivce: LoaderService
   ) {
 
   }
@@ -24,6 +26,7 @@ export class ApiService {
    * @returns {Observable<any>} Observable
    */
   public getEntities(entityName: string): Observable<any> {
+    this.loaderSerivce.show();
 
     const url: string = `${API_URL}/${entityName}`;
 
@@ -59,6 +62,16 @@ export class ApiService {
     const url: string = `${API_URL}/${entityName}`;
 
     return this.httpClient.post<any>(url, data, { headers: { "Content-Type" : "application/json" } });
+  }
+
+  //#endregion
+
+  //#region Members 'Put'
+
+  public updateEntity(entityName: string, data: any, entityId: number): Observable<any> {
+    const url: string = `${API_URL}/${entityName}/${entityId}`;
+
+    return this.httpClient.put(url, data, { headers: { "Content-Type" : "application/json" } });
   }
 
   //#endregion

@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { TypeDescription } from "../../../models/base/list/type-description";
 import { MessageService, PrimeIcons } from "primeng/api";
 import { EntityBase } from "../../../models/base/entities/entity-base";
+import { LoaderService } from "../../../services/utils/loader.service";
 
 @Component({
   selector: "app-crud-base",
@@ -60,7 +61,8 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
     public crudManagerService: CrudManagerService,
     protected apiService: ApiService,
     protected formBuilder: FormBuilder,
-    protected messageService: MessageService
+    protected messageService: MessageService,
+    protected loaderService: LoaderService
   ) {
 
   }
@@ -90,6 +92,8 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
    * @returns {void} Vazio
    */
   public loadEntities(): void {
+    this.loaderService.show();
+
     this.crudManagerService.loadEntities().subscribe({
       next: (entities: T[]) => {
         this.entities = entities;
@@ -102,6 +106,10 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
           summary: "Erro",
           detail: "Erro ao carregar os registros."
         });
+        this.loaderService.hide();
+      },
+      complete: () => {
+        this.loaderService.hide();
       }
     });
   }
@@ -111,6 +119,8 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
    * @returns {void} Vazio
    */
   public loadEntity(): void {
+    this.loaderService.show();
+
     this.crudManagerService.loadEntity().pipe(
       switchMap((entity: T) => {
         this.selectedEntity = entity;
@@ -133,6 +143,8 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
 
         this.initForm();
         this.refreshBehavior.next(true);
+
+        this.loaderService.hide();
       },
       error: (err) => {
         console.log(err);
@@ -141,6 +153,8 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
           summary: "Erro",
           detail: "Erro ao carregar o registro."
         });
+
+        this.loaderService.hide();
       }
     });
   }
@@ -151,6 +165,17 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
    */
   public loadResources(): Observable<any> {
     return of([]);
+  }
+
+  /**
+   * @description Configura o campos pela chave estrangeira
+   * @param fk Chave estrangeira
+   * @param field Nome do campo
+   * @param array Lista do campo
+   */
+  public setForeignKey(fk: number, field: string, array: any[]): void {
+    if (array && fk)
+      this.selectedEntity[field] = array.find(x => x.id == fk);
   }
 
   //#endregion

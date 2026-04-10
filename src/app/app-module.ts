@@ -9,6 +9,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ButtonModule } from 'primeng/button';
 import { ComponentsModule } from './components/components.module';
 import { CrudsModule } from './modules/cruds/cruds.module';
+import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [
     App,
@@ -20,6 +21,8 @@ import { CrudsModule } from './modules/cruds/cruds.module';
     ComponentsModule,
     CrudsModule,
 
+    NgxSpinnerModule.forRoot({ type: "ball-atom" }),
+
     ButtonModule
   ],
   providers: [
@@ -30,6 +33,12 @@ import { CrudsModule } from './modules/cruds/cruds.module';
         options: {
           darkModeSelector: false
         }
+      },
+      translation: {
+        dateFormat: "dd/mm/yy",
+        dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+        monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
       }
     })
   ],

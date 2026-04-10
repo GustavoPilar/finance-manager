@@ -12,4 +12,8 @@ export class DisplayColumn {
   /** Tipo de coluna */
   columnType!: ColumnTypeEnum;
 
+  prefix?: string;
+
+  suffix?: string;
+
 }

@@ -11,7 +11,7 @@
       </div>
       <div class="field col-12 md:col-6">
         <label for="creditCard">Cartão de crédito:</label>
-        <p-select [options]="creditCards" optionLabel="description" formControlName="creditCard" fluid placeholder="Selecione um cartão de crédito"></p-select>
+        <p-select [options]="creditCards" optionLabel="description" formControlName="creditCard" fluid placeholder="Selecione um cartão de crédito" [disabled]="this.selectedEntity.id > 0"></p-select>
       </div>
       <div class="field col-12 md:col-6">
         <label for="category">Categoria:</label>
@@ -19,7 +19,7 @@
       </div>
       <div class="field col-12 md:col-6">
         <label for="purchaseDate">Data da compra:</label>
-        <p-date-picker id="purchaseDate" inputId="purchaseDate" formControlName="purchaseDate" fluid [showIcon]="true" [showClear]="true"></p-date-picker>
+        <p-date-picker id="purchaseDate" inputId="purchaseDate" formControlName="purchaseDate" placeholder="Escolha a data da compra" [readonlyInput]="true" fluid [showIcon]="true" [showClear]="true"></p-date-picker>
       </div>
       <div class="field col-12 md:col-6">
         <label for="totalAmount">Valor da compra:</label>
@@ -27,7 +27,7 @@
       </div>
       <div class="field col-12 md:col-6">
         <label for="totalInstallments">Quantidade de parcelas:</label>
-        <p-input-number id="totalInstallments" inputId="totalInstallments" formControlName="totalInstallments" placeholder="Digite a quantidade de parcelas" fluid [showButtons]="true" [step]="1" [min]="1"></p-input-number>
+        <p-input-number id="totalInstallments" inputId="totalInstallments" formControlName="totalInstallments" placeholder="Digite a quantidade de parcelas" fluid [showButtons]="true" [step]="1" [min]="1" [disabled]="this.selectedEntity.id > 0"></p-input-number>
       </div>
     </div>
   </form>

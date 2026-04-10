@@ -9,6 +9,7 @@ import { TypeDescription } from "../../../../models/base/list/type-description";
 import { ApiService } from "../../../../services/communication/api.service";
 import { CrudManagerService } from "../../base/services/crud-manager.service";
 import { forkJoin, Observable, tap } from "rxjs";
+import { LoaderService } from "../../../../services/utils/loader.service";
 
 @Component({
   selector: "app-credit-card",
@@ -32,9 +33,10 @@ export class CreditCardComponent extends CrudBaseComponent<CreditCard> implement
     public override crudManagerService: CrudManagerService,
     protected override apiService: ApiService,
     protected override formBuilder: FormBuilder,
-    protected override messageService: MessageService
+    protected override messageService: MessageService,
+    protected override loaderService: LoaderService
   ) {
-    super(crudManagerService, apiService, formBuilder, messageService)
+    super(crudManagerService, apiService, formBuilder, messageService, loaderService)
   }
   //#endregion
 
@@ -94,6 +96,12 @@ export class CreditCardComponent extends CrudBaseComponent<CreditCard> implement
       tap(({users, banks}) => {
         this.users = users;
         this.banks = banks;
+
+        if (this.users && this.selectedEntity.userId)
+          this.setForeignKey(this.selectedEntity.userId, "user", this.users);
+
+        if (this.banks && this.selectedEntity.bankId)
+          this.setForeignKey(this.selectedEntity.bankId, "bank", this.banks);
       })
     );
   }

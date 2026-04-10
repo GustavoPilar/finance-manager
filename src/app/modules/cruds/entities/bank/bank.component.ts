@@ -8,6 +8,7 @@ import { DisplayColumn } from "../../../../models/base/list/display-column";
 import { TypeDescription } from "../../../../models/base/list/type-description";
 import { ApiService } from "../../../../services/communication/api.service";
 import { CrudManagerService } from "../../base/services/crud-manager.service";
+import { LoaderService } from "../../../../services/utils/loader.service";
 
 @Component({
   selector: "app-bank",
@@ -28,9 +29,10 @@ export class BankComponent extends CrudBaseComponent<Bank> implements OnInit {
     public override crudManagerService: CrudManagerService,
     protected override apiService: ApiService,
     protected override formBuilder: FormBuilder,
-    protected override messageService: MessageService
+    protected override messageService: MessageService,
+    protected override loaderService: LoaderService
   ) {
-    super(crudManagerService, apiService, formBuilder, messageService)
+    super(crudManagerService, apiService, formBuilder, messageService, loaderService)
   }
   //#endregion
 

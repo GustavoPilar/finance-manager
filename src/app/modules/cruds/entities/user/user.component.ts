@@ -8,6 +8,7 @@ import { ColumnTypeEnum } from "../../../../models/base/list/column-type-enum";
 import { FormBuilder, Validators } from "@angular/forms";
 import { TypeDescription } from "../../../../models/base/list/type-description";
 import { MessageService, PrimeIcons } from "primeng/api";
+import { LoaderService } from "../../../../services/utils/loader.service";
 
 @Component({
   selector: "app-user",
@@ -28,9 +29,10 @@ export class UserComponent extends CrudBaseComponent<User> implements OnInit {
     public override crudManagerService: CrudManagerService,
     protected override apiService: ApiService,
     protected override formBuilder: FormBuilder,
-    protected override messageService: MessageService
+    protected override messageService: MessageService,
+    protected override loaderService: LoaderService
   ) {
-    super(crudManagerService, apiService, formBuilder, messageService)
+    super(crudManagerService, apiService, formBuilder, messageService, loaderService)
   }
   //#endregion
 

@@ -90,7 +90,8 @@ export class TransactionComponent extends CrudBaseComponent<Transaction> impleme
       creditCard: [this.selectedEntity?.creditCard ?? null, Validators.required],
       category: [this.selectedEntity?.category ?? null, Validators.required],
       totalAmount: [this.selectedEntity?.totalAmount ?? null, Validators.required],
-      totalInstallments: [this.selectedEntity?.totalInstallments ?? null, Validators.required]
+      totalInstallments: [this.selectedEntity?.totalInstallments ?? null, Validators.required],
+      purchaseDate: [this.selectedEntity?.purchaseDate ?? null]
     });
   }
 
@@ -104,6 +105,14 @@ export class TransactionComponent extends CrudBaseComponent<Transaction> impleme
         this.categories = categories
       })
     );
+  }
+
+  public override prepareEntity(): Transaction {
+    let entity = this.entityForm.value;
+    entity.creditCardId = entity.creditCard.id;
+    entity.categoryId = entity.category.id;
+
+    return entity;
   }
 
   //#endregion

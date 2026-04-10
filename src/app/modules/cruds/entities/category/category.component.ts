@@ -78,7 +78,7 @@ export class CategoryComponent extends CrudBaseComponent<Category> implements On
     this.entityForm = this.formBuilder.group({
       code: [this.selectedEntity?.code ?? null, Validators.required],
       description: [this.selectedEntity?.description ?? null, Validators.required],
-      isActive: [this.selectedEntity?.active ?? false, Validators.required]
+      isActive: [this.selectedEntity?.isActive ?? false, Validators.required]
     });
   }
 

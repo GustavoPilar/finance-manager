@@ -41,6 +41,8 @@ export class MenuSelectionService {
 
         this.createMenuItem("Bancos", PrimeIcons.BUILDING_COLUMNS, "Cadastre bancos", this.manager_root + "bank"),
 
+        this.createMenuItem("Categoria de compras", PrimeIcons.TAG, "Cadastre categorias de compra", this.manager_root + "category"),
+
         this.createMenuItem("Cartão de crédito", PrimeIcons.CREDIT_CARD, "Cadastre cartões de créditos", this.manager_root + "creditCard"),
 
         this.createMenuItem("Compras", PrimeIcons.MONEY_BILL, "Cadastre compras", this.manager_root + "transaction"),

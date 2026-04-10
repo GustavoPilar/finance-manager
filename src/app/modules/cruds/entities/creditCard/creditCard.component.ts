@@ -98,6 +98,14 @@ export class CreditCardComponent extends CrudBaseComponent<CreditCard> implement
     );
   }
 
+  public override prepareEntity(): CreditCard {
+    let entity = this.entityForm.value;
+    entity.userId = entity.user.id;
+    entity.bankId = entity.bank.id;
+
+    return entity;
+  }
+
   //#endregion
 
 }

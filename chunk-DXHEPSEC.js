@@ -1,0 +1,1 @@
+import{h as a}from"./chunk-JFJPW4YQ.js";import"./chunk-H363R5UL.js";import"./chunk-7ELEHOJL.js";import"./chunk-P4JMFM25.js";import"./chunk-4Q4XRPWU.js";import"./chunk-KCOAQEKM.js";export{a as CrudsModule};

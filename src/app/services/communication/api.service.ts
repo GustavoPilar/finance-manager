@@ -11,8 +11,7 @@ export class ApiService {
 
   //#region Construtor
   constructor(
-    private httpClient: HttpClient,
-    private loaderSerivce: LoaderService
+    private httpClient: HttpClient
   ) {
 
   }
@@ -26,8 +25,6 @@ export class ApiService {
    * @returns {Observable<any>} Observable
    */
   public getEntities(entityName: string): Observable<any> {
-    this.loaderSerivce.show();
-
     const url: string = `${API_URL}/${entityName}`;
 
     return this.httpClient.get<any>(url, { headers: { "Content-Type": "application/json" } });
@@ -41,7 +38,7 @@ export class ApiService {
    */
   public getEntityById(entityName: string, entityId: number): Observable<any> {
     if (!entityId)
-      return of({ id: 0 });
+      return of({ id: 0, createdAt: new Date() });
 
     const url: string = `${API_URL}/${entityName}/${entityId}`;
 

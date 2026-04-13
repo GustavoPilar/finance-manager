@@ -81,6 +81,9 @@ export class CrudManagerService {
     console.log(entity);
 
     if (entity.id > 0) {
+
+      entity.updatedAt = new Date();
+
       return this.apiService.updateEntity(this.entityName!, entity, this.entityId!);
     }
 

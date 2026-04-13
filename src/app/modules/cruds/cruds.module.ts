@@ -18,15 +18,12 @@ import { CheckboxModule } from "primeng/checkbox";
 import { ToolbarModule } from "primeng/toolbar";
 import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
-import { CreditCardComponent } from "./entities/creditCard/creditCard.component";
-import { BankComponent } from "./entities/bank/bank.component";
 import { SelectModule } from "primeng/select";
 import { InputNumberModule } from "primeng/inputnumber";
-import { InstallmentComponent } from "./entities/installment/installment.component";
-import { TransactionComponent } from "./entities/transaction/transaction.component";
 import { MessageModule } from "primeng/message";
 import { CategoryComponent } from "./entities/category/category.component";
 import { DatePickerModule } from "primeng/datepicker";
+import { ColorPicker } from "primeng/colorpicker";
 
 @NgModule({
   declarations: [
@@ -37,10 +34,6 @@ import { DatePickerModule } from "primeng/datepicker";
     CrudFormManagerComponent,
 
     UserComponent,
-    BankComponent,
-    CreditCardComponent,
-    TransactionComponent,
-    InstallmentComponent,
     CategoryComponent
   ],
   imports: [
@@ -59,7 +52,8 @@ import { DatePickerModule } from "primeng/datepicker";
     SelectModule,
     InputNumberModule,
     MessageModule,
-    DatePickerModule
+    DatePickerModule,
+    ColorPicker
   ],
   providers: [
     MessageService

@@ -64,19 +64,25 @@ export class UserComponent extends CrudBaseComponent<User> implements OnInit {
         columnType: ColumnTypeEnum.Text
       },
       {
-        field: "active",
-        description: "Ativo?",
+        field: "email",
+        description: "Email",
+        columnType: ColumnTypeEnum.Text
+      },
+      {
+        field: "isActive",
+        description: "ativo?",
         columnType: ColumnTypeEnum.Boolean
-      }
+      },
     ];
   }
 
   public override initForm(): void {
     this.entityForm = this.formBuilder.group({
-      code: [this.selectedEntity?.code ?? null, Validators.required],
-      description: [this.selectedEntity?.description ?? null, Validators.required],
       name: [this.selectedEntity?.name ?? null, Validators.required],
-      isActive: [this.selectedEntity?.isActive ?? false, Validators.required]
+      email: [this.selectedEntity?.email ?? null, Validators.required],
+      passwordHash: [this.selectedEntity?.passwordHash ?? null, Validators.required],
+      isActive: [this.selectedEntity?.isActive ?? false, Validators.required],
+      description: [this.selectedEntity?.description ?? null, Validators.required]
     });
   }
 

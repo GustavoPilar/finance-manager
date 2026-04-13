@@ -38,18 +38,7 @@ export class MenuSelectionService {
       routerLink: "manager",
       items: [
         this.createMenuItem("Usuários", PrimeIcons.USERS, "Cadastre usuários", this.manager_root + "user"),
-
-        this.createMenuItem("Bancos", PrimeIcons.BUILDING_COLUMNS, "Cadastre bancos", this.manager_root + "bank"),
-
-        this.createMenuItem("Categoria de compras", PrimeIcons.TAG, "Cadastre categorias de compra", this.manager_root + "category"),
-
-        this.createMenuItem("Cartão de crédito", PrimeIcons.CREDIT_CARD, "Cadastre cartões de créditos", this.manager_root + "creditCard"),
-
-        this.createMenuItem("Compras", PrimeIcons.MONEY_BILL, "Cadastre compras", this.manager_root + "transaction"),
-
-        this.createMenuItem("Parcelas", PrimeIcons.MONEY_BILL, "Cadastre parcelas", this.manager_root + "installment"),
-
-        this.createMenuItem("Financiamentos", PrimeIcons.CAR, "Cadastre financiamentos", this.manager_root + "financing")
+        this.createMenuItem("Categorias", PrimeIcons.TAG, "Cadastre categorias", this.manager_root + "category"),
       ]
     };
 

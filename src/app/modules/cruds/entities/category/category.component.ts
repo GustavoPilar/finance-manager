@@ -59,18 +59,13 @@ export class CategoryComponent extends CrudBaseComponent<Category> implements On
   public override getDisplayColumn(): DisplayColumn[] {
     return [
       {
-        field: "code",
-        description: "Código",
-        columnType: ColumnTypeEnum.Text
-      },
-      {
         field: "description",
-        description: "Nome",
+        description: "Descrição",
         columnType: ColumnTypeEnum.Text
       },
       {
         field: "isActive",
-        description: "Ativo?",
+        description: "Ativa?",
         columnType: ColumnTypeEnum.Boolean
       }
     ];
@@ -78,9 +73,9 @@ export class CategoryComponent extends CrudBaseComponent<Category> implements On
 
   public override initForm(): void {
     this.entityForm = this.formBuilder.group({
-      code: [this.selectedEntity?.code ?? null, Validators.required],
       description: [this.selectedEntity?.description ?? null, Validators.required],
-      isActive: [this.selectedEntity?.isActive ?? false, Validators.required]
+      color: [this.selectedEntity?.color ?? null, Validators.required],
+      isActive: [this.selectedEntity?.isActive ?? false, Validators.required],
     });
   }
 

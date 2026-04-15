@@ -1,0 +1,31 @@
+<p-toast id="login_success" (onClose)="onCloseToast()"></p-toast>
+<p-toast id="login_error"></p-toast>
+
+<div class="fluid flex justify-content-center align-items-center">
+  <div class="p-2 border-round-lg">
+
+    <img src="assets/image/login.jpg" class="w-w-full h-22rem">
+
+    <div class="w-full text-center my-4">
+      <h1 class="my-2">Finance Manager</h1>
+
+      <p>Sua aplicação para gerenciamento de contas</p>
+    </div>
+
+    <form [formGroup]="loginForm">
+      <div class="grid">
+        <div class="field col-12">
+          <label for="email">E-mail:</label>
+          <input type="text" pInputText id="email" formControlName="email" placeholder="Digite o e-mail de login" fluid>
+        </div>
+        <div class="field col-12">
+          <label for="password">Senha:</label>
+          <p-password inputId="password" id="password" formControlName="password" placeholder="Digite a senha de login" fluid [feedback]="false" />
+        </div>
+        <div class="field col-12">
+          <p-button variant="text" label="Acessar" iconPos="right" icon="pi pi-arrow-right" fluid (onClick)="login()" [disabled]="!validForm()"></p-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

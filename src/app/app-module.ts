@@ -10,20 +10,34 @@ import { ButtonModule } from 'primeng/button';
 import { ComponentsModule } from './components/components.module';
 import { CrudsModule } from './modules/cruds/cruds.module';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { LoginComponent } from './pages/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { authInterceptor } from './interceptors/auth-interceptor';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 @NgModule({
   declarations: [
     App,
+    LoginComponent,
     HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
     ComponentsModule,
     CrudsModule,
 
     NgxSpinnerModule.forRoot({ type: "ball-atom" }),
 
-    ButtonModule
+    ButtonModule,
+    InputTextModule,
+    PasswordModule,
+    ToastModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -40,7 +54,11 @@ import { NgxSpinnerModule } from "ngx-spinner";
         monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
         monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
       }
-    })
+    }),
+    MessageService,
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    )
   ],
   bootstrap: [App]
 })

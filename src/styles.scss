@@ -13,3 +13,34 @@
 th, td {
   text-align: center !important;
 }
+
+.login-cover {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	& .login-cover-bg {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		background: linear-gradient(to bottom, rgba(0,0,0, 0.45) 0%, rgba(0,0,0, .9));
+	}
+	& .login-cover-image {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	// @include transition(background .2s linear);
+}

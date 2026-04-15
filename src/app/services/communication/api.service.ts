@@ -65,6 +65,13 @@ export class ApiService {
 
   //#region Members 'Put'
 
+  /**
+   * @description Atualiza um registro
+   * @param entityName Nome da entidade
+   * @param data Registro atualizado
+   * @param entityId Identificador da entidade
+   * @returns {Observable<any>} Observable
+   */
   public updateEntity(entityName: string, data: any, entityId: number): Observable<any> {
     const url: string = `${API_URL}/${entityName}/${entityId}`;
 

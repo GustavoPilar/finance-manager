@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { pageSettings } from './core/page-settings';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,9 @@ import { Component, signal } from '@angular/core';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('Finance-Manager');
+
+  //#region Fields
+  pageSettings = pageSettings;
+  //#endregion
+
 }

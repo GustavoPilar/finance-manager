@@ -24,6 +24,7 @@ import { CategoryComponent } from "./entities/category/category.component";
 import { DatePickerModule } from "primeng/datepicker";
 import { ColorPicker } from "primeng/colorpicker";
 import { FixedExpenseComponent } from "./entities/fixedExpense/fixedExpense.component";
+import { CreditTransactionComponent } from "./entities/creditTransaction/creditTransaction.component";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FixedExpenseComponent } from "./entities/fixedExpense/fixedExpense.comp
     CrudFormManagerComponent,
 
     CategoryComponent,
-    FixedExpenseComponent
+    FixedExpenseComponent,
+    CreditTransactionComponent
   ],
   imports: [
     CommonModule,

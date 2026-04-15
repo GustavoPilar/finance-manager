@@ -1,0 +1,26 @@
+@if (isForm && entityForm) {
+  <form [formGroup]="entityForm" class="p-2">
+    <div class="grid">
+      <div class="field col-12 md:col-6">
+        <label for="description">Descrição:</label>
+        <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da compra" fluid>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="totalAmount">Valor da compra:</label>
+        <p-inputNumber id="totalAmount" inputId="totalAmount" formControlName="totalAmount" placeholder="Digite o valor da compra" fluid [showButtons]="true" [step]="1" [min]="0" mode="currency" currency="BRL"></p-inputNumber>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="totalInstallments">Quantide de parcelas:</label>
+        <p-inputNumber id="totalInstallments" inputId="totalInstallments" formControlName="totalInstallments" placeholder="Digite quantidade de parcelas da compra" fluid [showButtons]="true" [step]="1" [min]="1" suffix=" parcela(s)"></p-inputNumber>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="purchaseDate">Data da compra:</label>
+        <p-date-picker id="purchaseDate" inputId="purchaseDate" formControlName="purchaseDate" fluid [showIcon]="true" [showClear]="true" dateFormat="dd/mm/yy" [readonlyInput]="true"></p-date-picker>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="categoryId">Categoria:</label>
+        <p-select [options]="categories" optionLabel="description" optionValue="id" inputId="categoryId" formControlName="categoryId" placeholder="Selecione a categoria da compra" fluid></p-select>
+      </div>
+    </div>
+  </form>
+}

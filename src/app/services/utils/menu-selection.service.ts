@@ -38,7 +38,8 @@ export class MenuSelectionService {
       routerLink: "manager",
       items: [
         this.createMenuItem("Categorias", PrimeIcons.TAG, "Cadastre categorias", this.manager_root + "category"),
-        this.createMenuItem("Contas fixas", PrimeIcons.TAG, "Cadastre contas fixas", this.manager_root + "fixedExpense"),
+        this.createMenuItem("Contas fixas", PrimeIcons.WALLET, "Cadastre contas fixas", this.manager_root + "fixedExpense"),
+        this.createMenuItem("Compras no crédito", PrimeIcons.CREDIT_CARD, "Cadastre compras no crédito", this.manager_root + "creditTransaction"),
       ]
     };
 

@@ -1,0 +1,25 @@
+<div class="fluid">
+
+  <div class="w-full p-2 shadow-1">
+    <form [formGroup]="form">
+      <div class="grid">
+        <div class="field col-12 md:col-8">
+          <label for="creditTransaction">Compra no crédito:</label>
+          <p-select [options]="creditTransactions" optionLabel="description" optionValue="id" formControlName="creditTransactionId" inputId="creditTransaction" placeholder="Escolha a compra da parcela" fluid></p-select>
+        </div>
+        <div class="field col-12 md:col-4">
+          <p-button label="Ver parcelas" icon="pi pi-file-check" iconPos="right" fluid (onClick)="loadInstallments()"></p-button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="w-full p-2">
+    @for (installment of installments; track $index) {
+      <div class="w-full shadow-1 p-2">
+        {{installment.description}}
+      </div>
+    }
+  </div>
+
+</div>

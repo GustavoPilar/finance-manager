@@ -13,7 +13,7 @@ export class MenuSelectionService {
   private manager_root: string = "manager/list/";
 
   /** Raiz de aplicação */
-  private application_root: string = "application/list/";
+  private application_root: string = "application/";
 
   //#endregion
 
@@ -53,12 +53,10 @@ export class MenuSelectionService {
   public getApplicationItem(): MenuItem {
     const root: MenuItem = {
       label: "Aplicação",
-      icon: PrimeIcons.WALLET,
+      icon: PrimeIcons.DESKTOP,
       routerLink: "application",
       items: [
-        this.createMenuItem("Parcelas", PrimeIcons.MONEY_BILL, "Pague parcelas", this.application_root + "installment"),
-
-        this.createMenuItem("Financiamentos", PrimeIcons.CAR, "Pague financiamentos", this.application_root + "financing")
+        this.createMenuItem("Parcelas", PrimeIcons.FILE_CHECK, "Pague parcelas", this.application_root + "installment")
       ]
     };
 

@@ -1,4 +1,4 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationModule, NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
@@ -33,6 +33,7 @@ import { RegisterComponent } from './pages/register/register.component';
     FormsModule,
     ComponentsModule,
     CrudsModule,
+    ApplicationModule,
 
     NgxSpinnerModule.forRoot({ type: "ball-atom" }),
 
@@ -54,7 +55,8 @@ import { RegisterComponent } from './pages/register/register.component';
         dateFormat: "dd/mm/yy",
         dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
         monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-        monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
+        monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        emptyMessage: "Nenhum registro"
       }
     }),
     MessageService,

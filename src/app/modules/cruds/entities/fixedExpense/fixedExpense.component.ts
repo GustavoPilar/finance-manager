@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CrudBaseComponent } from "../../base/crud-base.component";
-import { User } from "../../../../models/entities";
+import { FixedExpense } from "../../../../models/entities";
 import { CrudManagerService } from "../../base/services/crud-manager.service";
 import { ApiService } from "../../../../services/communication/api.service";
 import { DisplayColumn } from "../../../../models/base/list/display-column";
@@ -11,16 +11,16 @@ import { MessageService, PrimeIcons } from "primeng/api";
 import { LoaderService } from "../../../../services/utils/loader.service";
 
 @Component({
-  selector: "app-user",
+  selector: "app-fixed-expense",
   standalone: false,
-  templateUrl: "./user.component.html",
+  templateUrl: "./fixedExpense.component.html",
   providers: [CrudManagerService]
 })
-export class UserComponent extends CrudBaseComponent<User> implements OnInit {
+export class FixedExpenseComponent extends CrudBaseComponent<FixedExpense> implements OnInit {
 
   //#region Fields
 
-  public override icon = PrimeIcons.USERS;
+  public override icon = PrimeIcons.TAG;
 
   //#endregion
 
@@ -45,44 +45,49 @@ export class UserComponent extends CrudBaseComponent<User> implements OnInit {
   //#region Members 'CrudBase'
 
   public override getEntityName(): string {
-    return "user";
+    return "fixedExpense";
   }
 
-  public override getDescription(entity: User): string {
-    return entity.name;
+  public override getDescription(entity: FixedExpense): string {
+    return entity.description;
   }
 
   public override getTypeDescription(): TypeDescription {
-    return { single: "Usuário", plural: "Usuários", isFemale: false };
+    return { single: "Conta fixa", plural: "Contas Fixas", isFemale: true };
   }
 
   public override getDisplayColumn(): DisplayColumn[] {
     return [
       {
-        field: "name",
-        description: "Nome",
+        field: "description",
+        description: "Descrição",
         columnType: ColumnTypeEnum.Text
       },
       {
-        field: "email",
-        description: "Email",
-        columnType: ColumnTypeEnum.Text
+        field: "amount",
+        description: "Valor R$",
+        columnType: ColumnTypeEnum.Numeric,
+        prefix: "R$ "
+      },
+      {
+        field: "dueDay",
+        description: "Dia do pagamento",
+        columnType: ColumnTypeEnum.Numeric
       },
       {
         field: "isActive",
-        description: "ativo?",
+        description: "Ativa?",
         columnType: ColumnTypeEnum.Boolean
-      },
+      }
     ];
   }
 
   public override initForm(): void {
     this.entityForm = this.formBuilder.group({
-      name: [this.selectedEntity?.name ?? null, Validators.required],
-      email: [this.selectedEntity?.email ?? null, Validators.required],
-      passwordHash: [this.selectedEntity?.passwordHash ?? null, Validators.required],
-      isActive: [this.selectedEntity?.isActive ?? false, Validators.required],
-      description: [this.selectedEntity?.description ?? null, Validators.required]
+      description: [this.selectedEntity?.description ?? null, Validators.required],
+      amount: [this.selectedEntity?.amount ?? null, Validators.required],
+      dueDay: [this.selectedEntity.dueDay ?? null, Validators.required],
+      isActive: [this.selectedEntity?.isActive ?? null, Validators.required]
     });
   }
 

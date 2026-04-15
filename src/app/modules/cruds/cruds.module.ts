@@ -13,7 +13,6 @@ import { CrudFormComponent } from "./form/crud-form/crud-form.component";
 import { CrudFormManagerComponent } from "./form/crud-form-manager/crud-form-manager.component";
 import { InputTextModule } from "primeng/inputtext";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { UserComponent } from "./entities/user/user.component";
 import { CheckboxModule } from "primeng/checkbox";
 import { ToolbarModule } from "primeng/toolbar";
 import { MessageService } from "primeng/api";
@@ -24,6 +23,7 @@ import { MessageModule } from "primeng/message";
 import { CategoryComponent } from "./entities/category/category.component";
 import { DatePickerModule } from "primeng/datepicker";
 import { ColorPicker } from "primeng/colorpicker";
+import { FixedExpenseComponent } from "./entities/fixedExpense/fixedExpense.component";
 
 @NgModule({
   declarations: [
@@ -33,8 +33,8 @@ import { ColorPicker } from "primeng/colorpicker";
     CrudFormComponent,
     CrudFormManagerComponent,
 
-    UserComponent,
-    CategoryComponent
+    CategoryComponent,
+    FixedExpenseComponent
   ],
   imports: [
     CommonModule,

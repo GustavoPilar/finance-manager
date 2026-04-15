@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { MenuSelectionService } from "../../services/utils/menu-selection.service";
+import { AuthService } from "../../services/auth/authentication.service";
 
 @Component({
   selector: "app-menu-bar",
@@ -14,11 +15,14 @@ export class MenuBarComponent implements OnInit {
   /** Items de menu */
   public items: MenuItem[] = [];
 
+  public itemUser: MenuItem = [];
+
   //#endregion
 
   //#region Constructor
   constructor(
-    private menuSelectionService: MenuSelectionService
+    private menuSelectionService: MenuSelectionService,
+    private authService: AuthService
   ) {
 
   }
@@ -42,4 +46,11 @@ export class MenuBarComponent implements OnInit {
     this.menuSelectionService.navigateToHome();
   }
 
+  public logout(): void {
+    this.authService.logout().then(() => {
+      location.reload();
+    })
+  }
+
+  //#endregion
 }

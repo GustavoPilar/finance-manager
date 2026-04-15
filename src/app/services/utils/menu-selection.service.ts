@@ -37,8 +37,8 @@ export class MenuSelectionService {
       icon: PrimeIcons.LIST,
       routerLink: "manager",
       items: [
-        // this.createMenuItem("Usuários", PrimeIcons.USERS, "Cadastre usuários", this.manager_root + "user"),
         this.createMenuItem("Categorias", PrimeIcons.TAG, "Cadastre categorias", this.manager_root + "category"),
+        this.createMenuItem("Contas fixas", PrimeIcons.TAG, "Cadastre contas fixas", this.manager_root + "fixedExpense"),
       ]
     };
 

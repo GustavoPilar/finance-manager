@@ -118,6 +118,19 @@ export class AuthService {
     })
   }
 
+  public async logout(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        this.localStorageService.RemoveItem(this.keySecurity);
+        resolve();
+      } catch (error) {
+        console.log(error);
+        this.localStorageService.RemoveItem(this.keySecurity);
+        reject();
+      }
+    })
+  }
+
   /**
    * @description Retorna o valor do token guardado
    * @returns {any} Token

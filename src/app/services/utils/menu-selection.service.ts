@@ -15,6 +15,9 @@ export class MenuSelectionService {
   /** Raiz de aplicação */
   private application_root: string = "application/";
 
+  /** Raiz de relatórios */
+  private report_root: string = "report/";
+
   //#endregion
 
   //#region Constructor
@@ -64,13 +67,31 @@ export class MenuSelectionService {
   }
 
   /**
+   * @description Retorna os items de menu para aplicação
+   * @returns {MenuItem} Item de menu
+   */
+  public getReportItem(): MenuItem {
+    const root: MenuItem = {
+      label: "Relatórios",
+      icon: PrimeIcons.FILE,
+      routerLink: "report",
+      items: [
+        // this.createMenuItem("Parcelas", PrimeIcons.FILE_CHECK, "Pague parcelas", this.application_root + "installment")
+      ]
+    };
+
+    return root;
+  }
+
+  /**
    * @description Retorna todos os itens de menu
    * @returns {MenuItem[]} Lista de itens de menu
    */
   public getMenuItems(): MenuItem[] {
     return [
       this.getManagerItem(),
-      this.getApplicationItem()
+      this.getApplicationItem(),
+      this.getReportItem()
     ]
   }
 

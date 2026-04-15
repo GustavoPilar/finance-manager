@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: "home", component: HomeComponent, canActivate: [authGuard] },
   { path: "manager", loadChildren: () => import ("./modules/cruds/cruds.module").then(cm => cm.CrudsModule), canActivate: [authGuard] },
   { path: "application", loadChildren: () => import ("./modules/application/application.module").then(cm => cm.ApplicationModule), canActivate: [authGuard] },
+  { path: "report", loadChildren: () => import ("./modules/report/report.module").then(cm => cm.ReportModule), canActivate: [authGuard] },
   { path: "**", redirectTo: "home", pathMatch: "full" }
 ];
 

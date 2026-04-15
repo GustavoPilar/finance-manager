@@ -76,7 +76,9 @@ export class InstallmentComponent implements OnInit {
       try {
         this.loaderService.show();
 
-        this.apiService.getEntities("installment").subscribe({
+        const creditTransactionId: number = this.form.value.creditTransactionId;
+
+        this.apiService.getEntities(`installment/creditTransaction/${creditTransactionId}`).subscribe({
           next: (result: any) => {
             const creditTransactionId: number = this.form.value.creditTransactionId;
             this.installments = result.filter((x: any) => x.creditTransactionId == creditTransactionId);
@@ -97,6 +99,46 @@ export class InstallmentComponent implements OnInit {
         reject(error);
       }
     })
+  }
+
+  public updateInstallmet(installment: any): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        this.loaderService.show();
+        console.log("Entrou");
+
+        installment.isPaid = true;
+        installment.paymentDate = new Date();
+
+        this.apiService.updateEntity("installment", installment, installment.id).subscribe({
+          next: (result: any) => {
+            this.cdr.detectChanges();
+            this.loaderService.hide();
+            resolve();
+          },
+          error: (err) => {
+            console.log(err);
+            this.loaderService.hide();
+            installment.isPaid = false;
+            installment.paymentDate = false;
+            this.cdr.detectChanges();
+            reject();
+          }
+        });
+      } catch (error) {
+        console.log(error);
+        this.loaderService.hide();
+        reject(error);
+      }
+    })
+  }
+
+  public getBooleanValue(isPaid: boolean): string {
+    return isPaid ? "Pago" : "Aberta";
+  }
+
+  public getTagSeverity(isPaid: boolean): "success" | "danger" {
+    return isPaid ? "success" : "danger";
   }
 
   //#endregion

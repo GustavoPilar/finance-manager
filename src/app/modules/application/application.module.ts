@@ -7,6 +7,7 @@ import { ApplicationComponent } from "./application.component";
 import { InstallmentComponent } from "./installment/installment.component";
 import { SelectModule } from "primeng/select";
 import { ButtonModule } from "primeng/button";
+import { TagModule } from "primeng/tag";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ButtonModule } from "primeng/button";
     ReactiveFormsModule,
 
     SelectModule,
-    ButtonModule
+    ButtonModule,
+    TagModule
   ],
   providers: [
 

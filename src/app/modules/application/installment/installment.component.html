@@ -1,6 +1,6 @@
 <div class="fluid">
 
-  <div class="w-full p-2 shadow-1">
+  <div class="w-full p-2 shadow-1 border-round">
     <form [formGroup]="form">
       <div class="grid">
         <div class="field col-12 md:col-8">
@@ -15,11 +15,20 @@
   </div>
 
   <div class="w-full p-2">
-    @for (installment of installments; track $index) {
-      <div class="w-full shadow-1 p-2">
-        {{installment.description}}
-      </div>
-    }
+    <div class="grid gap-1">
+      @for (installment of installments; track $index) {
+        <div class="field col-5 md:col-3 m-auto my-4 shadow-1 border-round text-center">
+          <div class="w-full p-2 font-bold">
+            <p>Parcela N°: {{installment.number}}</p>
+          </div>
+          <div class="w-full p-2 line-height-4">
+            <p-tag [severity]="getTagSeverity(installment.isPaid)">{{getBooleanValue(installment.isPaid)}}</p-tag>
+            <p class="my-2">R$ {{installment.amount}}</p>
+          </div>
+          <p-button variant="text" [label]="installment.isPaid ? 'Pago' : 'Pagar'" [icon]="installment.isPaid ? 'pi pi-check' : 'pi pi-wallet'" [severity]="installment.isPaid ? 'success' : 'info'" iconPos="right" fluid (onClick)="updateInstallmet(installment)" [hidden]="installment.isPaid" [disabled]="installment.isPaid"></p-button>
+        </div>
+      }
+    </div>
   </div>
 
 </div>

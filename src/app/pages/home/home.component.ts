@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { MenuSelectionService } from "../../services/utils/menu-selection.service";
 import { Router } from "@angular/router";
+import { pageSettings } from "../../core/page-settings";
 
 @Component({
   selector: "app-home",
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
     private route: Router,
     private menuSelectionService: MenuSelectionService
   ) {
-
+    pageSettings.canShowMenuBar = true;
   }
   //#endregion
 

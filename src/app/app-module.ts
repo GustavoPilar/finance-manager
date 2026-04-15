@@ -18,9 +18,11 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { authInterceptor } from './interceptors/auth-interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { RegisterComponent } from './pages/register/register.component';
 @NgModule({
   declarations: [
     App,
+    RegisterComponent,
     LoginComponent,
     HomeComponent
   ],

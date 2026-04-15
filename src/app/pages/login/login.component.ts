@@ -40,6 +40,10 @@ export class LoginComponent implements OnInit {
 
   //#region Members :: initLoginForm()
 
+  /**
+   * @description Inicia o formulário de login
+   * @returns {void} Vazio
+   */
   private initLoginForm(): void {
     this.loginForm = this.formBuilder.group({
       email: [null, Validators.required],
@@ -47,6 +51,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+   * @description Verifica se o formulário é valido
+   * @returns {boolean} Valor booleano
+   */
   public validForm(): boolean {
     if (!this.loginForm || !this.loginForm.valid)
       return false;
@@ -54,12 +62,28 @@ export class LoginComponent implements OnInit {
     return true;
   }
 
-  public async login(): Promise<void> {
+  /**
+   * @description Faz o login
+   * @returns {void} Vazio
+   */
+  public login(): void {
     let value: LoginRequest = this.loginForm.value;
 
-    await this.authService.loginFlow(value);
+    this.authService.loginFlow(value);
   }
 
+  /**
+   * @description Navega para o formulário de registro
+   * @returns {void} Vazio
+   */
+  public register(): void {
+    this.router.navigate(["/register"]);
+  }
+
+  /**
+   * @description Quanto o Toast de sucesso fechar, navega para a página Home
+   * @returns {void}
+   */
   public onCloseToast(): void {
     this.router.navigate(["/home"]);
   }

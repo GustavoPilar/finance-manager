@@ -1,5 +1,4 @@
 <p-toast id="login_success" (onClose)="onCloseToast()"></p-toast>
-<p-toast id="login_error"></p-toast>
 
 <div class="fluid flex justify-content-center align-items-center">
   <div class="p-2 border-round-lg">
@@ -23,7 +22,10 @@
           <p-password inputId="password" id="password" formControlName="password" placeholder="Digite a senha de login" fluid [feedback]="false" />
         </div>
         <div class="field col-12">
-          <p-button variant="text" label="Acessar" iconPos="right" icon="pi pi-arrow-right" fluid (onClick)="login()" [disabled]="!validForm()"></p-button>
+          <div class="w-full flex justify-content-between align-items-center">
+            <p-button variant="text" label="Criar conta" iconPos="right" icon="pi pi-arrow-right" severity="info" fluid (onClick)="register()"></p-button>
+            <p-button variant="text" label="Acessar" iconPos="right" icon="pi pi-user" fluid (onClick)="login()" [disabled]="!validForm()"></p-button>
+          </div>
         </div>
       </div>
     </form>

@@ -6,6 +6,7 @@ import { LocalStorageService } from "../utils/local-storage.service";
 import { jwtDecode } from "jwt-decode";
 import { MessageService } from "primeng/api";
 import { LoginRequest } from "../../models/auth/login-request";
+import { RegisterRequest } from "../../models/auth/register-request";
 
 @Injectable({
   providedIn: "root"
@@ -18,10 +19,16 @@ export class AuthService {
   private keySecurity: string = "key_security"
 
   /** Id do toast de sucesso */
-  public toastSuccessId: string = "login_success";
+  public loginSuccessId: string = "login_success";
 
   /** Id do toast de erro */
-  public toastErrorId: string = "login_error";
+  public loginErrorId: string = "login_error";
+
+  /** Id do toast de sucesso */
+  public registerSuccessId: string = "register_success";
+
+  /** Id do toast de erro */
+  public registerErrorId: string = "register_error";
 
   //#endregion
 
@@ -55,7 +62,7 @@ export class AuthService {
             this.localStorageService.SetItem(this.keySecurity, result.token);
             this.loaderService.hide();
 
-            this.showMessage("success", "Bem vindo(a)!", "Aguarde um instante, você será redirecionado.", this.toastSuccessId);
+            this.showMessage("success", "Bem vindo(a)!", "Aguarde um instante, você será redirecionado.", this.loginSuccessId);
 
             resolve();
           },
@@ -63,7 +70,42 @@ export class AuthService {
             console.log(err);
             this.localStorageService.RemoveItem(this.keySecurity);
             this.loaderService.hide();
-            this.showMessage("error", "Erro!", "Erro ao fazer o login.", this.toastErrorId);
+            this.showMessage("error", "Erro!", "Erro ao fazer o login.", this.loginErrorId);
+            reject();
+          }
+        });
+
+      } catch (error) {
+        console.log(error);
+        this.loaderService.hide();
+        reject();
+      }
+    });
+  }
+
+  /**
+   * @description Fluxo para registro de usuário
+   * @param register Formulário
+   * @returns {Promise<boolean>}
+   */
+  public async registerFlow(register: RegisterRequest): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        this.loaderService.show();
+
+        const url: string = `${API_URL}/auth/register`;
+
+        this.httpClient.post(url, register, { headers: { "Content-Type": "application/json" } }).subscribe({
+          next: (result: any) => {
+            this.loaderService.hide();
+            this.showMessage("success", "Bem vindo(a)!", "Aguarde um instante, você será redirecionado.", this.registerSuccessId);
+            resolve();
+          },
+          error: (err: any) => {
+            console.log(err);
+            this.localStorageService.RemoveItem(this.keySecurity);
+            this.loaderService.hide();
+            this.showMessage("error", "Erro!", "Erro ao fazer o cadastro.", this.registerErrorId);
             reject();
           }
         });

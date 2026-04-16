@@ -65,18 +65,19 @@ export class FixedExpenseComponent extends CrudBaseComponent<FixedExpense> imple
       },
       {
         field: "amount",
-        description: "Valor R$",
+        description: "Valor",
         columnType: ColumnTypeEnum.Numeric,
         prefix: "R$ "
       },
       {
         field: "dueDay",
         description: "Dia do pagamento",
-        columnType: ColumnTypeEnum.Numeric
+        columnType: ColumnTypeEnum.Numeric,
+        suffix: " de todo mês"
       },
       {
         field: "isActive",
-        description: "Ativa?",
+        description: "Conta ativa?",
         columnType: ColumnTypeEnum.Boolean
       }
     ];

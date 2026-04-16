@@ -25,6 +25,10 @@ import { DatePickerModule } from "primeng/datepicker";
 import { ColorPicker } from "primeng/colorpicker";
 import { FixedExpenseComponent } from "./entities/fixedExpense/fixedExpense.component";
 import { CreditTransactionComponent } from "./entities/creditTransaction/creditTransaction.component";
+import { ToggleSwitchModule } from "primeng/toggleswitch";
+import { InputIconModule } from "primeng/inputicon";
+import { IconFieldModule } from "primeng/iconfield";
+import { TagModule } from "primeng/tag";
 
 @NgModule({
   declarations: [
@@ -55,7 +59,11 @@ import { CreditTransactionComponent } from "./entities/creditTransaction/creditT
     InputNumberModule,
     MessageModule,
     DatePickerModule,
-    ColorPicker
+    ColorPicker,
+    ToggleSwitchModule,
+    InputIconModule,
+    IconFieldModule,
+    TagModule
   ],
   providers: [
     MessageService

@@ -2,21 +2,30 @@
   <form [formGroup]="entityForm" class="p-2">
     <div class="grid">
       <div class="field col-12 md:col-6">
-        <label for="description">Descrição:</label>
-        <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da conta fixa" fluid>
+        <label for="description">Descrição: <span class="text-red-500">*</span></label>
+        <p-icon-field>
+          <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da conta fixa" fluid class="border-round-3xl">
+          <p-inputicon class="pi pi-pencil"></p-inputicon>
+        </p-icon-field>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="amount">Valor:</label>
-        <p-inputNumber id="amount" inputId="amount" formControlName="amount" placeholder="Digite o valor da conta fixa" fluid [showButtons]="true" [step]="1" [min]="0" mode="currency" currency="BRL"></p-inputNumber>
+        <label for="amount">Valor: <span class="text-red-500">*</span></label>
+        <p-icon-field>
+          <p-inputNumber id="amount" inputId="amount" formControlName="amount" placeholder="Digite o valor da conta fixa" fluid [min]="0" mode="currency" currency="BRL" inputStyleClass="border-round-3xl"></p-inputNumber>
+          <p-inputicon class="pi pi-dollar"></p-inputicon>
+        </p-icon-field>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="dueDay">Data de pagamento:</label>
-        <p-inputNumber id="dueDay" inputId="dueDay" formControlName="dueDay" placeholder="Digite a data do pagamento da conta" fluid [showButtons]="true" [step]="1" [min]="1" [max]="28" prefix="Dia " suffix=" de todo mês"></p-inputNumber>
+        <label for="dueDay">Data de pagamento: <span class="text-red-500">*</span></label>
+        <p-icon-field>
+          <p-inputNumber id="dueDay" inputId="dueDay" formControlName="dueDay" placeholder="Digite a data do pagamento da conta" fluid [min]="1" [max]="28" prefix="Dia " suffix=" de todo mês" inputStyleClass="border-round-3xl"></p-inputNumber>
+          <p-inputicon class="pi pi-calendar"></p-inputicon>
+        </p-icon-field>
       </div>
       <div class="field col-6 md:col-4">
-        <label for="isActive">Conta ativa?</label>
-        <div class="flex items-center gap-2">
-          <p-checkbox [binary]="true" formControlName="isActive" inputId="isActive"></p-checkbox>
+        <label for="isActive">Conta ativa? <span class="text-red-500">*</span></label>
+        <div class="flex items-center gap-2 mx-2">
+          <p-toggle-switch id="isActive" inputId="isActive" formControlName="isActive"></p-toggle-switch>
           <span>{{entityForm.get('isActive')?.value ? 'Sim' : 'Não'}}</span>
         </div>
       </div>

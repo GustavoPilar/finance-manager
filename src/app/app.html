@@ -2,9 +2,11 @@
 
 <div class="fluid">
 
-  @if (pageSettings.canShowMenuBar) {
-    <app-menu-bar></app-menu-bar>
-  }
+  <div class="p-2">
+    @if (pageSettings.canShowMenuBar) {
+      <app-menu-bar></app-menu-bar>
+    }
+  </div>
 
   <div class="p-2 mt-2">
     <router-outlet />

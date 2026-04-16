@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { LocalStorageService } from '../services/utils/local-storage.service';
 import { AuthService } from '../services/auth/authentication.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
@@ -11,6 +10,6 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  router.navigate(['/login']);
+  authService.logout();
   return false;
 };

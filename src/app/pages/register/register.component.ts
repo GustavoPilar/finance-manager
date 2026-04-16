@@ -4,6 +4,7 @@ import { AuthService } from "../../services/auth/authentication.service";
 import { Router } from "@angular/router";
 import { pageSettings } from "../../core/page-settings";
 import { RegisterRequest } from "../../models/auth/register-request";
+import { PrimeIcons } from "primeng/api";
 
 @Component({
   selector: "app-register",
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       fullName: [null, Validators.required],
       email: [null, Validators.required],
-      password: [null, Validators.required]
+      password: [null, Validators.required, Validators.minLength(6)]
     });
   }
 
@@ -49,10 +50,10 @@ export class RegisterComponent implements OnInit {
    * @returns {boolean} Valor booleano
    */
   public validForm(): boolean {
-    if (!this.registerForm || !this.registerForm.valid)
+    if (!this.registerForm)
       return false;
 
-    return true;
+    return this.registerForm.valid;
   }
 
   /**

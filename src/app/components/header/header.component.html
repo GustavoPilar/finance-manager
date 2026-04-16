@@ -1,0 +1,14 @@
+<div class="w-full p-2 text-center line-height-4 text-white border-round-bottom-3xl" style="background-color: black;">
+  <h2 class="p-2">
+    @if (iconPos == "left") {
+      <i [class]="icon + ' text-' + size"></i>
+    }
+
+    {{title}}
+
+    @if (iconPos == "right") {
+      <i [class]="icon + ' ' + size"></i>
+    }
+  </h2>
+  <p class="p-2">{{description}}</p>
+</div>

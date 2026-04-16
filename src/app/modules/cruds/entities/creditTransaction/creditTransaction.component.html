@@ -2,24 +2,53 @@
   <form [formGroup]="entityForm" class="p-2">
     <div class="grid">
       <div class="field col-12 md:col-6">
-        <label for="description">Descrição:</label>
-        <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da compra" fluid>
+        <label for="description">Descrição: <span class="text-red-500">*</span></label>
+        <p-icon-field>
+          <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da compra" fluid class="border-round-3xl">
+          <p-inputicon class="pi pi-pencil"></p-inputicon>
+        </p-icon-field>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="totalAmount">Valor da compra:</label>
-        <p-inputNumber id="totalAmount" inputId="totalAmount" formControlName="totalAmount" placeholder="Digite o valor da compra" fluid [showButtons]="true" [step]="1" [min]="0" mode="currency" currency="BRL"></p-inputNumber>
+        <label for="totalAmount">Valor da compra: <span class="text-red-500">*</span></label>
+        <p-icon-field>
+          <p-inputNumber id="totalAmount" inputId="totalAmount" formControlName="totalAmount" placeholder="Digite o valor da compra" fluid [min]="0" mode="currency" currency="BRL" inputStyleClass="border-round-3xl"></p-inputNumber>
+          <p-inputicon class="pi pi-dollar"></p-inputicon>
+        </p-icon-field>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="totalInstallments">Quantide de parcelas:</label>
-        <p-inputNumber id="totalInstallments" inputId="totalInstallments" formControlName="totalInstallments" placeholder="Digite quantidade de parcelas da compra" fluid [showButtons]="true" [step]="1" [min]="1" suffix=" parcela(s)"></p-inputNumber>
+        <label for="totalInstallments">Quantide de parcelas: <span class="text-red-500">*</span></label>
+        <p-icon-field>
+          <p-inputNumber id="totalInstallments" inputId="totalInstallments" formControlName="totalInstallments" placeholder="Digite quantidade de parcelas da compra" fluid [min]="1" suffix=" parcela(s)" inputStyleClass="border-round-3xl"></p-inputNumber>
+          <p-inputicon class="pi pi-calculator"></p-inputicon>
+        </p-icon-field>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="purchaseDate">Data da compra:</label>
-        <p-date-picker id="purchaseDate" inputId="purchaseDate" formControlName="purchaseDate" fluid [showIcon]="true" [showClear]="true" dateFormat="dd/mm/yy" [readonlyInput]="true"></p-date-picker>
+        <label for="purchaseDate">Data da compra: <span class="text-red-500">*</span></label>
+        <p-icon-field>
+          <p-date-picker id="purchaseDate" inputId="purchaseDate" formControlName="purchaseDate" fluid dateFormat="dd/mm/yy" [readonlyInput]="true" inputStyleClass="border-round-3xl"></p-date-picker>
+          <p-inputicon class="pi pi-calendar"></p-inputicon>
+        </p-icon-field>
       </div>
       <div class="field col-12 md:col-6">
         <label for="categoryId">Categoria:</label>
-        <p-select [options]="categories" optionLabel="description" optionValue="id" inputId="categoryId" formControlName="categoryId" placeholder="Selecione a categoria da compra" fluid></p-select>
+        <p-select [options]="categories" optionLabel="description" optionValue="id" inputId="categoryId" formControlName="categoryId" placeholder="Selecione a categoria da compra" fluid class="border-round-3xl" panelStyleClass="border-round-2xl">
+          <ng-template #selectedItem let-item>
+            <div class="w-full flex justify-content-left align-items-center gap-2">
+              <span class="p-2 border-round" [style]="{'backgroundColor' : item.color}"></span>
+              <span>
+                {{item.description}}
+              </span>
+            </div>
+          </ng-template>
+          <ng-template #item let-item>
+            <div class="w-full flex justify-content-left align-items-center gap-2">
+              <span class="p-2 border-round" [style]="{'backgroundColor' : item.color}"></span>
+              <span>
+                {{item.description}}
+              </span>
+            </div>
+          </ng-template>
+        </p-select>
       </div>
     </div>
   </form>

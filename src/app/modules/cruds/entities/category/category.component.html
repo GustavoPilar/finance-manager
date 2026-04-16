@@ -2,19 +2,20 @@
   <form [formGroup]="entityForm" class="p-2">
     <div class="grid">
       <div class="field col-12 md:col-6">
-        <label for="description">Descrição:</label>
-        <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da categoria" fluid>
+        <label for="description">Descrição: <span class="text-red-500">*</span></label>
+        <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da categoria" fluid class="border-round-3xl">
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="color">Cor da categoria:</label>
+        <p-colorpicker formControlName="color" inputId="color" class="mx-1"/> <span class="text-red-500">*</span>
+        <input type="text" pInputText [placeholder]="entityForm.get('color')?.value" fluid class="border-round-3xl" [disabled]="true">
+        <small class="mx-2">A cor escolhida será usada pelo relatório.</small>
       </div>
       <div class="field col-6 md:col-4">
-        <div class="flex items-center gap-2">
-          <p-colorpicker formControlName="color" inputId="cp-hex" />
-          <span>Cor: <span [style]="{'color' : entityForm.get('color')?.value}">{{ entityForm.get("color")?.value }}</span></span>
-        </div>
-      </div>
-      <div class="field col-6 md:col-4">
-        <div class="flex items-center gap-2">
-          <p-checkbox [binary]="true" formControlName="isActive" inputId="isActive"></p-checkbox>
-          <label for="isActive">Categoria ativa?</label>
+        <label for="isActive">Categoria ativa?</label>
+        <div class="flex items-center gap-2 mx-2">
+           <p-toggle-switch id="isActive" inputId="isActive" formControlName="isActive"></p-toggle-switch>
+          <label for="isActive">{{entityForm.get('isActive')?.value ? 'Sim' : 'Não'}}</label>
         </div>
       </div>
     </div>

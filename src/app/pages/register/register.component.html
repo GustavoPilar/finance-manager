@@ -1,37 +1,52 @@
 <p-toast id="register_success" (onClose)="onCloseToast()"></p-toast>
 
-<div class="fluid flex justify-content-center align-items-center">
-  <div class="p-2 border-round-lg">
+<app-header title="Finance Manager" description="Crie sua conta e comece a organizar sua vida financeira."></app-header>
 
-    <img src="assets/image/login.jpg" class="w-w-full h-22rem">
+<div class="fluid p-2 my-3">
 
-    <div class="w-full text-center my-4">
-      <h1 class="my-2">Finance Manager</h1>
+  <div class="w-full max-w-30rem m-auto ">
+    <div class="p-2">
+      <p class="text-3xl mb-4 text-center">Cadrastro <i class="pi pi-user-edit text-3xl"></i></p>
 
-      <p>Sua aplicação para gerenciamento de contas</p>
+      <form [formGroup]="registerForm">
+        <div class="grid">
+          <!-- Start FullName -->
+          <div class="field col-12">
+            <label for="fullName" class="mx-3">Nome</label>
+            <p-icon-field>
+              <input type="text" pInputText id="fullName" formControlName="fullName" placeholder="Digite o nome de usuário" fluid class="border-round-3xl p-3" />
+              <p-inputicon class="pi pi-user" />
+            </p-icon-field>
+          </div>
+          <!-- End FullName -->
+          <!-- Start Email -->
+          <div class="field col-12">
+            <label for="email" class="mx-3">Email</label>
+            <p-icon-field>
+              <input type="text" pInputText id="email" formControlName="email" placeholder="Digite o e-mail de usuário" fluid class="border-round-3xl p-3" />
+              <p-inputicon class="pi pi-at" />
+            </p-icon-field>
+          </div>
+          <!-- End Email -->
+          <!-- Start Password -->
+          <div class="field col-12">
+            <label for="password" class="mx-3">Senha</label>
+            <p-password id="password" inputId="password" formControlName="password" placeholder="Crie a senha de usuário" fluid [feedback]="false" [showClear]="true" toggleMask inputStyleClass="border-round-3xl p-3"></p-password>
+            <div class="w-full mx-3 mt-3">
+              <small>A senha deve conter pelo menos 6 caracteres</small>
+            </div>
+          </div>
+          <!-- End Password -->
+        </div>
+      </form>
     </div>
 
-    <form [formGroup]="registerForm">
-      <div class="grid">
-        <div class="field col-12">
-          <label for="fullName">Nome:</label>
-          <input type="text" pInputText id="fullName" formControlName="fullName" placeholder="Digite o nome de usuário" fluid>
-        </div>
-        <div class="field col-12">
-          <label for="email">E-mail:</label>
-          <input type="text" pInputText id="email" formControlName="email" placeholder="Digite o e-mail de usuário" fluid>
-        </div>
-        <div class="field col-12">
-          <label for="password">Senha:</label>
-          <p-password inputId="password" id="password" formControlName="password" placeholder="Digite a senha de usuário" fluid [feedback]="false" />
-        </div>
-        <div class="field col-12">
-          <div class="w-full flex justify-content-between align-items-center">
-            <p-button variant="text" label="Login" iconPos="right" icon="pi pi-arrow-left" severity="info" fluid (onClick)="login()"></p-button>
-            <p-button variant="text" label="Registrar" iconPos="right" icon="pi pi-user" fluid (onClick)="register()" [disabled]="!validForm()"></p-button>
-          </div>
-        </div>
-      </div>
-    </form>
+    <div class="p-2 flex justify-content-between align-items-center">
+      <p-button variant="text" label="login" icon="pi pi-arrow-left" severity="info" (onClick)="login()"></p-button>
+      <p-button icon="pi pi-arrow-right" rounded severity="contrast" (onClick)="register()" [disabled]="!validForm()"></p-button>
+    </div>
   </div>
+
+
+
 </div>

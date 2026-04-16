@@ -8,6 +8,12 @@ import { InstallmentComponent } from "./installment/installment.component";
 import { SelectModule } from "primeng/select";
 import { ButtonModule } from "primeng/button";
 import { TagModule } from "primeng/tag";
+import { DividerModule } from "primeng/divider";
+import { InputNumberModule } from "primeng/inputnumber";
+import { InputTextModule } from "primeng/inputtext";
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from "primeng/api";
+import { ToastModule } from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -23,10 +29,16 @@ import { TagModule } from "primeng/tag";
 
     SelectModule,
     ButtonModule,
-    TagModule
+    TagModule,
+    DividerModule,
+    InputNumberModule,
+    InputTextModule,
+    ConfirmDialogModule,
+    ToastModule
   ],
   providers: [
-
+    ConfirmationService,
+    MessageService
   ]
 })
 export class ApplicationModule { }

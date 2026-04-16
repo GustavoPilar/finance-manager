@@ -15,10 +15,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { MessageService } from 'primeng/api';
 import { authInterceptor } from './interceptors/auth-interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
+import { DividerModule } from 'primeng/divider';
+
 @NgModule({
   declarations: [
     App,
@@ -34,14 +39,16 @@ import { RegisterComponent } from './pages/register/register.component';
     ComponentsModule,
     CrudsModule,
     ApplicationModule,
-
     NgxSpinnerModule.forRoot({ type: "ball-atom" }),
-
     ButtonModule,
     InputTextModule,
     PasswordModule,
-    ToastModule
-  ],
+    ToastModule,
+    FloatLabelModule,
+    IconFieldModule,
+    InputIconModule,
+    DividerModule
+],
   providers: [
     provideBrowserGlobalErrorListeners(),
     providePrimeNG({
@@ -56,7 +63,9 @@ import { RegisterComponent } from './pages/register/register.component';
         dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
         monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
         monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-        emptyMessage: "Nenhum registro"
+        emptyMessage: "Nenhum registro",
+        accept: "Sim",
+        reject: "Não"
       }
     }),
     MessageService,

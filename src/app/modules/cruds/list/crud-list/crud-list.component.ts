@@ -82,6 +82,10 @@ export class CrudListComponent implements OnInit, AfterViewInit {
 
   //#region Members :: getColumnVale(), editEntity(), newEntity(), removeEntity()
 
+  public isBooleanColumn(column: DisplayColumn): boolean {
+    return column.columnType == ColumnTypeEnum.Boolean;
+  }
+
   /**
    * @description Verifica o tipo do valor da coluna e faz a trativa correta para a o retorna do valor legível
    * @returns {string} String
@@ -96,7 +100,7 @@ export class CrudListComponent implements OnInit, AfterViewInit {
     if (column.prefix)
       value += `${column.prefix} `;
 
-    if (column.columnType == ColumnTypeEnum.Boolean)
+    if (this.isBooleanColumn(column))
       value += result ? "Sim" : "Não";
     else if (column.columnType == ColumnTypeEnum.Date)
       value += new Date(result).toLocaleDateString("PT-BR");
@@ -106,7 +110,7 @@ export class CrudListComponent implements OnInit, AfterViewInit {
       value += result;
 
     if (column.suffix)
-      value += ` ${column.prefix}`;
+      value += ` ${column.suffix}`;
 
     return value;
   }

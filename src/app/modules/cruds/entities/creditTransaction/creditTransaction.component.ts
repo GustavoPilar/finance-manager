@@ -73,6 +73,11 @@ export class CreditTransactionComponent extends CrudBaseComponent<CreditTransact
         prefix: "R$ "
       },
       {
+        field: "purchaseDate",
+        description: "Data da compra",
+        columnType: ColumnTypeEnum.Date
+      },
+      {
         field: "totalInstallments",
         description: "Qtd. Parcelas",
         columnType: ColumnTypeEnum.Numeric

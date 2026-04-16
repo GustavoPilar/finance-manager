@@ -74,7 +74,7 @@ export class CategoryComponent extends CrudBaseComponent<Category> implements On
   public override initForm(): void {
     this.entityForm = this.formBuilder.group({
       description: [this.selectedEntity?.description ?? null, Validators.required],
-      color: [this.selectedEntity?.color ?? null, Validators.required],
+      color: [this.selectedEntity?.color ?? "#000", Validators.required],
       isActive: [this.selectedEntity?.isActive ?? false, Validators.required],
     });
   }

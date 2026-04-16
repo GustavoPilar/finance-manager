@@ -4,7 +4,7 @@ import { pageSettings } from "../../core/page-settings";
 import { LoaderService } from "../../services/utils/loader.service";
 import { ApiService } from "../../services/communication/api.service";
 import { AuthService } from "../../services/auth/authentication.service";
-import { MessageService } from "primeng/api";
+import { MessageService, PrimeIcons } from "primeng/api";
 import { LocalStorageService } from "../../services/utils/local-storage.service";
 import { LoginRequest } from "../../models/auth/login-request";
 import { Router } from "@angular/router";
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   //#region Fields
 
-  loginForm!: FormGroup;
+  public loginForm!: FormGroup;
 
   //#endregion
 
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
   private initLoginForm(): void {
     this.loginForm = this.formBuilder.group({
       email: [null, Validators.required],
-      password: [null, Validators.required]
+      password: [null, [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -56,10 +56,10 @@ export class LoginComponent implements OnInit {
    * @returns {boolean} Valor booleano
    */
   public validForm(): boolean {
-    if (!this.loginForm || !this.loginForm.valid)
+    if (!this.loginForm)
       return false;
 
-    return true;
+    return this.loginForm.valid;
   }
 
   /**

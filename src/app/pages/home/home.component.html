@@ -1,2 +1,35 @@
-<h1 class="text-center my-3"><i class="pi pi-home text-2xl"></i> Home</h1>
-<app-card-list [items]="items"></app-card-list>
+<div class="w-full p-2 text-center line-height-4 text-white border-round-bottom-3xl" style="background-color: black;">
+  <h1 class="p-2">Finance Manager</h1>
+  <p class="p-2">Tenha controle total das suas finanças em um só lugar! Acompanhe seus gastos, organize sua renda e tome decisões mais inteligentes.</p>
+</div>
+
+<div class="w-full p-2 text-center my-3">
+  @for (item of items; track $index) {
+
+    <div class="w-full p-2 line-height-4">
+      <h2>{{item.label}}</h2>
+
+      <p>{{item.tooltip}}</p>
+    </div>
+
+    <div class="grid">
+      @for (child of item.items; track $index) {
+        <div class="field col-8 md:col-5 lg:col-3 shadow-2 border-round-2xl m-auto my-2 cursor-pointer" (click)="navigateTo(child.routerLink)">
+          <div class="w-full p-2 flex justify-content-between align-items-center mb-1">
+            <h3>{{child.label}}</h3>
+            <i [class]="child.icon"></i>
+          </div>
+
+          <div class="w-full p-3 my-1 text-left bg-gray-100 border-round line-height-3">
+            <p>{{child.tooltip}}</p>
+          </div>
+
+          <div class="w-full p-2 text-right">
+            <p-button rounded icon="pi pi-arrow-right" size="small" severity="contrast"></p-button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+

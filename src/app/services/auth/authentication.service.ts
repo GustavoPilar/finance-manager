@@ -57,6 +57,8 @@ export class AuthService {
 
         const url: string = `${API_URL}/auth/login`;
 
+        login.email = login.email.toLowerCase();
+
         this.httpClient.post(url, login, { headers: { "Content-Type": "application/json" } }).subscribe({
           next: (result: any) => {
             this.localStorageService.SetItem(this.keySecurity, result.token);

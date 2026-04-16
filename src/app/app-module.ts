@@ -15,10 +15,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { MessageService } from 'primeng/api';
 import { authInterceptor } from './interceptors/auth-interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
+import { Message } from "primeng/message";
+
+
 @NgModule({
   declarations: [
     App,
@@ -34,14 +40,15 @@ import { RegisterComponent } from './pages/register/register.component';
     ComponentsModule,
     CrudsModule,
     ApplicationModule,
-
     NgxSpinnerModule.forRoot({ type: "ball-atom" }),
-
     ButtonModule,
     InputTextModule,
     PasswordModule,
-    ToastModule
-  ],
+    ToastModule,
+    FloatLabelModule,
+    IconFieldModule,
+    InputIconModule
+],
   providers: [
     provideBrowserGlobalErrorListeners(),
     providePrimeNG({

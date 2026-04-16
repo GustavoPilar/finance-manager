@@ -1,12 +1,20 @@
 <p-toast></p-toast>
 
-<div class="fluid shadow-2 border-round">
-  <div class="w-full bg-blue-100 p-2">
-    <h2>{{getFormDescription()}}</h2>
+<div class="w-full p-2 text-center line-height-4 text-white border-round-bottom-3xl" style="background-color: black;">
+  <h2 class="p-2"><i [class]="getIcon() + ' text-xl'"></i> {{getFormDescription()}}</h2>
+</div>
+
+<div class="fluid p-2 my-3">
+
+  <div class="w-full m-auto shadow-2 border-round">
+    <div class="p-2">
+      <div #crudForm></div>
+      <div class="p-2 flex justify-content-between align-items-center">
+        <p-button variant="text" label="Cancelar" icon="pi pi-undo" iconPos="right" severity="danger" (onClick)="returnToList()"></p-button>
+        <p-button icon="pi pi-arrow-right" rounded severity="contrast" (onClick)="save()" [disabled]="!canSave()"></p-button>
+      </div>
+    </div>
+
   </div>
-  <div #crudForm></div>
-  <div class="p-2 flex justify-content-between align-items-center">
-    <p-button variant="text" label="Cancelar" icon="pi pi-undo" iconPos="right" severity="danger" (onClick)="returnToList()"></p-button>
-    <p-button label="Salvar" icon="pi pi-send" iconPos="left" severity="primary" (onClick)="save()" [disabled]="!canSave()"></p-button>
-  </div>
+
 </div>

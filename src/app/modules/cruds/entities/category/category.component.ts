@@ -14,6 +14,7 @@ import { LoaderService } from "../../../../services/utils/loader.service";
   selector: "app-category",
   standalone: false,
   templateUrl: "./category.component.html",
+  styleUrl: "./category.component.css",
   providers: [CrudManagerService]
 })
 export class CategoryComponent extends CrudBaseComponent<Category> implements OnInit {

@@ -2,7 +2,7 @@ import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, Input, O
 import { CrudBaseComponent } from "../../base/crud-base.component";
 import { Router } from "@angular/router";
 import { TypeDescription } from "../../../../models/base/list/type-description";
-import { MessageService } from "primeng/api";
+import { MessageService, PrimeIcons } from "primeng/api";
 
 @Component({
   selector: "app-crud-form",
@@ -106,9 +106,15 @@ export class CrudFormComponent implements OnInit, AfterViewInit {
       let prefix: string = description.isFemale ? "Nova " : "Novo ";
       return prefix + description.single;
     }
-
-
   }
+
+  public getIcon(): string | PrimeIcons {
+    if (!this.crudBaseComponent)
+      return PrimeIcons.PENCIL;
+
+    return this.crudBaseComponent.icon;
+  }
+
 
   /**
    * @description Retorna para a lista de registros

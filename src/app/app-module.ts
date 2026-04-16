@@ -22,8 +22,7 @@ import { MessageService } from 'primeng/api';
 import { authInterceptor } from './interceptors/auth-interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
-import { Message } from "primeng/message";
-
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -47,7 +46,8 @@ import { Message } from "primeng/message";
     ToastModule,
     FloatLabelModule,
     IconFieldModule,
-    InputIconModule
+    InputIconModule,
+    DividerModule
 ],
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -63,7 +63,9 @@ import { Message } from "primeng/message";
         dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
         monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
         monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-        emptyMessage: "Nenhum registro"
+        emptyMessage: "Nenhum registro",
+        accept: "Sim",
+        reject: "Não"
       }
     }),
     MessageService,

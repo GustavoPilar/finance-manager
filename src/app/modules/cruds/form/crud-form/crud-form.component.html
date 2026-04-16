@@ -1,8 +1,6 @@
 <p-toast></p-toast>
 
-<div class="w-full p-2 text-center line-height-4 text-white border-round-bottom-3xl" style="background-color: black;">
-  <h2 class="p-2"><i [class]="getIcon() + ' text-xl'"></i> {{getFormDescription()}}</h2>
-</div>
+<app-header [title]="getFormDescription()" [icon]="getIcon()" size="2xl"></app-header>
 
 <div class="fluid p-2 my-3">
 

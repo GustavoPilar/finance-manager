@@ -55,11 +55,11 @@ export class MenuSelectionService {
    */
   public getApplicationItem(): MenuItem {
     const root: MenuItem = {
-      label: "Aplicação",
+      label: "Financeiro",
       icon: PrimeIcons.DESKTOP,
-      routerLink: "application",
+      tooltip: "Gerencie suas movimentações financeiras, acompanhe seus gastos e realize pagamentos das faturas.",
       items: [
-        this.createMenuItem("Parcelas", PrimeIcons.FILE_CHECK, "Pague parcelas", this.application_root + "installment")
+        this.createMenuItem("Gerenciar Parcelas", PrimeIcons.FILE_CHECK, "Gerenciamento das parcelas geradas e abertas.", this.application_root + "installment")
       ]
     };
 

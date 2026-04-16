@@ -5,15 +5,18 @@ import { MenuBarComponent } from "./menu-bar/menu-bar.component";
 import { CardListComponent } from "./card-list/card-list.component";
 import { ButtonModule } from "primeng/button";
 import { AppRoutingModule } from "../app-routing-module";
+import { HeaderComponent } from "./header/header.component";
 
 @NgModule({
   declarations: [
     MenuBarComponent,
-    CardListComponent
+    CardListComponent,
+    HeaderComponent
   ],
   exports: [
     MenuBarComponent,
-    CardListComponent
+    CardListComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

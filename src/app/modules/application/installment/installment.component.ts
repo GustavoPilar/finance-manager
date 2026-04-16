@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ApiService } from "../../../services/communication/api.service";
 import { LoaderService } from "../../../services/utils/loader.service";
+import { ConfirmationService, MessageService, PrimeIcons } from "primeng/api";
 
 @Component({
   selector: "app-installment",
@@ -18,6 +19,10 @@ export class InstallmentComponent implements OnInit {
 
   public installments: any[] = [];
 
+  public confirmModal: boolean = false;
+
+  public selectedInstallment: any = null;
+
   //#endregion
 
   //#region Constructor
@@ -25,7 +30,9 @@ export class InstallmentComponent implements OnInit {
     private formBuilder: FormBuilder,
     private apiService: ApiService,
     private loaderService: LoaderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {
 
   }
@@ -105,19 +112,33 @@ export class InstallmentComponent implements OnInit {
     return new Promise<void>((resolve, reject) => {
       try {
         this.loaderService.show();
-        console.log("Entrou");
+        this.confirmModal = false;
 
-        installment.isPaid = true;
+        installment.isPaid = !installment.isPaid;
         installment.paymentDate = new Date();
 
         this.apiService.updateEntity("installment", installment, installment.id).subscribe({
           next: (result: any) => {
+
+            this.messageService.add({
+              severity: "success",
+              summary: "Parcela atualizada!",
+              detail: "Atualização realizada com sucesso."
+            });
+
             this.cdr.detectChanges();
             this.loaderService.hide();
             resolve();
           },
           error: (err) => {
             console.log(err);
+
+            this.messageService.add({
+              severity: "error",
+              summary: "Erro!",
+              detail: "Erro ao atualizar a parcela."
+            });
+
             this.loaderService.hide();
             installment.isPaid = false;
             installment.paymentDate = false;
@@ -133,14 +154,36 @@ export class InstallmentComponent implements OnInit {
     })
   }
 
+  public onCloseModal(): void {
+    this.confirmModal = false;
+    this.selectedInstallment = null;
+
+    this.messageService.add({
+      severity: "info",
+      summary: "Cancelamento",
+      detail: "Atualização foi cancelada."
+    });
+  }
+
+  public openModal(installment: any): void {
+    this.confirmModal = true;
+    this.selectedInstallment = installment;
+  }
+
   public getBooleanValue(isPaid: boolean): string {
-    return isPaid ? "Pago" : "Aberta";
+    return isPaid ? "Concluída" : "Aberta";
   }
 
   public getTagSeverity(isPaid: boolean): "success" | "danger" {
     return isPaid ? "success" : "danger";
   }
 
+  public validForm(): boolean {
+    if (!this.form)
+      return false;
+
+    return this.form.valid;
+  }
   //#endregion
 
 }

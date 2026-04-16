@@ -2,9 +2,7 @@
 
 @if (crudBaseComponent && crudBaseComponent.crudManagerService) {
 
-  <div class="w-full p-2 text-center line-height-4 text-white border-round-bottom-3xl" style="background-color: black;">
-    <h2 class="p-2">{{crudBaseComponent.getTypeDescription().plural}} <i [class]="crudBaseComponent.icon + ' text-2xl'"></i></h2>
-  </div>
+  <app-header [title]="crudBaseComponent.getTypeDescription().plural" [icon]="crudBaseComponent.icon" size="2xl"></app-header>
 
   <div class="w-full p-2 text-right">
     <p-button icon="pi pi-plus" severity="contrast" (onClick)="newEntity()" [hidden]="crudBaseComponent.isOnlyRead || !crudBaseComponent.entities.length"></p-button>
@@ -21,29 +19,32 @@
     </div>
   }
 
-  @for (entity of crudBaseComponent.entities; track $index) {
-    <div class="fluid max-w-80rem p-2 shadow-3 border-round my-3">
-      <div class="w-full flex justify-content-between align-items-center mb-3">
-        <p class="text-2xl">{{entity.description}}</p>
-        <div class="flex justify-content-between align-items-center p-2 gap-2">
-          <p-button icon="pi pi-pencil" severity="contrast" size="small" rounded (onClick)="editEntity(entity)"></p-button>
-          <p-button icon="pi pi-trash" severity="danger" size="small" rounded (onClick)="removeEntity(entity.id)" [disabled]="crudBaseComponent.isOnlyRead"></p-button>
+  <div class="grid p-2">
+    @for (entity of crudBaseComponent.entities; track $index) {
+      <div class="field col-11 md:col-5 lg:col-3 m-auto p-2 shadow-3 border-round my-3">
+        <div class="w-full flex justify-content-between align-items-center mb-3">
+          <p class="text-2xl">{{entity.description}}</p>
+          <div class="flex justify-content-between align-items-center p-2 gap-2">
+            <p-button icon="pi pi-pencil" severity="contrast" size="small" rounded (onClick)="editEntity(entity)"></p-button>
+            <p-button icon="pi pi-trash" severity="danger" size="small" rounded (onClick)="removeEntity(entity.id)" [disabled]="crudBaseComponent.isOnlyRead"></p-button>
+          </div>
+        </div>
+        <div class="w-full bg-gray-100 p-2 line-height-4 border-round mb-1">
+          @for (column of crudBaseComponent.getDisplayColumn(); track $index) {
+            <p>
+              {{column.description}} :
+
+              @if (isBooleanColumn(column)) {
+                <p-tag [severity]="entity[column.field] == true ? 'success' : 'danger'" [icon]="entity[column.field] == true ? 'pi pi-check' : 'pi pi-times'">{{getColumnValue(entity, column)}}</p-tag>
+              }
+              @else {
+                <span class="font-bold">{{getColumnValue(entity, column)}}</span>
+              }
+            </p>
+          }
         </div>
       </div>
-      <div class="w-full bg-gray-100 p-2 line-height-4 border-round mb-1">
-        @for (column of crudBaseComponent.getDisplayColumn(); track $index) {
-          <p>
-            {{column.description}} :
+    }
+  </div>
 
-            @if (isBooleanColumn(column)) {
-              <p-tag [severity]="entity[column.field] == true ? 'success' : 'danger'" [icon]="entity[column.field] == true ? 'pi pi-check' : 'pi pi-times'">{{getColumnValue(entity, column)}}</p-tag>
-            }
-            @else {
-              <span class="font-bold">{{getColumnValue(entity, column)}}</span>
-            }
-          </p>
-        }
-      </div>
-    </div>
-  }
 }

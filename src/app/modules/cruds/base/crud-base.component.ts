@@ -248,4 +248,15 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
   }
   //#endregion
 
+  //#region Members 'CrudManager' :: saveEntity(), removeEntity(), updateEntity()
+
+  public saveEntity(entity: any): Observable<any> {
+    return this.saveEntity(entity);
+  }
+
+  public deleteEntity(id: number): Observable<any> {
+    return this.crudManagerService.delete(id);
+  }
+  //#endregion
+
 }

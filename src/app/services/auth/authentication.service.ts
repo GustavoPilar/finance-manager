@@ -16,7 +16,7 @@ export class AuthService {
   //#region Fields
 
   /** Nome para chave de segurança */
-  private keySecurity: string = "key_security"
+  private keySecurity: string = "UserProfile"
 
   /** Id do toast de sucesso */
   public loginSuccessId: string = "login_success";
@@ -61,7 +61,7 @@ export class AuthService {
 
         this.httpClient.post(url, login, { headers: { "Content-Type": "application/json" } }).subscribe({
           next: (result: any) => {
-            this.localStorageService.SetItem(this.keySecurity, result.token);
+            this.localStorageService.SetItem(this.keySecurity, JSON.stringify(result));
             this.loaderService.hide();
 
             this.showMessage("success", "Bem vindo(a)!", "Aguarde um instante, você será redirecionado.", this.loginSuccessId);
@@ -72,7 +72,7 @@ export class AuthService {
             console.log(err);
             this.localStorageService.RemoveItem(this.keySecurity);
             this.loaderService.hide();
-            this.showMessage("error", "Erro!", "Erro ao fazer o login.", this.loginErrorId);
+            this.showMessage("error", "Erro!", err.error.errorMessage , this.loginErrorId);
             reject();
           }
         });
@@ -90,10 +90,11 @@ export class AuthService {
    * @param register Formulário
    * @returns {Promise<boolean>}
    */
-  public async registerFlow(register: RegisterRequest): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
+  public async registerFlow(register: RegisterRequest): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
       try {
         this.loaderService.show();
+        register.email = register.email.toLowerCase();
 
         const url: string = `${API_URL}/auth/register`;
 
@@ -101,21 +102,31 @@ export class AuthService {
           next: (result: any) => {
             this.loaderService.hide();
             this.showMessage("success", "Bem vindo(a)!", "Aguarde um instante, você será redirecionado.", this.registerSuccessId);
-            resolve();
+            resolve(true);
           },
           error: (err: any) => {
             console.log(err);
             this.localStorageService.RemoveItem(this.keySecurity);
             this.loaderService.hide();
-            this.showMessage("error", "Erro!", "Erro ao fazer o cadastro.", this.registerErrorId);
-            reject();
+
+            let errorMessage: string = "Erro ao fazer o cadastro";
+
+            if (err.error.length > 0) {
+              err.error.forEach((error: any) => {
+                if (error.code == "DuplicateUserName")
+                  errorMessage = "Email já existente.";
+              });
+            }
+
+            this.showMessage("error", "Erro!", errorMessage, this.registerErrorId);
+            reject(false);
           }
         });
 
       } catch (error) {
         console.log(error);
         this.loaderService.hide();
-        reject();
+        reject(false);
       }
     })
   }
@@ -138,7 +149,12 @@ export class AuthService {
    * @returns {any} Token
    */
   public GetToken(): any {
-    return this.localStorageService.GetItem(this.keySecurity);
+    const userProfile: any = this.localStorageService.GetItem(this.keySecurity);
+
+    if (!userProfile)
+      return null;
+
+    return userProfile.token;
   }
 
   /**
@@ -171,12 +187,12 @@ export class AuthService {
    */
   private showMessage(severity: "error" | "success", summary: string, detail: string, id: string): void {
     this.messageService.add({
-      id,
+      key: id,
       severity,
       summary,
       detail,
       closable: true,
-      life: 1500
+      life: 2000
     });
   }
 

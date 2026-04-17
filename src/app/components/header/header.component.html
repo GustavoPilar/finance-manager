@@ -1,14 +1,20 @@
 <div class="w-full p-2 text-center line-height-4 text-white border-round-bottom-3xl" style="background-color: black;">
-  <h2 class="p-2">
-    @if (iconPos == "left") {
-      <i [class]="icon + ' text-' + size"></i>
-    }
+  <div class="w-full flex justify-content-between align-items-center p-2">
+    <h2 class="p-2">
+      @if (iconPos == "left") {
+        <i [class]="icon + ' text-' + size"></i>
+      }
 
-    {{title}}
+      {{title}}
 
-    @if (iconPos == "right") {
-      <i [class]="icon + ' ' + size"></i>
+      @if (iconPos == "right") {
+        <i [class]="icon + ' ' + size"></i>
+      }
+    </h2>
+
+    @if (showButton) {
+      <p-button [icon]="buttonIcon" [label]="buttonLabel" styleClass="bg-white border-white text-gray-900" (onClick)="buttonCommandEmit()"></p-button>
     }
-  </h2>
+  </div>
   <p class="p-2">{{description}}</p>
 </div>

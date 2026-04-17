@@ -24,7 +24,7 @@ export class LocalStorageService {
     if (!item)
       return null;
 
-    return item;
+    return JSON.parse(item);
   }
 
   //#endregion

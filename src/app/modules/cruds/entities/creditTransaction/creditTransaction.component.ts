@@ -52,7 +52,7 @@ export class CreditTransactionComponent extends CrudBaseComponent<CreditTransact
   }
 
   public override getDescription(entity: CreditTransaction): string {
-    return entity.description;
+    return entity.name;
   }
 
   public override getTypeDescription(): TypeDescription {
@@ -93,12 +93,18 @@ export class CreditTransactionComponent extends CrudBaseComponent<CreditTransact
       purchaseDate = new Date(this.selectedEntity.purchaseDate);
     }
 
+    let category: any = null;
+    if (this.selectedEntity?.categoryId) {
+      category = this.categories.find(x => x.id == this.selectedEntity.categoryId);
+    }
+
     this.entityForm = this.formBuilder.group({
+      name: [this.selectedEntity?.name ?? null, Validators.required],
       description: [this.selectedEntity?.description ?? null, Validators.required],
-      categoryId: [this.selectedEntity?.categoryId ?? null, Validators.required],
+      category: [category, Validators.required],
       totalAmount: [this.selectedEntity?.totalAmount ?? null, Validators.required],
       totalInstallments: [this.selectedEntity?.totalInstallments ?? null, Validators.required],
-      purchaseDate: [purchaseDate ?? null, Validators.required]
+      purchaseDate: [purchaseDate, Validators.required]
     });
   }
 
@@ -106,11 +112,30 @@ export class CreditTransactionComponent extends CrudBaseComponent<CreditTransact
     return forkJoin({
       categories: this.apiService.getEntities("category")
     }).pipe(
-      tap(({categories}) => {
+      tap(({ categories }) => {
         this.categories = categories;
       })
     );
   }
+
+  // public override prepareEntity(): CreditTransaction {
+  //   let entity = this.entityForm.value;
+
+  //   if (entity.category != null)
+  //     entity.categoryId == entity.category.id;
+
+  //   return entity;
+  // }
+
+  public override prepareEntity(): CreditTransaction {
+    let entity = this.entityForm.value;
+
+    if (entity.category != null)
+      entity.categoryId = entity.category.id;
+
+    return entity;
+  }
+
 
   //#endregion
 

@@ -1,3 +1,13 @@
-<h1 class="text-center my-3"><i class="pi pi-list text-3xl"></i> Cadastros</h1>
+<app-header title="Gerenciamento" description="Escolha uma opção abaixo para começar a gerenciar seu dinheiro" icon="pi pi-list" size="2xl"></app-header>
 
-<app-card-list [items]="items" ></app-card-list>
+<p-divider></p-divider>
+
+<div class="w-full p-2 text-center my-3">
+
+  <div class="grid gap-2">
+    @for (item of items; track $index) {
+      <app-card [title]="item.label!" [description]="item.tooltip!" [icon]="item.icon!" [command]="() => navigateTo(item.routerLink)"></app-card>
+    }
+  </div>
+
+</div>

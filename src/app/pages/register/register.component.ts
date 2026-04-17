@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { pageSettings } from "../../core/page-settings";
 import { RegisterRequest } from "../../models/auth/register-request";
 import { PrimeIcons } from "primeng/api";
+import { LoginRequest } from "../../models/auth/login-request";
 
 @Component({
   selector: "app-register",
@@ -39,9 +40,9 @@ export class RegisterComponent implements OnInit {
 
   public initRegisterForm(): void {
     this.registerForm = this.formBuilder.group({
-      fullName: [null, Validators.required],
+      userName: [null, Validators.required],
       email: [null, Validators.required],
-      password: [null, Validators.required, Validators.minLength(6)]
+      password: [null, [Validators.required, Validators.minLength(6)]]
     });
   }
 

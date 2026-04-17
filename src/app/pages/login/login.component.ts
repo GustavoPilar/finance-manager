@@ -85,6 +85,7 @@ export class LoginComponent implements OnInit {
    * @returns {void}
    */
   public onCloseToast(): void {
+    console.log("Entrou aqui");
     this.router.navigate(["/home"]);
   }
 

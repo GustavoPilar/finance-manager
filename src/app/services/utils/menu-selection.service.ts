@@ -36,13 +36,16 @@ export class MenuSelectionService {
    */
   public getManagerItem(): MenuItem {
     const root: MenuItem = {
-      label: "Cadastros",
+      label: "Gerenciamento",
       icon: PrimeIcons.LIST,
+      routerLink: "manager",
       tooltip: "Cadastre e organize os dados que estruturam seu controle financeiro.",
       items: [
-        this.createMenuItem("Categorias", PrimeIcons.TAG, "Classifique suas transações para entender melhor onde seu dinheiro está sendo gasto.", this.manager_root + "category"),
-        this.createMenuItem("Contas fixas", PrimeIcons.WALLET, "Registre despesas recorrentes que se repetem todo mês, como aluguel, internet e assinaturas.", this.manager_root + "fixedExpense"),
-        this.createMenuItem("Compras no crédito", PrimeIcons.CREDIT_CARD, "Cadastre compras parceladas e crie as parcelas de pagamento automaticamente.", this.manager_root + "creditTransaction"),
+        this.createMenuItem("Contas fixas", PrimeIcons.WALLET, "Clique aqui para registrar despesas mensais recorrentes, como aluguel, internet, assinaturas, entre outros.", this.manager_root + "fixedExpense"),
+
+        this.createMenuItem("Compras Gerais", PrimeIcons.DOLLAR, "Clique aqui para registrar aquele gasto separado que houve ao decorrer do mês", this.manager_root + "generalExpense"),
+
+        this.createMenuItem("Compras no cartão de crédito", PrimeIcons.CREDIT_CARD, "Clique aqui para cadastrar e visualizar suas compras no cartão de crédito e criar parcelas automaticamente.", this.manager_root + "creditTransaction")
       ]
     };
 
@@ -57,9 +60,10 @@ export class MenuSelectionService {
     const root: MenuItem = {
       label: "Financeiro",
       icon: PrimeIcons.DESKTOP,
-      tooltip: "Gerencie suas movimentações financeiras, acompanhe seus gastos e realize pagamentos das faturas.",
+      routerLink: "application",
+      tooltip: "Gerencie suas movimentações financeiras, acompanhe seus gastos.",
       items: [
-        this.createMenuItem("Gerenciar Parcelas", PrimeIcons.FILE_CHECK, "Gerenciamento das parcelas geradas e abertas.", this.application_root + "installment")
+        this.createMenuItem("Gerenciamento de parcelas", PrimeIcons.FILE_CHECK, "Clique aqui para gerenciar e visualizar suas parcelas que foram geradas automaticamente e que estão pendentes", this.application_root + "installment")
       ]
     };
 
@@ -75,6 +79,7 @@ export class MenuSelectionService {
       label: "Relatórios",
       icon: PrimeIcons.FILE,
       routerLink: "report",
+      tooltip: " alguma coisa ai",
       items: [
         // this.createMenuItem("Parcelas", PrimeIcons.FILE_CHECK, "Pague parcelas", this.application_root + "installment")
       ]
@@ -91,7 +96,7 @@ export class MenuSelectionService {
     return [
       this.getManagerItem(),
       this.getApplicationItem(),
-      this.getReportItem()
+      // this.getReportItem()
     ]
   }
 

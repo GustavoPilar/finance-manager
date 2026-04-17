@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CrudBaseComponent } from "../../base/crud-base.component";
-import { Category, User } from "../../../../models/entities";
+import { Category, GeneralExpense } from "../../../../models/entities";
 import { CrudManagerService } from "../../base/services/crud-manager.service";
 import { ApiService } from "../../../../services/communication/api.service";
 import { DisplayColumn } from "../../../../models/base/list/display-column";
@@ -9,18 +9,21 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { TypeDescription } from "../../../../models/base/list/type-description";
 import { MessageService, PrimeIcons } from "primeng/api";
 import { LoaderService } from "../../../../services/utils/loader.service";
+import { forkJoin, Observable, tap } from "rxjs";
 
 @Component({
-  selector: "app-category",
+  selector: "app-general-expense",
   standalone: false,
-  templateUrl: "./category.component.html",
+  templateUrl: "./generalExpense.component.html",
   providers: [CrudManagerService]
 })
-export class CategoryComponent extends CrudBaseComponent<Category> implements OnInit {
+export class GeneralExpenseComponent extends CrudBaseComponent<GeneralExpense> implements OnInit {
 
   //#region Fields
 
-  public override icon = PrimeIcons.TAG;
+  public override icon = PrimeIcons.WALLET;
+
+  public categories: any[] = [];
 
   //#endregion
 
@@ -45,15 +48,15 @@ export class CategoryComponent extends CrudBaseComponent<Category> implements On
   //#region Members 'CrudBase'
 
   public override getEntityName(): string {
-    return "category";
+    return "generalExpense";
   }
 
-  public override getDescription(entity: Category): string {
-    return entity.description;
+  public override getDescription(entity: GeneralExpense): string {
+    return entity.name;
   }
 
   public override getTypeDescription(): TypeDescription {
-    return { single: "Categoria", plural: "Categorias", isFemale: true };
+    return { single: "Compra geral", plural: "Compras Gerais", isFemale: true };
   }
 
   public override getDisplayColumn(): DisplayColumn[] {
@@ -64,19 +67,57 @@ export class CategoryComponent extends CrudBaseComponent<Category> implements On
         columnType: ColumnTypeEnum.Text
       },
       {
-        field: "isActive",
-        description: "Ativa?",
-        columnType: ColumnTypeEnum.Boolean
+        field: "amount",
+        description: "Valor",
+        columnType: ColumnTypeEnum.Numeric,
+        prefix: "R$ "
+      },
+      {
+        field: "purchaseDate",
+        description: "Data da compra",
+        columnType: ColumnTypeEnum.Date
       }
     ];
   }
 
   public override initForm(): void {
+
+    let purchaseDate: Date | null = null;
+    if (this.selectedEntity?.purchaseDate) {
+      purchaseDate = new Date(this.selectedEntity.purchaseDate);
+    }
+
+    let category: any = this.categories[0];
+    if (this.selectedEntity.categoryId) {
+      category = this.categories.find(x => x.id == this.selectedEntity.categoryId);
+    }
+
     this.entityForm = this.formBuilder.group({
+      name: [this.selectedEntity?.name ?? null, Validators.required],
       description: [this.selectedEntity?.description ?? null, Validators.required],
-      color: [this.selectedEntity?.color ?? "#000", Validators.required],
-      isActive: [this.selectedEntity?.isActive ?? false, Validators.required],
+      amount: [this.selectedEntity?.amount ?? null, Validators.required],
+      purchaseDate: [purchaseDate, Validators.required],
+      category: [category, Validators.required]
     });
+  }
+
+  public override loadResources(): Observable<any> {
+    return forkJoin({
+      categories: this.apiService.getEntities("category")
+    }).pipe(
+      tap(({ categories }) => {
+        this.categories = categories;
+      })
+    )
+  }
+
+  public override prepareEntity(): GeneralExpense {
+    let entity = this.entityForm.value;
+
+    if (entity.category != null)
+      entity.categoryId = entity.category.id;
+
+    return entity;
   }
 
   //#endregion

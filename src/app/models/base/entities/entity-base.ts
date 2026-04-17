@@ -5,6 +5,8 @@ export class EntityBase implements IEntityBase {
 
   id!: number;
 
+  name!: string;
+
   description!: string;
 
   createdAt!: Date;

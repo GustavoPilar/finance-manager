@@ -2,11 +2,39 @@
   <form [formGroup]="entityForm" class="p-2">
     <div class="grid">
       <div class="field col-12 md:col-6">
+        <label for="name">Nome: <span class="text-red-500">*</span></label>
+        <p-icon-field>
+          <input type="text" pInputText id="name" formControlName="name" placeholder="Digite a descrição da compra" fluid class="border-round-3xl">
+          <p-inputicon class="pi pi-hashtag"></p-inputicon>
+        </p-icon-field>
+      </div>
+      <div class="field col-12 md:col-6">
         <label for="description">Descrição: <span class="text-red-500">*</span></label>
         <p-icon-field>
           <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da compra" fluid class="border-round-3xl">
           <p-inputicon class="pi pi-pencil"></p-inputicon>
         </p-icon-field>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="category">Categoria: <span class="text-red-500">*</span></label>
+        <p-select [options]="categories" optionLabel="name" dataKey="id" inputId="category" formControlName="category" placeholder="Selecione a categoria da compra" fluid class="border-round-3xl" panelStyleClass="border-round-2xl">
+          <ng-template #selectedItem let-item>
+            <div class="w-full flex justify-content-left align-items-center gap-2">
+              <span class="p-2 border-round" [style]="{'backgroundColor' : item.color}"></span>
+              <span>
+                {{item.name}}
+              </span>
+            </div>
+          </ng-template>
+          <ng-template #item let-item>
+            <div class="w-full flex justify-content-left align-items-center gap-2">
+              <span class="p-2 border-round" [style]="{'backgroundColor' : item.color}"></span>
+              <span>
+                {{item.name}}
+              </span>
+            </div>
+          </ng-template>
+        </p-select>
       </div>
       <div class="field col-12 md:col-6">
         <label for="totalAmount">Valor da compra: <span class="text-red-500">*</span></label>
@@ -28,27 +56,6 @@
           <p-date-picker id="purchaseDate" inputId="purchaseDate" formControlName="purchaseDate" fluid dateFormat="dd/mm/yy" [readonlyInput]="true" inputStyleClass="border-round-3xl"></p-date-picker>
           <p-inputicon class="pi pi-calendar"></p-inputicon>
         </p-icon-field>
-      </div>
-      <div class="field col-12 md:col-6">
-        <label for="categoryId">Categoria:</label>
-        <p-select [options]="categories" optionLabel="description" optionValue="id" inputId="categoryId" formControlName="categoryId" placeholder="Selecione a categoria da compra" fluid class="border-round-3xl" panelStyleClass="border-round-2xl">
-          <ng-template #selectedItem let-item>
-            <div class="w-full flex justify-content-left align-items-center gap-2">
-              <span class="p-2 border-round" [style]="{'backgroundColor' : item.color}"></span>
-              <span>
-                {{item.description}}
-              </span>
-            </div>
-          </ng-template>
-          <ng-template #item let-item>
-            <div class="w-full flex justify-content-left align-items-center gap-2">
-              <span class="p-2 border-round" [style]="{'backgroundColor' : item.color}"></span>
-              <span>
-                {{item.description}}
-              </span>
-            </div>
-          </ng-template>
-        </p-select>
       </div>
     </div>
   </form>

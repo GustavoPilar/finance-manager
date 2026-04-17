@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { PrimeIcons } from "primeng/api";
 
 @Component({
@@ -25,6 +25,18 @@ export class HeaderComponent implements OnInit {
   @Input()
   public description: string = "";
 
+  @Input()
+  public showButton: boolean = false;
+
+  @Input()
+  public buttonLabel: string = "";
+
+  @Input()
+  public buttonIcon: string = "";
+
+  @Output()
+  public buttonCommand: EventEmitter<void> = new EventEmitter<void>();
+
   //#endregion
 
   //#region Constructor
@@ -40,6 +52,10 @@ export class HeaderComponent implements OnInit {
   //#endregion
 
   //#region Members
+
+  public buttonCommandEmit(): void {
+    this.buttonCommand.emit();
+  }
 
   //#endregion
 

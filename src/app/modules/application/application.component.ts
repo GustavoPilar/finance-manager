@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MenuSelectionService } from "../../services/utils/menu-selection.service";
 import { MenuItem } from "primeng/api";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-application",
@@ -14,7 +15,8 @@ export class ApplicationComponent implements OnInit {
 
   //#region Construtor
   constructor(
-    private menuSelectionService: MenuSelectionService
+    private menuSelectionService: MenuSelectionService,
+    private router: Router
   ) {
 
   }
@@ -24,6 +26,19 @@ export class ApplicationComponent implements OnInit {
 
   public ngOnInit(): void {
     this.items = this.menuSelectionService.getApplicationItem().items!;
+  }
+
+  //#endregion
+
+  //#region Members :: navigateTo()
+
+  /**
+   * @description Navega para a rota escolhida
+   * @param {string} routerLink Rota
+   * @returns {void} Vazio
+   */
+  public navigateTo(routerLink: string): void {
+    this.router.navigate([routerLink]);
   }
 
   //#endregion

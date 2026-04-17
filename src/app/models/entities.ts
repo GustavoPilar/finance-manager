@@ -1,59 +1,8 @@
 import { EntityBase } from "./base/entities/entity-base";
 
-/** Usuário */
-export class User extends EntityBase {
-
-  //#region Fields :: name, email, passwordHash, isActive
-
-  /** Nome do usuário */
-  name!: string;
-
-  /** Email do usuário */
-  email!: string;
-
-  /** Senha de acesso do usário */
-  passwordHash!: string;
-
-  /** Está ativo */
-  isActive!: boolean;
-
-  //#endregion
-
-}
-
-export class FixedExpense extends EntityBase {
-
-  //#region Fields :: userId, amount, dueDay, isActive
-
-  /** Identificador do usuário */
-  userId!: number;
-
-  /** Valor do gasto fixo */
-  amount!: number;
-
-  /** Data de vencimento */
-  dueDay!: number;
-
-  /** Conta fixa ativa? */
-  isActive!: boolean;
-
-  //#endregion
-
-  //#region Navigation :: User
-
-  /** Usuário */
-  user!: User;
-
-  //#endregion
-
-}
-
 export class Category extends EntityBase {
 
-  //#region :: userId, isActive, color
-
-  /** Identificador de usuário */
-  userId!: number;
+  //#region :: isActive, color
 
   /** Categoria ativa? */
   isActive!: boolean;
@@ -63,24 +12,11 @@ export class Category extends EntityBase {
 
   //#endregion
 
-  //#region Navigation :: User
-
-  /** Usuário */
-  user!: User;
-
-  //#endregion
-
 }
 
 export class CreditTransaction extends EntityBase {
 
-  //#region Fields :: userId, categoryId, totalAmount, totalInstallments, purchaseDate
-
-  /** Identificador do usuário */
-  userId!: number;
-
-  /** Identificador da categoria */
-  categoryId!: number;
+  //#region Fields :: categoryId, totalAmount, totalInstallments, purchaseDate
 
   /** Valor total da compra */
   totalAmount!: number;
@@ -91,12 +27,63 @@ export class CreditTransaction extends EntityBase {
   /** Data da compra */
   purchaseDate!: Date;
 
+  /** Id da categoria */
+  categoryId!: number;
+
   //#endregion
 
-  //#region Navigation :: User, Category
+  //#region Navigation :: Category
 
-  /** Usuário */
-  user!: User;
+  /** Categoria */
+  category!: Category;
+
+  //#endregion
+
+}
+
+export class GeneralExpense extends EntityBase {
+
+  //#region Fields :: userId, amount, dueDay, isActive
+
+  /** Valor da compra geral */
+  amount!: number;
+
+  /** Data da compra */
+  purchaseDate!: Date;
+
+  /** Id da categoria */
+  categoryId!: number;
+
+  //#endregion
+
+  //#region Navigation :: Category
+
+  /** Categoria */
+  category!: Category;
+
+  //#endregion
+
+}
+
+export class FixedExpense extends EntityBase {
+
+  //#region Fields :: userId, amount, dueDay, isActive
+
+  /** Valor do gasto fixo */
+  amount!: number;
+
+  /** Data de vencimento */
+  dueDay!: number;
+
+  /** Conta fixa ativa? */
+  isActive!: boolean;
+
+  /** Id da categoria */
+  categoryId!: number;
+
+  //#endregion
+
+  //#region Navigation :: Category
 
   /** Categoria */
   category!: Category;

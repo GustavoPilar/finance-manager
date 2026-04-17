@@ -65,7 +65,9 @@ import { DividerModule } from 'primeng/divider';
         monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
         emptyMessage: "Nenhum registro",
         accept: "Sim",
-        reject: "Não"
+        reject: "Não",
+        emptySelectionMessage: "Nenhum registro encontrado.",
+        emptyFilterMessage: "Nenhum registro encontrado."
       }
     }),
     MessageService,

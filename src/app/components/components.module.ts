@@ -6,22 +6,29 @@ import { CardListComponent } from "./card-list/card-list.component";
 import { ButtonModule } from "primeng/button";
 import { AppRoutingModule } from "../app-routing-module";
 import { HeaderComponent } from "./header/header.component";
+import { DividerModule } from "primeng/divider";
+import { CardComponent } from "./card/card.component";
+import { TagModule } from "primeng/tag";
 
 @NgModule({
   declarations: [
     MenuBarComponent,
     CardListComponent,
-    HeaderComponent
+    HeaderComponent,
+    CardComponent
   ],
   exports: [
     MenuBarComponent,
     CardListComponent,
-    HeaderComponent
+    HeaderComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,
     MenubarModule,
-    ButtonModule
+    ButtonModule,
+    DividerModule,
+    TagModule
 ],
   providers: [
 

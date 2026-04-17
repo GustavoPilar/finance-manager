@@ -9,6 +9,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { TypeDescription } from "../../../../models/base/list/type-description";
 import { MessageService, PrimeIcons } from "primeng/api";
 import { LoaderService } from "../../../../services/utils/loader.service";
+import { forkJoin, Observable, tap } from "rxjs";
 
 @Component({
   selector: "app-fixed-expense",
@@ -21,6 +22,8 @@ export class FixedExpenseComponent extends CrudBaseComponent<FixedExpense> imple
   //#region Fields
 
   public override icon = PrimeIcons.WALLET;
+
+  public categories: any[] = [];
 
   //#endregion
 
@@ -49,7 +52,7 @@ export class FixedExpenseComponent extends CrudBaseComponent<FixedExpense> imple
   }
 
   public override getDescription(entity: FixedExpense): string {
-    return entity.description;
+    return entity.name;
   }
 
   public override getTypeDescription(): TypeDescription {
@@ -84,12 +87,39 @@ export class FixedExpenseComponent extends CrudBaseComponent<FixedExpense> imple
   }
 
   public override initForm(): void {
+
+    let category: any = this.categories[0];
+    if (this.selectedEntity.categoryId) {
+      category = this.categories.find(x => x.id == this.selectedEntity.categoryId);
+    }
+
     this.entityForm = this.formBuilder.group({
+      name: [this.selectedEntity?.name ?? null, Validators.required],
       description: [this.selectedEntity?.description ?? null, Validators.required],
       amount: [this.selectedEntity?.amount ?? null, Validators.required],
       dueDay: [this.selectedEntity.dueDay ?? null, Validators.required],
-      isActive: [this.selectedEntity?.isActive ?? null, Validators.required]
+      isActive: [this.selectedEntity?.isActive ?? false, Validators.required],
+      category: [category ?? 0, Validators.required]
     });
+  }
+
+  public override loadResources(): Observable<any> {
+    return forkJoin({
+      categories: this.apiService.getEntities("category")
+    }).pipe(
+      tap(({ categories }) => {
+        this.categories = categories;
+      })
+    )
+  }
+
+  public override prepareEntity(): FixedExpense {
+    let entity = this.entityForm.value;
+
+    if (entity.category != null)
+      entity.categoryId = entity.category.id;
+
+    return entity;
   }
 
   //#endregion

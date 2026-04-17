@@ -4,20 +4,20 @@
       <div class="field col-12 md:col-6">
         <label for="name">Nome: <span class="text-red-500">*</span></label>
         <p-icon-field>
-          <input type="text" pInputText id="name" formControlName="name" placeholder="Digite o nome da conta fixa" fluid class="border-round-3xl">
+          <input type="text" pInputText id="name" formControlName="name" placeholder="Digite o nome da compra" fluid class="border-round-3xl">
           <p-inputicon class="pi pi-hashtag"></p-inputicon>
         </p-icon-field>
       </div>
       <div class="field col-12 md:col-6">
         <label for="description">Descrição: <span class="text-red-500">*</span></label>
         <p-icon-field>
-          <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da conta fixa" fluid class="border-round-3xl">
+          <input type="text" pInputText id="description" formControlName="description" placeholder="Digite a descrição da compra" fluid class="border-round-3xl">
           <p-inputicon class="pi pi-pencil"></p-inputicon>
         </p-icon-field>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="category">Categoria:</label>
-        <p-select [options]="categories" optionLabel="name" dataKey="id" inputId="category" formControlName="category" placeholder="Selecione a categoria da conta fixa" fluid class="border-round-3xl" panelStyleClass="border-round-2xl" [filter]="true">
+        <label for="category">Categoria: <span class="text-red-500">*</span></label>
+        <p-select [options]="categories" optionLabel="name" dataKey="id" inputId="category" formControlName="category" placeholder="Selecione a categoria da compra" fluid class="border-round-3xl" panelStyleClass="border-round-2xl" [filter]="true">
           <ng-template #selectedItem let-item>
             <div class="flex justify-content-left align-items-center gap-2">
               <span class="p-2 border-round" [style]="{'backgroundColor' : item.color}"></span>
@@ -39,23 +39,16 @@
       <div class="field col-12 md:col-6">
         <label for="amount">Valor: <span class="text-red-500">*</span></label>
         <p-icon-field>
-          <p-inputNumber id="amount" inputId="amount" formControlName="amount" placeholder="Digite o valor da conta fixa" fluid [min]="0" mode="currency" currency="BRL" inputStyleClass="border-round-3xl"></p-inputNumber>
+          <p-inputNumber id="amount" inputId="amount" formControlName="amount" placeholder="Digite o valor da compra" fluid [min]="0" mode="currency" currency="BRL" inputStyleClass="border-round-3xl"></p-inputNumber>
           <p-inputicon class="pi pi-dollar"></p-inputicon>
         </p-icon-field>
       </div>
       <div class="field col-12 md:col-6">
-        <label for="dueDay">Data de pagamento: <span class="text-red-500">*</span></label>
+        <label for="dueDay">Data da compra: <span class="text-red-500">*</span></label>
         <p-icon-field>
-          <p-inputNumber id="dueDay" inputId="dueDay" formControlName="dueDay" placeholder="Digite a data do pagamento da conta" fluid [min]="1" [max]="28" prefix="Dia " inputStyleClass="border-round-3xl"></p-inputNumber>
+          <p-date-picker id="purchaseDate" inputId="purchaseDate" formControlName="purchaseDate" fluid dateFormat="dd/mm/yy" [readonlyInput]="true" inputStyleClass="border-round-3xl"></p-date-picker>
           <p-inputicon class="pi pi-calendar"></p-inputicon>
         </p-icon-field>
-      </div>
-      <div class="field col-12 md:col-4">
-        <label for=""></label>
-        <div class="flex items-center gap-2 mx-2 w-full">
-          <p-toggle-switch id="isActive" inputId="isActive" formControlName="isActive"></p-toggle-switch>
-          <span>A conta <b>{{entityForm.get('isActive')?.value ? '' : 'não'}} está</b> ativa </span>
-        </div>
       </div>
     </div>
   </form>

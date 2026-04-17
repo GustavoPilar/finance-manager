@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { MenuSelectionService } from "../../services/utils/menu-selection.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-crud",
@@ -18,7 +19,8 @@ export class CrudComponent implements OnInit {
 
   //#region Construtor
   constructor(
-    private menuSelectionService: MenuSelectionService
+    private menuSelectionService: MenuSelectionService,
+    private router: Router
   ) {
 
   }
@@ -28,6 +30,19 @@ export class CrudComponent implements OnInit {
 
   public ngOnInit(): void {
     this.items = this.menuSelectionService.getManagerItem().items!;
+  }
+
+  //#endregion
+
+  //#region Members :: navigateTo()
+
+  /**
+   * @description Navega para a rota escolhida
+   * @param {string} routerLink Rota
+   * @returns {void} Vazio
+   */
+  public navigateTo(routerLink: string): void {
+    this.router.navigate([routerLink]);
   }
 
   //#endregion

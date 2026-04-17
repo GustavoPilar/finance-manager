@@ -15,12 +15,11 @@ import { InputTextModule } from "primeng/inputtext";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CheckboxModule } from "primeng/checkbox";
 import { ToolbarModule } from "primeng/toolbar";
-import { MessageService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
 import { SelectModule } from "primeng/select";
 import { InputNumberModule } from "primeng/inputnumber";
 import { MessageModule } from "primeng/message";
-import { CategoryComponent } from "./entities/category/category.component";
 import { DatePickerModule } from "primeng/datepicker";
 import { ColorPicker } from "primeng/colorpicker";
 import { FixedExpenseComponent } from "./entities/fixedExpense/fixedExpense.component";
@@ -29,6 +28,9 @@ import { ToggleSwitchModule } from "primeng/toggleswitch";
 import { InputIconModule } from "primeng/inputicon";
 import { IconFieldModule } from "primeng/iconfield";
 import { TagModule } from "primeng/tag";
+import { DividerModule } from "primeng/divider";
+import { GeneralExpenseComponent } from "./entities/generalExpense/generalExpense.component";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 @NgModule({
   declarations: [
@@ -38,8 +40,9 @@ import { TagModule } from "primeng/tag";
     CrudFormComponent,
     CrudFormManagerComponent,
 
-    CategoryComponent,
     FixedExpenseComponent,
+    GeneralExpenseComponent,
+
     CreditTransactionComponent
   ],
   imports: [
@@ -63,10 +66,13 @@ import { TagModule } from "primeng/tag";
     ToggleSwitchModule,
     InputIconModule,
     IconFieldModule,
-    TagModule
+    TagModule,
+    DividerModule,
+    ConfirmDialogModule
   ],
   providers: [
-    MessageService
+    MessageService,
+    ConfirmationService
   ]
 })
 export class CrudsModule { }

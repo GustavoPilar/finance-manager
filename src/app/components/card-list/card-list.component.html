@@ -8,16 +8,16 @@
     </div>
   </div>
 
-  <div class="w-full bg-gray-200 p-2 line-height-4 border-round mb-1">
+  <p-divider></p-divider>
+
+  <div class="w-full p-2 bg-gray-200 line-height-4 border-round mb-1">
 
     @for (column of displayColumns; track $index) {
       <p>
         {{column.description}}:
 
         @if (isBooleanColumn(column)) {
-          <p-tag [severity]="entity[column.field] == true ? 'success' : 'danger'" [icon]="entity[column.field] == true ? 'pi pi-check' : 'pi pi-times'">
-            {{getColumnValue(entity, column)}}
-          </p-tag>
+          <span [class]="(entity[column.field] ? 'text-green-600' : 'text-red-600') + ' font-bold'">{{getColumnValue(entity, column)}}</span>
         }
         @else {
           <span class="font-bold">{{getColumnValue(entity, column)}}</span>

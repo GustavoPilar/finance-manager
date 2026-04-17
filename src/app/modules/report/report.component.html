@@ -1,6 +1,15 @@
-<div class="fluid h-screen">
-    <img src="assets/image/build.jpg" alt="" width="100%" height="450">
+<app-header title="Relatórios" description="Acompanhe relatórios e análises das suas movimentações financeiras." icon="pi pi-file" size="2xl"></app-header>
 
-    <h1>Página em construção!</h1>
-    <p>Obrigado pela preferência!</p>
+<p-divider></p-divider>
+
+<div class="w-full p-2 text-center my-3">
+
+  <div class="grid gap-2">
+    @for (item of items; track $index) {
+      <div class="field col-10 md:col-5 lg:col-3 m-auto my-2">
+        <app-card [title]="item.label!" [description]="item.tooltip!" [icon]="item.icon!" [command]="() => navigateTo(item.routerLink)"></app-card>
+      </div>
+    }
+  </div>
+
 </div>

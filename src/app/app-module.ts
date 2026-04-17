@@ -23,6 +23,7 @@ import { authInterceptor } from './interceptors/auth-interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
 import { DividerModule } from 'primeng/divider';
+import { ReportModule } from './modules/report/report.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,8 @@ import { DividerModule } from 'primeng/divider';
     ComponentsModule,
     CrudsModule,
     ApplicationModule,
+    ReportModule,
+
     NgxSpinnerModule.forRoot({ type: "ball-atom" }),
     ButtonModule,
     InputTextModule,

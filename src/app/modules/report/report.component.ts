@@ -1,32 +1,46 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { MenuItem } from "primeng/api";
+import { MenuSelectionService } from "../../services/utils/menu-selection.service";
 
 @Component({
-    selector: "app-report",
-    standalone: false,
-    templateUrl: "./report.component.html"
+  selector: "app-report",
+  standalone: false,
+  templateUrl: "./report.component.html"
 })
 export class ReportComponent implements OnInit {
 
-    //#region Fields
+  /** Itens para cadastros */
+  public items: MenuItem[] = [];
 
+  //#region Construtor
+  constructor(
+    private menuSelectionService: MenuSelectionService,
+    private router: Router
+  ) {
 
+  }
+  //#endregion
 
-    //#endregion
+  //#region OnInit
 
-    //#region Constructor
-    constructor() {
+  public ngOnInit(): void {
+    this.items = this.menuSelectionService.getReportItem().items!;
+  }
 
-    }
-    //#endregion
+  //#endregion
 
-    //#region OnInit
-    public ngOnInit(): void {
-        
-    }
-    //#endregion
+  //#region Members :: navigateTo()
 
-    //#region Members
+  /**
+   * @description Navega para a rota escolhida
+   * @param {string} routerLink Rota
+   * @returns {void} Vazio
+   */
+  public navigateTo(routerLink: string): void {
+    this.router.navigate([routerLink]);
+  }
 
-    //#endregion
+  //#endregion
 
 }

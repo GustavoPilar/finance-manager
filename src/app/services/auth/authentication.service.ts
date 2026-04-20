@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { MessageService } from "primeng/api";
 import { LoginRequest } from "../../models/auth/login-request";
 import { RegisterRequest } from "../../models/auth/register-request";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -37,7 +38,8 @@ export class AuthService {
     private httpClient: HttpClient,
     private localStorageService: LocalStorageService,
     private messageService: MessageService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private router: Router
   ) {
 
   }
@@ -135,10 +137,12 @@ export class AuthService {
     return new Promise<void>((resolve, reject) => {
       try {
         this.localStorageService.RemoveItem(this.keySecurity);
+        this.router.navigate(["/login"]);
         resolve();
       } catch (error) {
         console.log(error);
         this.localStorageService.RemoveItem(this.keySecurity);
+        this.router.navigate(["/login"]);
         reject();
       }
     })

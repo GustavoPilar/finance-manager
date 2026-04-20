@@ -83,6 +83,8 @@ export class InstallmentComponent implements OnInit {
       try {
         this.loaderService.show();
 
+        this.installments = [];
+
         const creditTransactionId: number = this.form.value.creditTransactionId;
 
         this.apiService.getEntities(`installment/creditTransaction/${creditTransactionId}`).subscribe({
@@ -96,12 +98,14 @@ export class InstallmentComponent implements OnInit {
           },
           error: (err) => {
             console.log(err);
+            this.cdr.detectChanges();
             this.loaderService.hide();
             reject();
           }
         })
       } catch (error) {
         console.log(error);
+        this.cdr.detectChanges();
         this.loaderService.hide();
         reject(error);
       }
@@ -184,6 +188,7 @@ export class InstallmentComponent implements OnInit {
 
     return this.form.valid;
   }
+
   //#endregion
 
 }

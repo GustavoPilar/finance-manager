@@ -37,7 +37,7 @@ export class MenuSelectionService {
   public getManagerItem(): MenuItem {
     const root: MenuItem = {
       label: "Gerenciamento",
-      icon: PrimeIcons.LIST,
+      icon: PrimeIcons.PENCIL,
       routerLink: "manager",
       tooltip: "Cadastre e organize os dados que estruturam seu controle financeiro.",
       items: [

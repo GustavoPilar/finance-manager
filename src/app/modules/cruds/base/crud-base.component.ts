@@ -201,11 +201,17 @@ export abstract class CrudBaseComponent<T = IEntityBase> implements OnInit, Afte
 
   /**
    * @description Retorna a descrição da entidade
-   * @param entity Entidade
    * @abstract
    * @returns {string} Descrição da entidade
    */
-  public abstract getDescription(entity: T): string;
+  public abstract getDescription(): string;
+
+  /**
+   * @description Retorna o nome da entidade
+   * @param {T} entity Entidade
+   * @returns {string}
+   */
+  public abstract getName(entity: T): string;
 
   /**
    * @description Retorna o tipo de descrição

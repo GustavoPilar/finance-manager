@@ -51,7 +51,11 @@ export class GeneralExpenseComponent extends CrudBaseComponent<GeneralExpense> i
     return "generalExpense";
   }
 
-  public override getDescription(entity: GeneralExpense): string {
+  public override getDescription(): string {
+    return "Esse lugar é reservado para aqueles que gostam de registrar todas as compras do mês que foram pagas em: Dinheiro, PIX, Cartão débito, Boleto ou alguma outra forma, tendo assim um controle maior sobre o dinheiro e onde está sendo gasto.";
+  }
+
+  public override getName(entity: GeneralExpense): string {
     return entity.name;
   }
 

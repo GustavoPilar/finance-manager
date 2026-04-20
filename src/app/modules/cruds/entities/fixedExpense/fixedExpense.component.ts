@@ -51,7 +51,11 @@ export class FixedExpenseComponent extends CrudBaseComponent<FixedExpense> imple
     return "fixedExpense";
   }
 
-  public override getDescription(entity: FixedExpense): string {
+  public override getDescription(): string {
+    return "Cadastre aqui aquelas contas que ocorrem todo mês de forma contínua. Exemplos: Faculdade, Conta de Energia/Água, Assinaturas de Streamings, etc...";
+  }
+
+  public override getName(entity: FixedExpense): string {
     return entity.name;
   }
 

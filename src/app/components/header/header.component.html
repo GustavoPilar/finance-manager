@@ -1,22 +1,18 @@
 <div class="w-full p-2">
-  <div class="w-full flex justify-content-center align-items-center">
+  <div class="w-full flex justify-content-evenly align-items-center">
     <h2>
       @if (iconPos == "left") {
-        <i [class]="icon + ' text-' + iconSize"></i>
+        <i [class]="icon + ' mx-3 text-' + iconSize"></i>
       }
 
       <span class="uppercase mx-1">{{title}}</span>
 
       @if (iconPos == "right") {
-        <i [class]="icon + ' text-' + iconSize"></i>
+        <i [class]="icon + ' mx-3 text-' + iconSize"></i>
       }
     </h2>
-
-    @if (showButton) {
-      <p-button [icon]="buttonIcon" [label]="buttonLabel" styleClass="bg-white border-white text-gray-900" (onClick)="buttonCommandEmit()"></p-button>
-    }
   </div>
-  <div class="w-full text-center">
+  <div class="w-full text-center my-3 max-w-80rem m-auto">
     <p class="p-2">{{description}}</p>
   </div>
 </div>

@@ -5,12 +5,19 @@
 
   <app-header
     [title]="crudBaseComponent.getTypeDescription().plural"
+    [description]="crudBaseComponent.getDescription()"
     [icon]="crudBaseComponent.icon"
     size="2xl"
     buttonIcon="pi pi-plus"
     (buttonCommand)="newEntity()"
     [showButton]="!crudBaseComponent.isOnlyRead || !crudBaseComponent.entities.length">
   </app-header>
+
+  <div class="max-w-10rem m-auto">
+    <p-button label="Adicionar" icon="pi pi-plus" rounded fluid severity="contrast" (onClick)="newEntity()" [disabled]="crudBaseComponent.isOnlyRead"></p-button>
+  </div>
+
+  <p-divider></p-divider>
 
   @if (!crudBaseComponent.entities.length) {
     <div class="fluid max-w-80rem p-2 shadow-3 border-round my-3">
@@ -23,13 +30,29 @@
     </div>
   }
 
-  <div class="w-full p-2 my-2">
-      @for (entity of crudBaseComponent.entities; track $index) {
-        <app-card-list
-        [entity]="entity"
-        [displayColumns]="crudBaseComponent.getDisplayColumn()"
-        (editCommand)="editEntity(entity)"
-        (deleteCommand)="confirmDelete(entity)"></app-card-list>
-      }
+  <div class="w-full">
+      <div class="grid">
+        @for (entity of crudBaseComponent.entities; track $index) {
+          <div class="field col-12 md:col-6 lg:col-4 m-auto my-2">
+            <app-card-list
+            [entity]="entity"
+            [displayColumns]="crudBaseComponent.getDisplayColumn()"
+            (editCommand)="editEntity(entity)"
+            (deleteCommand)="confirmDelete(entity)"></app-card-list>
+          </div>
+        }
+      </div>
   </div>
+<!--
+  <div class="w-full grid gap-2">
+    @for (item of items; track $index) {
+      <div class="field col-10 md:col-6 lg:col-4 m-auto my-2">
+        <app-card
+          [titleCard]="item.label!"
+          [description]="item.tooltip!"
+          [icon]="item.icon!"
+          [command]="() => navigateTo(item.routerLink)"></app-card>
+      </div>
+    }
+  </div> -->
 }

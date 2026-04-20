@@ -31,6 +31,7 @@ import { TagModule } from "primeng/tag";
 import { DividerModule } from "primeng/divider";
 import { GeneralExpenseComponent } from "./entities/generalExpense/generalExpense.component";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { CardModule } from "primeng/card";
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
     IconFieldModule,
     TagModule,
     DividerModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CardModule
   ],
   providers: [
     MessageService,

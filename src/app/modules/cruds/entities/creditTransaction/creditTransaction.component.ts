@@ -51,7 +51,11 @@ export class CreditTransactionComponent extends CrudBaseComponent<CreditTransact
     return "creditTransaction";
   }
 
-  public override getDescription(entity: CreditTransaction): string {
+  public override getDescription(): string {
+    return "Cadastre aqui suas compras que foram parceladas em cartões de créditos.\nAs parcelas serão geradas automáticamente e poderão ser acessadas atráves do Financeiro.";
+  }
+
+  public override getName(entity: CreditTransaction): string {
     return entity.name;
   }
 
@@ -117,15 +121,6 @@ export class CreditTransactionComponent extends CrudBaseComponent<CreditTransact
       })
     );
   }
-
-  // public override prepareEntity(): CreditTransaction {
-  //   let entity = this.entityForm.value;
-
-  //   if (entity.category != null)
-  //     entity.categoryId == entity.category.id;
-
-  //   return entity;
-  // }
 
   public override prepareEntity(): CreditTransaction {
     let entity = this.entityForm.value;

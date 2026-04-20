@@ -1,18 +1,20 @@
 <p-toast></p-toast>
 
-<app-header [title]="getFormDescription()" [icon]="getIcon()" size="2xl"></app-header>
-
-<div class="fluid p-2 my-3">
-
-  <div class="w-full m-auto shadow-2 border-round">
-    <div class="p-2">
-      <div #crudForm></div>
-      <div class="p-2 flex justify-content-between align-items-center">
-        <p-button variant="text" label="Cancelar" icon="pi pi-undo" iconPos="right" severity="danger" (onClick)="returnToList()"></p-button>
-        <p-button icon="pi pi-arrow-right" rounded severity="contrast" (onClick)="save()" [disabled]="!canSave()"></p-button>
-      </div>
+<p-card class="max-w-80rem m-auto p-2 my-3">
+  <ng-template #title>
+    <div class="flex justify-content-center align-items-center gap-3">
+      <i [class]="getIcon()"></i>
+      <p>{{getFormDescription()}}</p>
     </div>
-
-  </div>
-
-</div>
+  </ng-template>
+  <p-divider></p-divider>
+  <ng-template #content>
+    <div #crudForm></div>
+  </ng-template>
+  <ng-template #footer>
+    <div class="p-2 flex justify-content-between align-items-center">
+      <p-button variant="text" label="Cancelar" icon="pi pi-undo" iconPos="right" severity="danger" (onClick)="returnToList()"></p-button>
+      <p-button icon="pi pi-arrow-right" rounded severity="contrast" (onClick)="save()" [disabled]="!canSave()"></p-button>
+    </div>
+  </ng-template>
+</p-card>

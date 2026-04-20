@@ -1,17 +1,86 @@
-<app-header title="Relatório geral do mês" description="Aqui você verá todos os seus gastos e pagamentos do mês atual" icon="pi pi-calendar"></app-header>
+<p-toast></p-toast>
+
+<app-header
+  title="Relatório mensal"
+  description="Veja todos os detalhes de onde suas finanças estão se direcionando."
+  icon="pi pi-chart-pie">
+</app-header>
 
 <p-divider></p-divider>
 
-<p>Aqui talvez possa ser um mini header com opções de exportar o relatório em algum formato de arquivo.</p>
+<div style="max-width: 80rem;" class="fluid m-auto">
 
-<p-divider></p-divider>
+  <div class="w-full p-2 grid">
 
-<app-card title="Titulo do relatório" icon="pi pi-file" description="Criar outro componente que possa customizar o conteúdo de dentro do relatório.Provavelmente não terá footer. O conteúdo pode ser um gráfico ou algo detalhado com números talvez... não sei" class="m-2"></app-card>
+    <div class="field col-12 text-center">
+      <h1>Resumo  Geral</h1>
+      <p>Abaixo você econtrará um quadro geral sobre os gastos e valores totais do mês.</p>
+    </div>
 
-<app-card title="Titulo do relatório" icon="pi pi-file" description="Criar outro componente que possa customizar o conteúdo de dentro do relatório. Provavelmente não terá footer. O conteúdo pode ser um gráfico ou algo detalhado com números talvez... não sei" class="m-2"></app-card>
+    @for (key of totalKeys; track $index) {
+      <div class="field col-12 md:col-6">
+        <p-card class="overflow-hidden">
+          <ng-template #header>
+            <div class="w-full p-2 flex justify-content-between align-items-center" [ngClass]="'bg-' + key.color + '-300 text-' + key.color + '-700'">
+              <p>{{key.description}}</p>
+              <i [class]="key.icon"></i>
+            </div>
+          </ng-template>
+          <ng-template #content>
+            <div class="w-full p-2">
+              <i class="pi pi-dollar"></i> {{monthlyReport[key.field]}}
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    }
 
-<app-card title="Titulo do relatório" icon="pi pi-file" description="Criar outro componente que possa customizar o conteúdo de dentro do relatório. Provavelmente não terá footer. O conteúdo pode ser um gráfico ou algo detalhado com números talvez... não sei" class="m-2"></app-card>
+    <p-divider></p-divider>
 
-<app-card title="Titulo do relatório" icon="pi pi-file" description="Criar outro componente que possa customizar o conteúdo de dentro do relatório. Provavelmente não terá footer. O conteúdo pode ser um gráfico ou algo detalhado com números talvez... não sei" class="m-2"></app-card>
+    <div class="field col-12 text-center">
+      <h1>Categorias</h1>
+      <p>Abaixo você verá sobre categorias foram utilizadas com gastos durante o mês.</p>
+    </div>
 
-<app-card title="Titulo do relatório" icon="pi pi-file" description="Criar outro componente que possa customizar o conteúdo de dentro do relatório. Provavelmente não terá footer. O conteúdo pode ser um gráfico ou algo detalhado com números talvez... não sei" class="m-2"></app-card>
+    <div class="field col-12 md:col-5">
+      <p-card>
+        <ng-template #title>
+          <div class="w-full flex flex justify-content-between align-items-center">
+            <p>Ranking - Top 3</p>
+            <i class="pi pi-sort-numeric-down"></i>
+          </div>
+        </ng-template>
+        <p-divider></p-divider>
+        <ng-template #content>
+          @for (cat of getTopThreeCategory(monthlyReport.categories); track $index) {
+            <div class="w-full flex justify-content-between align-items-center">
+              <p><p-badge class="mx-2" [style]="{'backgroundColor' : cat?.color }"></p-badge> {{cat?.name}}</p>
+
+              <span class="p-1">
+                <i [class]="$index > 0 ? 'pi pi-hashtag' : 'pi pi-crown'"></i> {{$index + 1}}
+              </span>
+            </div>
+            <p-divider></p-divider>
+          }
+        </ng-template>
+      </p-card>
+    </div>
+
+    <div class="field col-12 md:col-7">
+      <p-card>
+        <ng-template #title>
+          <div class="w-full p-2 flex justify-content-between align-items-center">
+            <p>Comparação</p>
+            <i class="pi pi-chart-line"></i>
+          </div>
+        </ng-template>
+        <p-divider></p-divider>
+        <ng-template #content>
+          <p-meterGroup [value]="getCategoryMeterItem(monthlyReport.categories)" labelOrientation="vertical" labelPosition="start"></p-meterGroup>
+        </ng-template>
+      </p-card>
+    </div>
+
+  </div>
+
+</div>

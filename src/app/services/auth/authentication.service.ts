@@ -19,17 +19,11 @@ export class AuthService {
   /** Nome para chave de segurança */
   private keySecurity: string = "UserProfile"
 
-  /** Id do toast de sucesso */
-  public loginSuccessId: string = "login_success";
+  /** Key do toast de sucesso */
+  public successKey: string = "success";
 
-  /** Id do toast de erro */
-  public loginErrorId: string = "login_error";
-
-  /** Id do toast de sucesso */
-  public registerSuccessId: string = "register_success";
-
-  /** Id do toast de erro */
-  public registerErrorId: string = "register_error";
+  /** Key do toast de erro */
+  public errorKey: string = "error";
 
   //#endregion
 
@@ -66,7 +60,7 @@ export class AuthService {
             this.localStorageService.SetItem(this.keySecurity, JSON.stringify(result));
             this.loaderService.hide();
 
-            this.showMessage("success", "Bem vindo(a)!", "Aguarde um instante, você será redirecionado.", this.loginSuccessId);
+            this.showMessage("success", "Bem vindo(a)!", "Aguarde um instante, você será redirecionado.", this.successKey);
 
             resolve();
           },
@@ -74,7 +68,8 @@ export class AuthService {
             console.log(err);
             this.localStorageService.RemoveItem(this.keySecurity);
             this.loaderService.hide();
-            this.showMessage("error", "Erro!", err.error.errorMessage , this.loginErrorId);
+
+            this.showMessage("error", "Erro!", err.error.errorMessage , this.errorKey);
             reject();
           }
         });
@@ -103,24 +98,37 @@ export class AuthService {
         this.httpClient.post(url, register, { headers: { "Content-Type": "application/json" } }).subscribe({
           next: (result: any) => {
             this.loaderService.hide();
-            this.showMessage("success", "Bem vindo(a)!", "Aguarde um instante, você será redirecionado.", this.registerSuccessId);
-            resolve(true);
+            resolve(result.succeeded);
           },
           error: (err: any) => {
             console.log(err);
             this.localStorageService.RemoveItem(this.keySecurity);
             this.loaderService.hide();
 
-            let errorMessage: string = "Erro ao fazer o cadastro";
+            let errorMessage: string = "Formulário inválido";
 
-            if (err.error.length > 0) {
-              err.error.forEach((error: any) => {
-                if (error.code == "DuplicateUserName")
-                  errorMessage = "Email já existente.";
+            if (err.error.errors) {
+              let key: string = Object.keys(err.error.errors)[0];
+
+              err.error.errors[key].forEach((error: any) => {
+                errorMessage = error;
               });
             }
 
-            this.showMessage("error", "Erro!", errorMessage, this.registerErrorId);
+            if (err.error.length && err.error.length > 0) {
+              let firstError: any = err.error[0];
+
+              if (firstError.code == "DuplicateEmail") {
+                errorMessage = "Email já cadastrado.";
+              }
+
+              if (firstError.code == "DuplicateUserName") {
+                errorMessage = "Nome de usuário existe."
+              }
+            }
+
+            this.showMessage("error", "Erro", errorMessage, this.errorKey);
+
             reject(false);
           }
         });

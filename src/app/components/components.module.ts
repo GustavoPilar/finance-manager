@@ -9,19 +9,22 @@ import { HeaderComponent } from "./header/header.component";
 import { DividerModule } from "primeng/divider";
 import { CardComponent } from "./card/card.component";
 import { TagModule } from "primeng/tag";
+import { LogoHeaderComponent } from "./logo-header/logo-header.component";
 
 @NgModule({
   declarations: [
     MenuBarComponent,
     CardListComponent,
     HeaderComponent,
-    CardComponent
+    CardComponent,
+    LogoHeaderComponent,
   ],
   exports: [
     MenuBarComponent,
     CardListComponent,
     HeaderComponent,
-    CardComponent
+    CardComponent,
+    LogoHeaderComponent
   ],
   imports: [
     CommonModule,

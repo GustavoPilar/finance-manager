@@ -8,6 +8,7 @@ import { MessageService, PrimeIcons } from "primeng/api";
 import { LocalStorageService } from "../../services/utils/local-storage.service";
 import { LoginRequest } from "../../models/auth/login-request";
 import { Router } from "@angular/router";
+import { RegisterRequest } from "../../models/auth/register-request";
 
 @Component({
   selector: "app-login",
@@ -18,7 +19,11 @@ export class LoginComponent implements OnInit {
 
   //#region Fields
 
+  /** Formulário para Login */
   public loginForm!: FormGroup;
+
+  /** Formulário para Cadastro */
+  public registerForm!: FormGroup
 
   //#endregion
 
@@ -26,6 +31,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private messageService: MessageService,
     private router: Router,
   ) {
     pageSettings.canShowMenuBar = false;
@@ -34,28 +40,34 @@ export class LoginComponent implements OnInit {
 
   //#region OnInit
   public ngOnInit(): void {
-    this.initLoginForm();
+    this.initForms();
   }
   //#endregion
 
-  //#region Members :: initLoginForm()
+  //#region Members 'Form' :: initForms(), isValidLoginForm(), isValidRegisterForm()
 
   /**
    * @description Inicia o formulário de login
    * @returns {void} Vazio
    */
-  private initLoginForm(): void {
+  private initForms(): void {
     this.loginForm = this.formBuilder.group({
+      email: [null, Validators.required],
+      password: [null, [Validators.required, Validators.minLength(6)]]
+    });
+
+    this.registerForm = this.formBuilder.group({
+      userName: [null, Validators.required],
       email: [null, Validators.required],
       password: [null, [Validators.required, Validators.minLength(6)]]
     });
   }
 
   /**
-   * @description Verifica se o formulário é valido
-   * @returns {boolean} Valor booleano
+   * @description É valido o formulário de login de usuário?
+   * @returns {boolean}
    */
-  public validForm(): boolean {
+  public isValidLoginForm(): boolean {
     if (!this.loginForm)
       return false;
 
@@ -63,21 +75,28 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * @description Faz o login
-   * @returns {void} Vazio
+   * @description É valido o formulário de cadastro de usuário?
+   * @returns {boolean}
    */
-  public login(): void {
-    let value: LoginRequest = this.loginForm.value;
+  public isValidRegisterForm(): boolean {
+    if (!this.registerForm)
+      return false;
 
-    this.authService.loginFlow(value);
+    return this.registerForm.valid;
   }
 
+  //#endregion
+
+  //#region Members 'Login' :: login(), onCloseToastSuccess()
+
   /**
-   * @description Navega para o formulário de registro
-   * @returns {void} Vazio
+   * @description Faz o login
+   * @returns {void}
    */
-  public register(): void {
-    this.router.navigate(["/register"]);
+  public login(): void {
+    let login: LoginRequest = this.loginForm.value;
+
+    this.authService.loginFlow(login);
   }
 
   /**
@@ -85,9 +104,29 @@ export class LoginComponent implements OnInit {
    * @returns {void}
    */
   public onCloseToast(): void {
-    console.log("Entrou aqui");
     this.router.navigate(["/home"]);
   }
+
+  //#endregion
+
+  //#region Members 'Register' :: register()
+
+  public register(): void {
+    let register: RegisterRequest = this.registerForm.value;
+
+    this.authService.registerFlow(register).then((result: boolean) => {
+      if (result) {
+        this.loginForm.patchValue(register);
+
+        console.log(this.loginForm);
+
+        this.login();
+      }
+    });
+  }
+
+  //#endregion
+
 
   //#endregion
 

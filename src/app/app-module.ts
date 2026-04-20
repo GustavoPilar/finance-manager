@@ -25,6 +25,9 @@ import { DividerModule } from 'primeng/divider';
 import { ReportModule } from './modules/report/report.module';
 import { TabsModule } from 'primeng/tabs';
 import { definePreset } from "@primeuix/themes";
+import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 export const customPreset = definePreset(Aura, {
   semantic: {
@@ -84,7 +87,10 @@ export const customPreset = definePreset(Aura, {
     IconFieldModule,
     InputIconModule,
     DividerModule,
-    TabsModule
+    TabsModule,
+    ToolbarModule,
+    AvatarModule,
+    AvatarGroupModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

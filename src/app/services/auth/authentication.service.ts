@@ -170,6 +170,19 @@ export class AuthService {
   }
 
   /**
+   * @description Retorna o valor do usuário guardado
+   * @returns {any} Token
+   */
+  public GetUser(): any {
+    const userProfile: any = this.localStorageService.GetItem(this.keySecurity);
+
+    if (!userProfile)
+      return null;
+
+    return { userName: userProfile.userName, userEmail: userProfile.email };
+  }
+
+  /**
    * @description Verifica se o usuário está autenticado
    * @returns {boolean} Valor booleano
    */

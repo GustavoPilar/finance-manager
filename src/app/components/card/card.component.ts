@@ -11,7 +11,7 @@ export class CardComponent implements OnInit {
   //#region Fields
 
   @Input()
-  public title: string = "";
+  public titleCard: string = "";
 
   @Input()
   public icon: string | PrimeIcons = "";

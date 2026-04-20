@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { MenuItem } from "primeng/api";
 import { MenuSelectionService } from "../../services/utils/menu-selection.service";
 import { AuthService } from "../../services/auth/authentication.service";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { SettingsModalComponent } from "../settings-modal/settings-modal.component";
 
 @Component({
   selector: "app-menu-bar",
@@ -17,12 +19,17 @@ export class MenuBarComponent implements OnInit {
 
   public itemUser: MenuItem = [];
 
+  public logoUrl: string = "logo-branca-transparente.png";
+
+  public settingsModalRef: DynamicDialogRef<SettingsModalComponent> | null = null;
+
   //#endregion
 
   //#region Constructor
   constructor(
     private menuSelectionService: MenuSelectionService,
-    private authService: AuthService
+    private authService: AuthService,
+    private DialogService: DialogService
   ) {
 
   }
@@ -50,6 +57,15 @@ export class MenuBarComponent implements OnInit {
     this.authService.logout().then(() => {
       location.reload();
     })
+  }
+
+  public openSettings(): void {
+    this.settingsModalRef = this.DialogService.open(SettingsModalComponent, {
+      closable:  true,
+      draggable: false,
+      styleClass: "max-w-30rem",
+      header: "Usuário"
+    });
   }
 
   //#endregion

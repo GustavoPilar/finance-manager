@@ -10,6 +10,14 @@ import { DividerModule } from "primeng/divider";
 import { CardComponent } from "./card/card.component";
 import { TagModule } from "primeng/tag";
 import { LogoHeaderComponent } from "./logo-header/logo-header.component";
+import { AvatarModule } from "primeng/avatar";
+import { DialogService, DynamicDialogModule } from "primeng/dynamicdialog";
+import { ReactiveFormsModule } from "@angular/forms";
+import { InputTextModule } from "primeng/inputtext";
+import { SettingsModalComponent } from "./settings-modal/settings-modal.component";
+import { InputIconModule } from "primeng/inputicon";
+import { IconFieldModule } from "primeng/iconfield";
+import { CardModule } from "primeng/card";
 
 @NgModule({
   declarations: [
@@ -18,23 +26,32 @@ import { LogoHeaderComponent } from "./logo-header/logo-header.component";
     HeaderComponent,
     CardComponent,
     LogoHeaderComponent,
+    SettingsModalComponent,
   ],
   exports: [
     MenuBarComponent,
     CardListComponent,
     HeaderComponent,
     CardComponent,
-    LogoHeaderComponent
+    LogoHeaderComponent,
+    SettingsModalComponent,
   ],
   imports: [
     CommonModule,
     MenubarModule,
     ButtonModule,
     DividerModule,
-    TagModule
-],
+    TagModule,
+    AvatarModule,
+    DynamicDialogModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    InputIconModule,
+    IconFieldModule,
+    CardModule
+  ],
   providers: [
-
+    DialogService
   ]
 })
 export class ComponentsModule { }

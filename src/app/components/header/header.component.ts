@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   public iconPos: "left" | "right" = "left";
 
   @Input()
-  public size: "xl" | "2xl" | "3xl" = "xl";
+  public iconSize: "xl" | "2xl" | "3xl" = "xl";
 
   @Input()
   public description: string = "";

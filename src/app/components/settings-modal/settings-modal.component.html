@@ -1,0 +1,23 @@
+<div class="w-full p-2">
+  <form [formGroup]="userForm">
+    <div class="grid">
+      <div class="field col-12">
+        <label>Nome de usuário:</label>
+        <p-icon-field>
+          <input type="text" pInputText formControlName="userName" fluid class="border-round-3xl"/>
+          <p-inputicon class="pi pi-user"></p-inputicon>
+        </p-icon-field>
+      </div>
+      <div class="field col-12">
+        <label>E-mail de usuário:</label>
+        <p-icon-field>
+          <input type="text" pInputText formControlName="userEmail" fluid class="border-round-3xl"/>
+          <p-inputicon class="pi pi-at"></p-inputicon>
+        </p-icon-field>
+      </div>
+      <div class="field col-12">
+        <p-button fluid label="Sair" icon="pi pi-power-off" iconPos="right" severity="danger" rounded styleClass="text-white" (onClick)="logout()"></p-button>
+      </div>
+    </div>
+  </form>
+</div>

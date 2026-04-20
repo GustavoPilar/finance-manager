@@ -1,4 +1,10 @@
-<app-header title="Home" description="Aqui começa o caminho para sua vida ficanceira melhorar!" icon="pi pi-file" size="2xl"></app-header>
+<app-header
+  title="Home"
+  description="Aqui começa o caminho para sua gestão de finanças!"
+  icon="pi pi-home"
+  iconSize="2xl"
+  iconPos="left">
+</app-header>
 
 <p-divider></p-divider>
 
@@ -6,8 +12,12 @@
 
   <div class="grid gap-2">
     @for (item of items; track $index) {
-      <div class="field col-10 md:col-5 lg:col-3 m-auto my-2">
-        <app-card [title]="item.label!" [description]="item.tooltip!" [icon]="item.icon!" [command]="() => navigateTo(item.routerLink)"></app-card>
+      <div class="field col-10 md:col-6 lg:col-4 m-auto my-2">
+        <app-card
+          [titleCard]="item.label!"
+          [description]="item.tooltip!"
+          [icon]="item.icon!"
+          [command]="() => navigateTo(item.routerLink)"></app-card>
       </div>
     }
 

@@ -14,7 +14,7 @@ export class MonthlyResume {
 
   totalCreditTransaction: number = 0.0;
 
-  categories: CategoryRanking[] = [];
+  categoryRankings: CategoryRanking[] = [];
 
 
   public getTotalKeys(): TotalKey[] {
@@ -59,5 +59,6 @@ export class CategoryRanking {
   name!: string;
   color!: string;
   total!: number;
-
+  percentage!: number;
+  
 }

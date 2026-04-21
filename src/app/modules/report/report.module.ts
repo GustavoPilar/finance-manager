@@ -11,6 +11,9 @@ import { BadgeModule } from "primeng/badge";
 import { MeterGroupModule } from 'primeng/metergroup';
 import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
+import { SelectModule } from "primeng/select";
+import { DatePickerModule } from "primeng/datepicker";
+import { ButtonModule } from "primeng/button";
 
 @NgModule({
     declarations: [
@@ -23,15 +26,17 @@ import { ToastModule } from "primeng/toast";
         ReportRoutingModule,
         ComponentsModule,
         ReactiveFormsModule,
-
         DividerModule,
         CardModule,
         BadgeModule,
         MeterGroupModule,
-        ToastModule
+        ToastModule,
+        SelectModule,
+        DatePickerModule,
+        ButtonModule
     ],
     providers: [
-      MessageService
+        MessageService
     ]
 })
 export class ReportModule { }

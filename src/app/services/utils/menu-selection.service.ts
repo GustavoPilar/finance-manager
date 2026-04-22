@@ -82,7 +82,7 @@ export class MenuSelectionService {
       tooltip: "Acompanhe relatórios e análises das suas movimentações financeiras.",
       items: [
         this.createMenuItem("Relatório geral do mês", PrimeIcons.FILE, "Veja um relatório geral do mês atual.", this.report_root + "monthly-report"),
-        this.createMenuItem("Relatório geral de meses anteriores", PrimeIcons.FILE, "Veja um relatório geral de meses anteriores.", this.report_root + "previous-monthly-report"),
+        // this.createMenuItem("Relatório geral de meses anteriores", PrimeIcons.FILE, "Veja um relatório geral de meses anteriores.", this.report_root + "previous-monthly-report"),
       ]
     };
 

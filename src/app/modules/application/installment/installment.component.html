@@ -1,14 +1,4 @@
-<p-confirmdialog [visible]="confirmModal" (onHide)="onCloseModal()" [blockScroll]="true" icon="pi pi-question" message="Deseja prosseguir com a atualização da parcela?">
-  <ng-template #header>
-    <p class="font-bold text-xl">Confirmar atualização?</p>
-  </ng-template>
-  <ng-template #footer>
-    <div class="w-full flex justify-content-between align-items-center">
-      <p-button variant="text" label="Cancelar" icon="pi pi-times" iconPos="right" severity="danger" (onClick)="onCloseModal()"></p-button>
-      <p-button rounded icon="pi pi-check" severity="contrast" (onClick)="updateInstallmet(selectedInstallment)" [disabled]="!selectedInstallment"></p-button>
-    </div>
-  </ng-template>
-</p-confirmdialog>
+<p-confirmdialog></p-confirmdialog>
 <p-toast></p-toast>
 
 <app-header
@@ -21,34 +11,64 @@
 <p-divider></p-divider>
 
 <div class="p-2 w-full">
-  <form [formGroup]="form">
-    <div class="grid">
-      <div class="field col-12 md:col-8 lg:col-4 m-auto">
-        <label for="creditTransaction">Compra de crédito:</label>
-        <p-select
-          [options]="creditTransactions"
-          optionLabel="description"
-          optionValue="id"
-          formControlName="creditTransactionId"
-          inputId="creditTransaction"
-          placeholder="Escolha a compra"
-          fluid
-          [showClear]="true">
-        </p-select>
-      </div>
-      <div class="field col-12 md:col-4 text-center" [hidden]="!validForm()">
-        <label for="">Consultar parcelas:</label>
-        <div class="w-full">
-          <p-button severity="contrast" icon="pi pi-arrow-down" iconPos="right" rounded (onClick)="loadInstallments()" [disabled]="!validForm()"></p-button>
+  <div class="grid text-center">
+    <div class="field col-12 md:col-10 m-auto">
+      <form [formGroup]="form">
+        <div class="grid">
+          <div class="field col-12 m-auto">
+            <label for="creditTransaction">Compra de crédito:</label>
+            <p-select
+              [options]="creditTransactions"
+              optionLabel="description"
+              optionValue="id"
+              formControlName="creditTransactionId"
+              inputId="creditTransaction"
+              placeholder="Escolha a compra"
+              fluid
+              class="border-round-3xl"
+              [showClear]="true">
+            </p-select>
+          </div>
         </div>
+      </form>
+    </div>
+    <div class="field col-12 md:col-6 lg:col-4 m-auto">
+      <label>Filtro:</label>
+      <p-select
+        [options]="filters"
+        optionLabel="description"
+        placeholder="Selecione"
+        fluid
+        class="border-round-3xl"
+        [showClear]="true"
+        (onChange)="onChangeFilter($event.value)">
+      </p-select>
+    </div>
+    <div class="field col-12 md:col-6 lg:col-4 m-auto">
+      <label>Ordenação:</label>
+      <p-select
+        [options]="sorts"
+        optionLabel="description"
+        placeholder="Selecione"
+        fluid
+        class="border-round-3xl"
+        [showClear]="true"
+        (onChange)="onChangeSort($event.value)">
+      </p-select>
+    </div>
+    <div class="field col-12 m-auto text-center" [hidden]="!validForm()">
+      <label for="">Consultar parcelas:</label>
+      <div class="w-full">
+        <p-button severity="contrast" icon="pi pi-arrow-down" iconPos="right" rounded (onClick)="loadInstallments()" [disabled]="!validForm()"></p-button>
       </div>
     </div>
-  </form>
+  </div>
 </div>
 
 <p-divider></p-divider>
 
 @if (!installments.length) {
+
   <div class="fluid max-w-80rem p-2 shadow-3 border-round my-3">
     <p-card class="text-center">
       <ng-template #content>
@@ -56,44 +76,52 @@
       </ng-template>
     </p-card>
   </div>
+
+}@else {
+
+  <div class="grid p-2 m-auto">
+
+    @for (installment of installmentsFiltered; track $index) {
+      <div class="field col-12 md:col-6 lg:col-4 m-auto p-2 shadow-3 border-round-2xl my-3">
+
+        <p-card>
+          <ng-template #header>
+            <div class="flex justify-content-between align-items-center p-3">
+              <p>#{{installment.number}}</p>
+              <p-tag [severity]="getTagSeverity(installment.isPaid)">{{getBooleanValue(installment.isPaid)}}</p-tag>
+            </div>
+          </ng-template>
+          <p-divider></p-divider>
+          <ng-template #content>
+            <div class="grid">
+              <div class="field col-12">
+                <label>Descrição:</label>
+                <p-inputNumber [placeholder]="installment.description" fluid [disabled]="true" size="small" inputStyleClass="border-round-3xl text-center"></p-inputNumber>
+              </div>
+              <div class="field col-12">
+                <label>Referente a data:</label>
+                <input type="text" pInputText [placeholder]="getDateString(installment.dueDate)" fluid [disabled]="true" size="small" class="border-round-3xl text-center"/>
+              </div>
+              <div class="field col-12">
+                <label>Valor:</label>
+                <p-inputNumber [placeholder]="'R$ ' + installment.amount" fluid [disabled]="true" size="small" inputStyleClass="border-round-3xl text-center"></p-inputNumber>
+              </div>
+              <div class="field col-12">
+                <label>Data do pagamento:</label>
+                <input type="text" pInputText [placeholder]="getDateString(installment.paymentDate)" fluid [disabled]="true" size="small" class="border-round-3xl text-center"/>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template #footer>
+            <div class="w-full p-2 text-right">
+              <p-button variant="text" [label]="installment.isPaid ? 'Parcela paga' : 'Pagar'" [icon]="installment.isPaid ? 'pi pi-check' : 'pi pi-wallet'" [severity]="installment.isPaid ? 'info' : 'contrast'" iconPos="right" fluid (onClick)="confirmUpdate(installment)"></p-button>
+            </div>
+          </ng-template>
+        </p-card>
+
+      </div>
+    }
+  </div>
 }
 
-<div class="grid p-2 m-auto">
-  @for (installment of installments; track $index) {
-    <div class="field col-12 md:col-6 lg:col-4 m-auto p-2 shadow-3 border-round-2xl my-3">
-
-      <p-card>
-        <ng-template #header>
-          <div class="flex justify-content-between align-items-center p-3">
-            <p>#{{installment.number}}</p>
-            <p-tag [severity]="getTagSeverity(installment.isPaid)">{{getBooleanValue(installment.isPaid)}}</p-tag>
-          </div>
-        </ng-template>
-        <p-divider></p-divider>
-        <ng-template #content>
-          <div class="grid">
-            <div class="field col-12">
-              <label>Descrição:</label>
-              <p-inputNumber [placeholder]="installment.description" fluid [disabled]="true" size="small" inputStyleClass="border-round-3xl text-center"></p-inputNumber>
-            </div>
-            <div class="field col-12">
-              <label>Referente a data:</label>
-              <input type="text" pInputText [placeholder]="getDueDateString(installment.dueDate)" fluid [disabled]="true" size="small" class="border-round-3xl text-center"/>
-            </div>
-            <div class="field col-12">
-              <label>Valor:</label>
-              <p-inputNumber [placeholder]="'R$ ' + installment.amount" fluid [disabled]="true" size="small" inputStyleClass="border-round-3xl text-center"></p-inputNumber>
-            </div>
-          </div>
-        </ng-template>
-        <ng-template #footer>
-          <div class="w-full p-2 text-right">
-            <p-button variant="text" [label]="installment.isPaid ? 'Parcela paga' : 'Pagar'" [icon]="installment.isPaid ? 'pi pi-check' : 'pi pi-wallet'" [severity]="installment.isPaid ? 'info' : 'contrast'" iconPos="right" fluid (onClick)="openModal(installment)"></p-button>
-          </div>
-        </ng-template>
-      </p-card>
-
-    </div>
-  }
-</div>
 

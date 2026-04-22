@@ -19,9 +19,15 @@ export class InstallmentComponent implements OnInit {
 
   public installments: any[] = [];
 
-  public confirmModal: boolean = false;
+  public installmentsFiltered: any = [];
 
-  public selectedInstallment: any = null;
+  public filters: any[] = [];
+
+  public sorts: any[] = [];
+
+  public selectedFilter!: any;
+
+  public selectedSort!: any;
 
   //#endregion
 
@@ -34,7 +40,17 @@ export class InstallmentComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {
+    this.filters = [
+      { id: 0, description: "Parcela concluída", target: "isPaid", value: true },
+      { id: 1, description: "Parcela em aberto", target: "isPaid", value: false }
+    ];
 
+    this.sorts = [
+      { id: 0, description: "Data do pagamento crescente", target: "paymentDate", value: "ASC" },
+      { id: 1, description: "Data do pagamento decrescente", target: "paymentDate", value: "DESC" },
+      { id: 2, description: "Status Aberto -> Concluído", target: "isPaid", value: "ASC" },
+      { id: 3, description: "Status Concluído -> Aberto", target: "isPaid", value: "DESC" },
+    ];
   }
   //#endregion
 
@@ -84,6 +100,9 @@ export class InstallmentComponent implements OnInit {
         this.loaderService.show();
 
         this.installments = [];
+        this.installmentsFiltered = [];
+
+        this.cdr.detectChanges();
 
         const creditTransactionId: number = this.form.value.creditTransactionId;
 
@@ -92,8 +111,11 @@ export class InstallmentComponent implements OnInit {
             const creditTransactionId: number = this.form.value.creditTransactionId;
             this.installments = result.filter((x: any) => x.creditTransactionId == creditTransactionId);
 
-            this.cdr.detectChanges();
+            this.filter();
+            this.sort();
+
             this.loaderService.hide();
+            this.cdr.detectChanges();
             resolve();
           },
           error: (err) => {
@@ -112,14 +134,19 @@ export class InstallmentComponent implements OnInit {
     })
   }
 
-  public updateInstallmet(installment: any): Promise<void> {
+  public updateInstallment(installment: any): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       try {
-        this.loaderService.show();
-        this.confirmModal = false;
+        this.loaderService.show(); this
 
         installment.isPaid = !installment.isPaid;
-        installment.paymentDate = new Date();
+
+        if (!installment.isPaid) {
+          installment.paymentDate = null;
+        }
+        else {
+          installment.paymentDate = new Date();
+        }
 
         this.apiService.updateEntity("installment", installment, installment.id).subscribe({
           next: (result: any) => {
@@ -158,20 +185,23 @@ export class InstallmentComponent implements OnInit {
     })
   }
 
-  public onCloseModal(): void {
-    this.confirmModal = false;
-    this.selectedInstallment = null;
-
-    this.messageService.add({
-      severity: "info",
-      summary: "Cancelamento",
-      detail: "Atualização foi cancelada."
-    });
-  }
-
-  public openModal(installment: any): void {
-    this.confirmModal = true;
-    this.selectedInstallment = installment;
+  public confirmUpdate(installment: any): void {
+    this.confirmationService.confirm({
+      header: "Confirmar atualização?",
+      message: "Deseja prosseguir com a atualização da parcela: " + installment.description,
+      closable: true,
+      rejectButtonStyleClass: "bg-red-500 border-red-500 text-white",
+      accept: () => {
+        this.updateInstallment(installment);
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: "info",
+          summary: "Cancelada",
+          detail: "A atualização da parcela foi cancelada"
+        })
+      }
+    })
   }
 
   public getBooleanValue(isPaid: boolean): string {
@@ -182,8 +212,11 @@ export class InstallmentComponent implements OnInit {
     return isPaid ? "success" : "danger";
   }
 
-  public getDueDateString(dueDate: Date): string {
-    return new Date(dueDate).toLocaleDateString("pt-BR");
+  public getDateString(date: Date): string {
+    if (date == null)
+      return "--/--/--";
+
+    return new Date(date).toLocaleDateString("pt-BR");
   }
 
   public validForm(): boolean {
@@ -191,6 +224,78 @@ export class InstallmentComponent implements OnInit {
       return false;
 
     return this.form.valid;
+  }
+
+  public onChangeFilter(evnt: any): void {
+    this.selectedFilter = evnt;
+
+    this.filter();
+  }
+
+  public filter(): void {
+
+    if (this.selectedFilter) {
+
+      const field = this.selectedFilter.target;
+      const value = this.selectedFilter.value;
+
+      this.installmentsFiltered = this.installments.filter(x => x[field] == value);
+    }
+    else {
+      this.installmentsFiltered = this.installments;
+    }
+
+  }
+
+  public onChangeSort(evnt: any): void {
+    this.selectedSort = evnt;
+
+    this.sort();
+  }
+
+  public sort(): void {
+
+    if (this.selectedSort) {
+
+      const field = this.selectedSort.target;
+      const value = this.selectedSort.value;
+
+      if (value == "ASC") {
+        this.installmentsFiltered.sort((a: any, b: any) => {
+          let valueA: any = a[field];
+          let valueB: any = b[field];
+
+          if ((field as string).includes("Date")) {
+
+            // PARA DATA DEVE INVERTER, JÁ QUE O VALOR NULO FICA ACIMA DE TUDO
+            valueA = new Date(b[field]);
+            valueB = new Date(a[field]);
+          }
+
+          return valueA - valueB;
+        });
+      }
+      else {
+        this.installmentsFiltered.sort((a: any, b: any) => {
+          let valueA: any = a[field];
+          let valueB: any = b[field];
+
+          if ((field as string).includes("Date")) {
+
+            // PARA DATA DEVE INVERTER, JÁ QUE O VALOR NULO FICA ACIMA DE TUDO
+            valueA = new Date(b[field]);
+            valueB = new Date(a[field]);
+          }
+
+          return valueB - valueA;
+        });
+      }
+
+    }
+    else {
+      this.installmentsFiltered = this.installments;
+    }
+
   }
 
   //#endregion

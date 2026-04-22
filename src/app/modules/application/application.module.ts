@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { ApplicationRoutingModule } from "./application-routing.module";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ComponentsModule } from "../../components/components.module";
 import { ApplicationComponent } from "./application.component";
 import { InstallmentComponent } from "./installment/installment.component";
@@ -28,6 +28,7 @@ import { DatePickerModule } from "primeng/datepicker";
     ApplicationRoutingModule,
     ComponentsModule,
     ReactiveFormsModule,
+    FormsModule,
 
     SelectModule,
     ButtonModule,

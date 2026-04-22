@@ -182,6 +182,10 @@ export class InstallmentComponent implements OnInit {
     return isPaid ? "success" : "danger";
   }
 
+  public getDueDateString(dueDate: Date): string {
+    return new Date(dueDate).toLocaleDateString("pt-BR");
+  }
+
   public validForm(): boolean {
     if (!this.form)
       return false;

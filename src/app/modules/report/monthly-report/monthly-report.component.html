@@ -12,6 +12,25 @@
 
   <div class="w-full p-2 grid">
 
+    <div class="field col-12">
+      <form [formGroup]="monthForm">
+        <div class="grid text-center">
+          <div class="field col-12">
+            <label label="month">Selecione o mês:</label>
+            <p-date-picker formControlName="month" placeholder="Selecione o mês" view="month" dateFormat="mm/yy" [readonlyInput]="true" fluid [showClear]="true" inputStyleClass="border-round-3xl text-center" (onSelect)="onSelectDate($event)"></p-date-picker>
+            <small class="mx-2">Se não tiver nenhum mês selecionado, o mês atual será usado.</small>
+          </div>
+          <div class="field col-12">
+            <label>Ver relatório:</label>
+            <div class="w-full">
+              <p-button rounded icon="pi pi-arrow-down" severity="contrast" (onClick)="loadResume()"></p-button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <p-divider></p-divider>
+    </div>
+
     <div class="field col-12 text-center">
       <h1>Resumo  Geral</h1>
       <p>Abaixo você econtrará um quadro geral sobre os gastos e valores totais do mês.</p>
@@ -52,7 +71,7 @@
         </ng-template>
         <p-divider></p-divider>
         <ng-template #content>
-          @for (cat of getTopThreeCategory(monthlyReport.categories); track $index) {
+          @for (cat of getTopThreeCategory(monthlyReport.categoryRankings); track $index) {
             <div class="w-full flex justify-content-between align-items-center">
               <p><p-badge class="mx-2" [style]="{'backgroundColor' : cat?.color }"></p-badge> {{cat?.name}}</p>
 
@@ -76,7 +95,7 @@
         </ng-template>
         <p-divider></p-divider>
         <ng-template #content>
-          <p-meterGroup [value]="getCategoryMeterItem(monthlyReport.categories)" labelOrientation="vertical" labelPosition="start"></p-meterGroup>
+          <p-meterGroup [value]="getCategoryMeterItem(monthlyReport.categoryRankings)" labelOrientation="vertical" labelPosition="start"></p-meterGroup>
         </ng-template>
       </p-card>
     </div>

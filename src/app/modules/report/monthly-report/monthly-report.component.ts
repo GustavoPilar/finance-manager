@@ -4,6 +4,7 @@ import { CategoryRanking, MonthlyResume, TotalKey } from "../models/monthlyResum
 import { MeterItem } from "primeng/metergroup";
 import { LoaderService } from "../../../services/utils/loader.service";
 import { MessageService } from "primeng/api";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
   selector: "app-monthly-report",
@@ -20,6 +21,8 @@ export class MonthlyReportComponent implements OnInit {
 
   public currentDate: Date = new Date();
 
+  public monthForm!: FormGroup;
+
   //#endregion
 
   //#region Constructor
@@ -27,7 +30,8 @@ export class MonthlyReportComponent implements OnInit {
     private loaderService: LoaderService,
     private apiService: ApiService,
     private changeDetectorRef: ChangeDetectorRef,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private formBuilder: FormBuilder
   ) {
 
   }
@@ -35,6 +39,7 @@ export class MonthlyReportComponent implements OnInit {
 
   //#region OnInit
   public async ngOnInit(): Promise<void> {
+    this.initForm();
     await this.loadResume();
   }
   //#endregion
@@ -46,13 +51,19 @@ export class MonthlyReportComponent implements OnInit {
       this.loaderService.show();
 
       this.monthlyReport = new MonthlyResume();
-      const month = this.currentDate.getMonth() + 1;
 
-      console.log(month);
+      let dateSelected: Date = new Date(this.monthForm.value.month);
 
-      this.apiService.getEntities("report/resume/" + month).subscribe({
+      if (!dateSelected)
+        dateSelected = this.currentDate;
+
+      const month: number = dateSelected.getMonth() + 1;
+      const year: number = dateSelected.getFullYear();
+
+      this.apiService.getEntities("report/resume/" + month + "/" + year).subscribe({
         next: (result: MonthlyResume) => {
           this.monthlyReport = result;
+          this.monthlyReport.categoryRankings.sort((a: CategoryRanking, b: CategoryRanking) => b.percentage - a.percentage);
 
           this.messageService.add({
             severity: "success",
@@ -92,6 +103,12 @@ export class MonthlyReportComponent implements OnInit {
     }
   }
 
+  private initForm(): void {
+    this.monthForm = this.formBuilder.group({
+      month: [this.currentDate]
+    });
+  }
+
   //#endregion
 
   //#region Members 'Get' :: getTopThreeCategory, getCategoryMeterItem()
@@ -115,13 +132,17 @@ export class MonthlyReportComponent implements OnInit {
       const meterItem: MeterItem = {
         label: category.name,
         color: category.color,
-        value: category.total
+        value: category.percentage
       }
 
       meterItems = [...meterItems, meterItem];
     }
 
     return meterItems;
+  }
+
+  public onSelectDate(event: any): void {
+    console.log(event);
   }
 
   //#endregion

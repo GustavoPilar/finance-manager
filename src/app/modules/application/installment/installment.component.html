@@ -77,6 +77,10 @@
               <p-inputNumber [placeholder]="installment.description" fluid [disabled]="true" size="small" inputStyleClass="border-round-3xl text-center"></p-inputNumber>
             </div>
             <div class="field col-12">
+              <label>Referente a data:</label>
+              <input type="text" pInputText [placeholder]="getDueDateString(installment.dueDate)" fluid [disabled]="true" size="small" class="border-round-3xl text-center"/>
+            </div>
+            <div class="field col-12">
               <label>Valor:</label>
               <p-inputNumber [placeholder]="'R$ ' + installment.amount" fluid [disabled]="true" size="small" inputStyleClass="border-round-3xl text-center"></p-inputNumber>
             </div>
